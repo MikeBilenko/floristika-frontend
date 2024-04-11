@@ -1,0 +1,113 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+.product-gallery {
+  display: flex;
+  gap: 24px;
+
+  @include mobile {
+    margin-bottom: 40px;
+  }
+
+  &-select {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    @include tablet {
+      display: none;
+    }
+    & > div {
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 4px;
+      cursor: pointer;
+      &.active {
+        border: 1px solid $primary-green;
+
+        box-sizing: border-box;
+      }
+      & > img {
+        border-radius: 8px;
+        width: 85px;
+        height: 78px;
+      }
+    }
+  }
+}
+
+.product-gallery-carousel {
+  display: flex;
+  overflow: hidden;
+}
+
+.product-gallery-carousel__slide {
+  flex: 0 0 auto;
+  width: 100%;
+
+  overflow: hidden;
+  padding: 10px 0;
+
+  transition: all 0.5s ease;
+}
+
+.product-gallery-main {
+  position: relative;
+  max-width: 704px;
+  width: 100%;
+  height: 677px;
+  &-img {
+    width: 100%;
+    max-width: 704px;
+    height: 677px;
+
+    border-radius: 24px;
+
+    @include laptop {
+      height: 477px;
+    }
+
+    @include tablet {
+      border-radius: 0;
+    }
+
+    @include mobile {
+      height: 362px;
+      border-radius: 0;
+    }
+  }
+  @include laptop {
+    height: 477px;
+  }
+  @include tablet {
+    border-radius: 0;
+  }
+
+  @include mobile {
+    height: 362px;
+    border-radius: 0;
+  }
+
+  &-buttons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 24px;
+    & > div {
+      cursor: pointer;
+      display: flex;
+      width: 40px;
+      height: 40px;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      background-color: $black;
+      color: $white;
+      border-radius: 50%;
+      opacity: 0.9;
+    }
+  }
+}

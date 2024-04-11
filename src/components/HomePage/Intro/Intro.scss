@@ -1,0 +1,66 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+.intro-wrapper {
+  padding: 48px 0;
+  @include tablet {
+    padding: 20px 0;
+  }
+}
+
+.intro {
+  display: flex;
+  border-radius: 16px;
+  position: relative;
+  align-items: center;
+
+  & > img {
+    width: 100%;
+    border-radius: 16px;
+  }
+  @include mobile {
+    & > img {
+      width: 100%;
+      height: 337px;
+      border-radius: 0;
+    }
+    justify-content: center;
+  }
+}
+
+.intro-text {
+  position: absolute;
+  display: flex;
+  width: 705px;
+  height: 410px;
+  margin-left: 60px;
+  padding: 41px 50px 40px 51px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 16px;
+  background: rgba($white, 0.9);
+
+  @include tablet {
+    width: 90%;
+    height: unset;
+    margin: 0 auto;
+  }
+}
+.intro-title {
+  text-align: center;
+  font-size: 42.052px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 192.857%;
+  letter-spacing: 4.205px;
+  color: $dark-green;
+
+  @include tablet {
+    font-size: 36px;
+  }
+
+  @include mobile {
+    font-size: 22px;
+  }
+}

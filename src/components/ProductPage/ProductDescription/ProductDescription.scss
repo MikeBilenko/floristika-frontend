@@ -1,0 +1,82 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+.product-description {
+  max-width: 1062px;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+
+  @include mobile {
+    padding: 0 20px;
+  }
+
+  &-header {
+    display: flex;
+    border-bottom: 1px solid $light-grey-300;
+    margin-top: 64px;
+    gap: 48px;
+
+    @include mobile {
+      overflow: scroll;
+      padding: 0 12px 0;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    & > div {
+      white-space: nowrap;
+      position: relative;
+      color: $text;
+      text-transform: uppercase;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      letter-spacing: 1.6px;
+      padding-bottom: 20px;
+      cursor: pointer;
+
+      &:after {
+        content: "";
+        width: 0%;
+        height: 2px;
+        background-color: $primary-green;
+
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+      }
+
+      &.active {
+        &:after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  & > .carousel {
+    overflow: hidden;
+  }
+
+  &-step {
+    margin-top: 40px;
+    & > ul > li,
+    & > div,
+    & > p {
+      padding: 0;
+      //   margin: 0;
+      color: $text;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: 2px;
+    }
+  }
+}

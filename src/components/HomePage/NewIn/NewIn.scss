@@ -1,0 +1,8 @@
+@import "../../../styles/variables.scss";
+
+.new-in {
+    padding: 48px 0;
+    & > button {
+        margin: 56px auto 0;
+    }
+}

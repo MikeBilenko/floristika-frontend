@@ -1,0 +1,26 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+.orders-table {
+  width: 100%;
+  background-color: $white;
+  box-shadow: $product-shadow;
+  border-radius: 16px;
+  padding: 24px;
+  & > div {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 2fr;
+  }
+}
+
+.orders-header {
+  padding: 0 0 16px;
+  color: $orders-text;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.2px;
+  border-bottom: 1px solid $light-grey-300;
+}

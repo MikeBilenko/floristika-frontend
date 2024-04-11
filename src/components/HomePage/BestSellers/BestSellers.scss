@@ -1,0 +1,12 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+.best-sellers {
+  padding: 48px 0;
+  & > button {
+    margin: 56px auto 0;
+  }
+  @include mobile {
+    padding: 32px 0;
+  }
+}

@@ -1,0 +1,8 @@
+@import "../../styles/mixins.scss";
+.page-gaps {
+  margin-top: 24px;
+  margin-bottom: 112px;
+  @include tablet {
+    min-height: 300px;
+  }
+}

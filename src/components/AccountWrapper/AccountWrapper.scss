@@ -1,0 +1,418 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.account-wrapper {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+}
+.accounts-sidebar-mobile,
+.accounts-sidebar {
+  display: block;
+  max-width: 302px;
+  width: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  background: $white;
+  box-shadow: $product-shadow;
+  & > a {
+    display: block;
+    padding: 10px 16px 10px 12px;
+    color: $text;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 4px;
+    & > svg,
+    & > img {
+      width: 18px;
+      height: 18px;
+      margin-right: 8px;
+    }
+
+    transition: all 0.1s linear;
+    &:hover {
+      background: $light-green;
+    }
+
+    &.active {
+      background: $light-green;
+    }
+  }
+
+  @include tablet {
+    width: 100%;
+    max-width: unset;
+    justify-content: center;
+    text-align: center;
+    & > img {
+      margin-right: 10px;
+    }
+  }
+}
+
+.accounts-sidebar {
+  @include tablet {
+    display: none;
+  }
+}
+.accounts-sidebar-mobile {
+  display: none;
+
+  @include tablet {
+    display: block;
+    max-height: 303px;
+    height: 0;
+    overflow: hidden;
+    padding: 0 24px;
+    transition: all 0.2s linear;
+    &.active {
+      height: 100%;
+      padding: 24px;
+    }
+  }
+}
+
+.account-sidebar-selected {
+  display: none;
+  position: relative;
+
+  @include tablet {
+    display: flex;
+  }
+
+  & > .menu {
+    position: absolute;
+    left: 24px;
+    width: 24px;
+    height: 24px;
+  }
+  width: 100%;
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: $white;
+  box-shadow: $product-shadow;
+  align-items: center;
+  justify-content: center;
+  & > a {
+    display: block;
+    padding: 10px 16px 10px 12px;
+    color: $text;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 4px;
+    & > svg,
+    & > img {
+      width: 18px;
+      height: 18px;
+      margin-right: 8px;
+    }
+
+    transition: all 0.1s linear;
+    &:hover {
+      background: $light-green;
+    }
+
+    &.active {
+      background: $light-green;
+    }
+  }
+}
+
+.account-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+
+  @include tablet {
+    flex-direction: column;
+  }
+}
+
+.account-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px;
+  gap: 8px;
+  box-shadow: $product-shadow;
+  width: 100%;
+  background-color: $white;
+  margin-bottom: 24px;
+  border-radius: 16px;
+
+  color: $text;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  letter-spacing: 2px;
+
+  position: relative;
+  & > svg,
+  & > img {
+    width: 32px;
+    height: 32px;
+  }
+
+  & > button {
+    position: absolute;
+    right: 10px;
+    top: 25%;
+  }
+
+  @include tablet {
+    display: none;
+  }
+}
+
+.account-container {
+  max-width: 655px;
+  width: 97%;
+  @include tablet {
+    max-width: unset;
+    width: 100%;
+  }
+}
+
+.detail-form {
+  box-shadow: $product-shadow;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 16px;
+  background-color: $white;
+}
+
+.account-info {
+  color: $grey;
+}
+
+.address-books {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &-item {
+    padding: 24px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.02),
+      0px 0px 14.7px 0px rgba(0, 0, 0, 0.02),
+      0px 0px 16px 0px rgba(0, 0, 0, 0.01), 0px 0px 17.6px 0px rgba(0, 0, 0, 0),
+      0px 0px 25.2px 0px rgba(0, 0, 0, 0.01);
+
+    &-details {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      &-actions-list {
+        display: flex;
+        flex-direction: column;
+      }
+      &-actions {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        padding: 14px 12px;
+        color: $primary-green;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 14px;
+
+        &.delete {
+          color: $red;
+        }
+      }
+    }
+  }
+}
+
+.add-address-book {
+  margin-bottom: 30px;
+  & > button {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.no-orders {
+  display: flex;
+  gap: 40px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 32px;
+
+  border-radius: 16px;
+  background: $white;
+  box-shadow: $product-shadow;
+
+  &-message {
+    color: $text;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    letter-spacing: 2px;
+  }
+}
+
+.order-details {
+  width: 100%;
+  padding: 25px 24px;
+  border-radius: 16px;
+  background: $white;
+
+  box-shadow: $box-shadow;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > div > .order-number {
+      display: none;
+      @include tablet {
+        display: block;
+      }
+    }
+  }
+  &-items {
+    &-header {
+      display: grid;
+      grid-template-columns: 3fr 1fr 1fr 1fr;
+      padding: 16px 0;
+
+      color: $orders-text;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      letter-spacing: 1.2px;
+      border-bottom: 1px solid $light-grey-100;
+    }
+    &-list {
+      &-item {
+        display: grid;
+        align-items: center;
+        grid-template-columns: 3fr 1fr 1fr 1fr;
+        padding: 16px 0;
+        border-bottom: 1px solid $light-grey-100;
+
+        color: $text;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 1.4px;
+
+        &-main-info {
+          display: flex;
+
+          & > img {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+          }
+
+          &-details {
+            margin-left: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: space-between;
+            gap: 8px;
+            &-name {
+              text-transform: uppercase;
+              font-size: 12px;
+              font-style: normal;
+              font-weight: 700;
+              line-height: normal;
+              letter-spacing: 1.2px;
+            }
+            &-attr {
+              font-size: 12px;
+              font-style: normal;
+              font-weight: 500;
+              line-height: normal;
+              letter-spacing: 1.2px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &-total {
+    margin-top: 17px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 250px;
+
+      & > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        color: $orders-text;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: 1.4px;
+        &.sale {
+          color: $red;
+        }
+
+        &.total {
+          margin-top: 16px;
+          color: $text;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
+          letter-spacing: 1.6px;
+        }
+      }
+    }
+  }
+}
+
+.change-password {
+  width: 100%;
+  padding: 25px 24px;
+  border-radius: 16px;
+  background: $white;
+
+  box-shadow: $box-shadow;
+
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,295 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+.cart-wrapper {
+  margin-top: 24px;
+  margin-bottom: 112px;
+}
+
+.back-to-shop-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: $text;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.6px;
+
+  &:hover {
+    color: $text;
+  }
+
+  margin-bottom: 40px;
+}
+.cart-products-list {
+  display: block;
+
+  &-title {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1.5fr;
+    @include tablet {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    & > div {
+      color: $text;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      @include tablet {
+        &.quantity,
+        &.price {
+          display: none;
+        }
+      }
+
+      &:last-child {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+    border-bottom: 1px solid $light-grey-300;
+  }
+  &-item {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1.5fr;
+    padding-bottom: 16px;
+    border-bottom: 1px solid $light-grey-300;
+    margin-top: 16px;
+
+    @include tablet {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    color: $text;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 1.6px;
+    & > div > div > div > svg,
+    & > div > svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    &-intro {
+      display: flex;
+      gap: 24px;
+      & > img {
+        width: 85px;
+        height: 86px;
+        border-radius: 4px;
+      }
+      &-name {
+        color: $text;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: 1.6px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        & > div > svg {
+          cursor: pointer;
+        }
+        & > .cart-products-list-item-qty {
+          display: none;
+        }
+        @include tablet {
+          & > .cart-products-list-item-qty {
+            display: flex;
+          }
+        }
+      }
+    }
+
+    &-price {
+      display: flex;
+      @include tablet {
+        display: none;
+      }
+    }
+
+    &-qty {
+      display: flex;
+      user-select: none;
+      gap: 8px;
+      & > div {
+        cursor: pointer;
+        display: flex;
+        width: 32px;
+        height: 32px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        background-color: $light-grey-100;
+        border-radius: 32px;
+        transition: all 0.1s linear;
+        &:hover,
+        &.available {
+          background-color: $light-green;
+        }
+      }
+      & > span {
+        display: flex;
+        width: 32px;
+        height: 32px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      @include mobile {
+        display: none;
+      }
+    }
+
+    &-total {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 24px;
+      & > svg {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.cart-total-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.cart-total {
+  display: flex;
+  width: 301px;
+  flex-direction: column;
+  align-items: flex-end;
+  @include tablet {
+    width: 100%;
+  }
+
+  &-info {
+    color: $black;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.2px;
+    margin: 16px 0 24px;
+  }
+
+  &-total {
+    margin-top: 16px;
+    display: flex;
+    gap: 24px;
+    color: $text;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.6px;
+  }
+}
+
+.cart-carousel {
+  display: flex;
+  overflow: hidden;
+}
+
+.cart-carousel__slide {
+  flex: 0 0 auto;
+  width: 100%;
+
+  overflow: hidden;
+  padding: 10px 0;
+
+  transition: all 0.5s ease;
+}
+
+.cart-carousel-slide-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.cart-addition {
+  margin-top: 80px;
+  padding-top: 38px;
+  border-top: 1px solid $light-grey-300;
+
+  &-title {
+    color: $text;
+    font-family: Manrope;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 2px;
+    margin-bottom: 38px;
+  }
+}
+
+.cart-carousel-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 16px;
+
+  &-dots {
+    display: flex;
+    // height: 16px;
+
+    gap: 8px;
+    & > div {
+      cursor: pointer;
+      display: block;
+      height: 16px;
+      width: 16px;
+      background-color: #ededed;
+      border-radius: 16px;
+      transition: all 0.1s linear;
+
+      &.active {
+        background-color: $primary-green;
+      }
+    }
+  }
+
+  &-buttons {
+    display: flex;
+    gap: 16px;
+    & > div {
+      cursor: pointer;
+      display: flex;
+      width: 40px;
+      height: 40px;
+      padding: 7px 9px 9px 7px;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      color: $primary-green;
+      & > svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
+
+.cart-item-wishlist {
+  @include tablet {
+    display: none;
+  }
+}

@@ -1,0 +1,60 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+.advert-wrapper {
+  padding: 48px 0;
+  @include mobile {
+    padding: 0px 0;
+  }
+}
+.advertisement {
+  display: flex;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+
+  @include mobile {
+    border-radius: 0;
+    width: 100%;
+    height: 270px;
+    justify-content: center;
+    & > img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.advertisement-text {
+  position: absolute;
+  display: block;
+  width: 100%;
+  max-width: 770px;
+  height: 364px;
+  margin-left: 60px;
+  padding: 37px 50px 56px 51px;
+  border-radius: 16px;
+  background: rgba($white, 0.9);
+  & > button {
+    margin-top: 30px;
+  }
+  @include mobile {
+    width: 90%;
+    height: unset;
+    margin: 0 auto;
+    padding: 20px;
+  }
+}
+.advertisement-title {
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 192.857%;
+  letter-spacing: 4.205px;
+  color: $dark-green;
+
+  @include mobile {
+    font-size: 22px;
+  }
+}

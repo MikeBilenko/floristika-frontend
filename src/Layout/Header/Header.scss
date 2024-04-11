@@ -1,0 +1,636 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.header {
+  background-color: #fff;
+  width: 100%;
+  box-shadow: $box-shadow;
+  padding: 15px 0;
+  position: relative;
+  @include laptop {
+    & > .container {
+      width: 100%;
+      max-width: 1100px;
+    }
+  }
+  @include tablet {
+    padding: 0;
+    & > .container {
+      width: 100%;
+      max-width: unset;
+    }
+  }
+}
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > .top-header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    & > .burger-button {
+      display: none;
+      cursor: pointer;
+      @include tablet {
+        display: block;
+      }
+      color: $primary-green;
+
+      & > svg {
+        margin-top: 10px;
+        width: 34px;
+        height: 34px;
+      }
+    }
+  }
+
+  & > *:not(.logo) {
+    padding-top: 7px;
+  }
+
+  @include tablet {
+    padding: 0 10px;
+    & > form > .form-input {
+      display: none;
+    }
+
+    & > .top-links > .language {
+      display: none;
+    }
+  }
+}
+
+.divider {
+  display: block;
+  margin: 15px auto;
+  width: 100%;
+  background-color: $light-grey-100;
+  height: 1px;
+
+  @include tablet {
+    display: none;
+  }
+}
+
+.header-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  @include tablet {
+    display: none;
+  }
+  & > span {
+    display: flex;
+    padding: 10px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: $text;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+    white-space: nowrap;
+
+    & > svg {
+      transform: rotate(0deg);
+      transition: all 0.1s linear;
+    }
+    transition: all 0.2s ease;
+    &.active {
+      background-color: rgba($primary-green, 0.2);
+      color: $primary-green;
+
+      & > svg {
+        transform: rotate(180deg);
+      }
+    }
+
+    &.sale {
+      color: $red;
+    }
+    &.with-icon {
+      padding: 10px 16px 10px 12px;
+    }
+  }
+}
+
+.top-links {
+  display: flex;
+  align-items: center;
+}
+
+.language {
+  display: flex;
+  padding: 10px 16px 10px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex: 1 0 0;
+  align-self: stretch;
+  color: $text;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  user-select: none;
+
+  position: relative;
+
+  &-dropout-button {
+    transition: all 0.1s linear;
+    transform: rotate(0deg);
+
+    &.active {
+      transform: rotate(180deg);
+    }
+  }
+
+  &-dropout {
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 40px;
+    left: -30px;
+    padding: 0 16px;
+    border-radius: 8px;
+
+    background-color: $white;
+    filter: drop-shadow(0px 0px 7px rgba(0, 0, 0, 0.02))
+      drop-shadow(0px 0px 14.7px rgba(0, 0, 0, 0.02))
+      drop-shadow(0px 0px 16px rgba(0, 0, 0, 0.01))
+      drop-shadow(0px 0px 17.6px rgba(0, 0, 0, 0.03))
+      drop-shadow(0px 0px 25.2px rgba(0, 0, 0, 0.05));
+    z-index: 40;
+    & > div {
+      display: block;
+      width: 124px;
+      padding: 6px 0px;
+
+      color: $text;
+      text-align: center;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 20px;
+      letter-spacing: 0.1px;
+    }
+
+    transition: all 0.2s linear;
+
+    &.active {
+      cursor: pointer;
+      height: 128px;
+      padding: 16px;
+    }
+  }
+}
+.account-links {
+  display: flex;
+  margin-left: 46px;
+  gap: 24px;
+
+  @include tablet {
+    gap: 24px;
+  }
+
+  & > div:not(.search-mobile),
+  & > a {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex: 1 0 0;
+    align-self: stretch;
+    color: $text;
+    & > svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  & > .search-icon {
+    display: none !important;
+    @include tablet {
+      display: flex !important;
+    }
+  }
+
+  &-user {
+    position: relative;
+
+    &-dropout {
+      height: 0;
+      overflow: hidden;
+      position: absolute;
+      width: 186px;
+      top: 40px;
+      left: -500%;
+      padding: 0 16px;
+      border-radius: 8px;
+
+      background-color: $white;
+      filter: drop-shadow(0px 0px 7px rgba(0, 0, 0, 0.02))
+        drop-shadow(0px 0px 14.7px rgba(0, 0, 0, 0.02))
+        drop-shadow(0px 0px 16px rgba(0, 0, 0, 0.01))
+        drop-shadow(0px 0px 17.6px rgba(0, 0, 0, 0.03))
+        drop-shadow(0px 0px 25.2px rgba(0, 0, 0, 0.05));
+      z-index: 40;
+
+      @include tablet {
+        display: none;
+      }
+
+      &-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: space-between;
+        flex-direction: column;
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid $light-grey-300;
+      }
+      &-links {
+        & > div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          & > svg {
+            width: 18px;
+            height: 18px;
+          }
+
+          padding: 6px 0px;
+
+          color: $primary-green;
+          text-align: center;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 20px;
+          letter-spacing: 0.1px;
+        }
+        & > div:last-child {
+          font-size: 11px;
+        }
+      }
+
+      transition: all 0.2s linear;
+
+      &.active {
+        cursor: pointer;
+        height: 106px;
+
+        padding: 16px;
+      }
+      &.active.auth {
+        height: 203px;
+      }
+    }
+  }
+}
+
+.user-side-menu {
+  display: none;
+  @include tablet {
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba($text, 0.7);
+    z-index: -1;
+    opacity: 0;
+
+    &-close {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      top: 10px;
+      left: 10px;
+      cursor: pointer;
+      background-color: $primary-green;
+      color: $white;
+      & > svg {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    & > * {
+      box-sizing: border-box;
+    }
+    &-content {
+      background-color: $white;
+      width: 320px;
+      height: 100%;
+      transform: translateX(100%);
+      transition: all 0.3s ease;
+      padding: 20px;
+
+      & > .account-links-user-dropout-buttons {
+        & > .button {
+          width: 100%;
+        }
+      }
+
+      &-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid $light-grey-300;
+        padding: 0 0 10px;
+        margin-bottom: 20px;
+        font-size: 20px;
+
+        &-language {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-bottom: 1px solid $light-grey-300;
+          padding: 10px 0;
+          margin: 20px 0;
+          border-top: 1px solid $light-grey-300;
+          font-size: 20px;
+        }
+      }
+      .languages > div {
+        display: block;
+        width: 100%;
+        padding: 10px 20px;
+        color: #050505;
+        text-align: center;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        transition: all 0.2s ease;
+
+        &.active {
+          border-radius: 5px;
+          background-color: rgba($primary-green, 0.2);
+          color: $primary-green;
+        }
+      }
+
+      & > .account-links-user-dropout-buttons {
+        & > button {
+          width: 50%;
+        }
+      }
+
+      & > .account-links-user-dropout-links {
+        & > div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+        }
+      }
+    }
+
+    &.active {
+      z-index: 20;
+      opacity: 1;
+      & > .user-side-menu-content {
+        transform: translateX(0);
+      }
+    }
+
+    transition: all 0.3s ease;
+  }
+}
+
+.header-mobile {
+  // display: none;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); // Semi-transparent black
+  z-index: -1; // High z-index to ensure it covers other content
+
+  opacity: 0;
+
+  transform: all 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    z-index: 15;
+  }
+
+  &-content {
+    position: fixed;
+    width: 80vw;
+    height: 100vh;
+    background-color: $white;
+    z-index: 60;
+
+    transform: translateX(-100%);
+    transition: all 0.3s ease;
+    &.active {
+      transform: translateX(0);
+    }
+
+    &-header {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      margin: 0 20px;
+      border-bottom: 1px solid $light-grey-300;
+      align-items: center;
+
+      color: $text;
+      text-align: center;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 20px;
+      letter-spacing: 0.1px;
+      text-decoration: none;
+
+      & > svg {
+        position: absolute;
+        left: 30px;
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    &-sections {
+      position: relative;
+      overflow-x: hidden;
+      height: calc(100vh - 61px);
+    }
+
+    &-extended {
+      position: absolute;
+      top: 0;
+      background: $white;
+      width: 100%;
+      height: 100%;
+      transform: translateX(100%);
+      transition: all 0.2s linear;
+
+      &.active {
+        transform: translateX(0);
+      }
+
+      &-top-section {
+        display: flex;
+        width: 100%;
+        padding: 16px 11px;
+        align-items: center;
+        flex-shrink: 0;
+        background-color: rgba($primary-green, 0.2);
+        font-weight: 700;
+        font-size: 18px;
+      }
+
+      & > a,
+      & > span {
+        width: 100%;
+        display: flex;
+        padding: 20px 40px;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        color: $text;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-decoration: none;
+        cursor: pointer;
+        border-radius: 4px;
+
+        & > svg {
+          transform: rotate(0deg);
+          transition: all 0.1s linear;
+        }
+        transition: all 0.2s ease;
+      }
+    }
+
+    &-links {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+
+      & > span {
+        width: 100%;
+        display: flex;
+        padding: 20px 40px;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        color: $text;
+        // text-align: center;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        text-decoration: none;
+        cursor: pointer;
+        border-radius: 4px;
+
+        & > svg {
+          transform: rotate(0deg);
+          transition: all 0.1s linear;
+        }
+        transition: all 0.2s ease;
+        // &.active {
+        //   background-color: rgba($primary-green, 0.2);
+        //   color: $primary-green;
+
+        //   & > svg {
+        //     transform: rotate(180deg);
+        //   }
+        // }
+
+        &.sale {
+          color: $red;
+        }
+        &.with-icon {
+          padding: 10px 16px 10px 12px;
+        }
+      }
+    }
+  }
+
+  &-close {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background-color: $primary-green;
+    color: $white;
+    & > svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+.search-mobile {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: $white;
+  width: 100%;
+  z-index: 20;
+  height: 100%;
+  padding: 0 20px;
+  transform: translateY(-100%);
+  transition: all 0.2s linear;
+
+  @include tablet {
+    display: flex;
+  }
+
+  &.active {
+    transform: translateY(0);
+  }
+  & > svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  & > form {
+    width: 80%;
+  }
+}

@@ -1,0 +1,42 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.products-page-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  //   max-width: 410px;
+  margin: 30px auto;
+}
+
+.products-page-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  @include mobile {
+    justify-content: center;
+  }
+
+  & > div:last-child {
+    width: 100%;
+    margin: 0 auto;
+    & > h1 {
+      margin-top: 70px;
+    }
+  }
+
+  &.active {
+    & > div:last-child {
+      width: calc(100% - 410px);
+    }
+    & > div {
+      & > .product-list {
+        & > .product {
+          width: 302px;
+        }
+      }
+    }
+  }
+}

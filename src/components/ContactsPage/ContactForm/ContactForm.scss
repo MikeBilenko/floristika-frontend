@@ -1,0 +1,49 @@
+@import "../../../styles/variables.scss";
+
+.contact-form {
+    max-width: 628px;
+    width: 100%;
+    box-shadow: $product-shadow;
+    border-radius: 16px;
+    background: $white;
+    padding: 32px;
+
+    color: $black;
+    & > h1 {
+        text-align: left;
+        font-weight: 500;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.description {
+    color: $black;
+
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.6px;
+    margin: 16px 0 32px;
+}
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 24px 0;
+}
+
+.confirm-message {
+    margin: 24px 0 32px;
+    color: $text;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: 0.1px;
+
+    & > .link {
+        color: $primary-green;
+    }
+
+}
