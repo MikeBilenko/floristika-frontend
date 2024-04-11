@@ -17,7 +17,7 @@
     display: none;
   }
 
-  @include mobile {
+  @include tablet {
     display: block;
     margin: 20px 0 0;
     & > .items-number {
@@ -61,13 +61,13 @@
     align-items: center;
     gap: 32px;
 
-    @include mobile {
+    @include tablet {
       display: none;
     }
   }
 
   &-filter {
-    @include mobile {
+    @include tablet {
       display: none;
     }
     gap: 8px;

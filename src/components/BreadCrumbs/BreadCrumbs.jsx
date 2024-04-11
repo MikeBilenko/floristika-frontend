@@ -30,7 +30,6 @@ const BreadCrumbs = () => {
           });
         }
       }
-      console.log(breads);
     });
     setRoutes(breads);
   }, [location]);

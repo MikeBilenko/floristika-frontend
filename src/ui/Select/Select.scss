@@ -1,1 +1,68 @@
-// TODO: finish styling
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.select {
+  display: inline-block;
+  position: relative;
+  @include tablet {
+    display: none;
+  }
+}
+
+.selected {
+  display: flex;
+  align-items: center;
+  border: 1px solid $light-grey;
+  border-radius: 4px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.selected.active {
+  border-color: $primary-green; /* Adjust color when select is active */
+}
+
+.selected svg {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.selected.active svg {
+  transform: rotate(180deg); /* Rotate arrow icon when select is active */
+}
+
+.options-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  background-color: $white;
+  border: 1px solid $light-grey;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  overflow: hidden;
+}
+
+.options-list.active {
+  display: flex;
+}
+
+.option {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: $white; /* Adjust background color on hover */
+}
+
+.option.selected {
+  background-color: rgba($primary-green, 0.4);
+  color: $primary-green; /* Adjust text color for selected option */
+}
+
+.option.selected svg {
+  display: block; /* Show check icon for selected option */
+}
