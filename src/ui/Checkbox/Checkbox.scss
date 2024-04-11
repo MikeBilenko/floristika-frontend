@@ -1,0 +1,36 @@
+@import "../../styles/variables.scss";
+
+.radio {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 4px;
+  cursor: pointer;
+  color: #3f3f3f;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  user-select: none;
+
+  .radio-inner {
+    display: flex;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #c8c8c8;
+    border-radius: 50%;
+    margin-right: 4px;
+    & > svg {
+      color: white;
+    }
+  }
+
+  &.checked.checkbox-inner {
+    background-color: $primary-green;
+    border-color: $primary-green;
+    & > svg {
+      display: block; /* Show the check icon when checkbox is checked */
+      color: white;
+    }
+  }
+}

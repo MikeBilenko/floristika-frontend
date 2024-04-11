@@ -1,0 +1,12 @@
+.carousel {
+  display: flex;
+}
+
+.carousel__slide {
+  flex: 0 0 auto;
+  width: 100%;
+
+  overflow: hidden;
+
+  transition: all 0.5s ease;
+}
