@@ -1,0 +1,212 @@
+{
+  "auth": {
+    "welcome_to": "Welcome to",
+    "register": "Register",
+    "logout": "Logout",
+    "login": "Login",
+    "my_account": "My account",
+    "my_details": "My details",
+    "account": "Account",
+    "my_orders": "My orders",
+    "password": "Password",
+    "password_confirm": "Confirm password",
+    "email": "Email address",
+    "forgot_password": "Forgot your password?",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "reset_password": "Reset password",
+    "reset_password_text": "Type in your email address below and we'll send you an email with instructions on how to create a new password",
+    "reset_password_text_confirm": "Please type in new password and confirm it.",
+    "new_password": "New password",
+    "confirm_new_password": "Confirm new password",
+    "verify": "Verify",
+    "verify_title": "Verify your email",
+    "verify_text": "Please verify your email address by clicking the button below.",
+    "phone_number": "Phone number",
+    "change_password": "Change password",
+    "address_book": "Address book",
+    "add_address_book": "Add address book",
+    "address": "Address",
+    "city": "City",
+    "postal_code": "Postal code",
+    "country": "Country",
+    "default_address_book": "This is a default address details for delivery and billing please fill in to procced.",
+    "default_billing": "This is your base billing address.",
+    "default_shipping": "This is your base delivery address."
+  },
+  "company": {
+    "company": "Company",
+    "name": "Company Name",
+    "vat": "VAT",
+    "country": "Country",
+    "city": "City",
+    "address": "Address",
+    "postal_code": "Postal code",
+    "compny_phone_number": "Company phone number",
+    "company_email": "Company email address",
+    "save_company": "SAVE COMPANY",
+    "delete_company": "DELETE COMPANY",
+    "company_text": "If you have a compnay you will have an additional discount from authorities."
+  },
+  "languages": {
+    "language": "Language",
+    "english": "English",
+    "russian": "Russian",
+    "latvian": "Latvian"
+  },
+  "save": "Save",
+  "pagination": {
+    "prev": "Previous",
+    "next": "Next"
+  },
+
+  "search": {
+    "placeholder": "Search",
+    "results_header": "Search results",
+    "result_subheader": "Search results for: ",
+    "no_results": "No results found."
+  },
+  "addrevrtisement": {
+    "text": "REGISTER AND GET ADDITIONAL DISCOUNT"
+  },
+  "sort": {
+    "sort_by": "Sort by",
+    "recent": "Recently added",
+    "price_asc": "Price: low to high",
+    "price_desc": "Price: high to low",
+    "discount": "% discount",
+    "stock_level": "Stock level"
+  },
+  "product": {
+    "empty": "No products found.",
+    "quantity": "Quantity",
+    "new_here_1": "NEW HERE?",
+    "new_here_2": "Register and get discount!",
+    "for_registered": "For registered.",
+    "lower_price": "Lower prices for registered users.",
+    "free_delivery": "Free delivery over €100",
+    "return": "View our Delivery & Returns Policy",
+    "description": "Description",
+    "delivery_and_return": "Delivery & Return",
+    "care_instruction": "Care Instruction",
+    "might_like": "You might also like",
+    "delivery": {
+      "latvian": "Latvian",
+      "standart": "Standard Delivery (2-4 working days)",
+      "internal": "International Delivery",
+      "returns": "Returns"
+    }
+  },
+  "filters": {
+    "filter": "Filter",
+    "show": "Show Filter",
+    "hide": "Hide Filter",
+    "price": "Price",
+    "price_range": "Price range selected",
+    "colors": "Colors",
+    "sizes": "Sizes",
+    "item": "ITEM",
+    "items": "ITEMS"
+  },
+  "reviews": {
+    "verified": "Verified buyer",
+    "customer_reviews": "Customer reviews",
+    "based_on": "Based on",
+    "review": "review",
+    "reviews": "reviews",
+    "write_a_review": "Write a review",
+    "rate": "What would you rate this product?*",
+    "tell_us_more": "Tell us your feedback about the product*",
+    "name": "Name",
+    "email": "Email"
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "load_more": "Load more",
+    "checkout": "CHECKOUT",
+    "view_cart": "VIEW CART",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+
+  "wishlist": {
+    "wishlist": "Wishlist",
+    "empty": "Your wishlist is empty."
+  },
+  "cart": {
+    "cart": "Cart",
+    "add_to_cart": "ADD TO CART",
+    "remove_from_cart": "REMOVE FROM CART",
+    "item": "ITEM",
+    "items": "ITEMS",
+    "tax_calc": "Taxes and shipping calculated at checkout",
+    "product": "Product",
+    "price": "Price",
+    "quantity": "Quantity",
+    "total": "Total",
+    "sub_total": "SUB-TOTAL",
+    "back_to_shop": "Back to shop",
+    "empty_cart": "Your cart is empty."
+  },
+  "categories": {
+    "best_sellers": "Best sellers",
+    "new_in": "New in",
+    "sale": "Sale",
+    "view_all": "View all"
+  },
+  "contacts": {
+    "contacts": "Contacts"
+  },
+  "best_sellers": {
+    "text": "Elevate your space with our bestselling artificial flowers, greenery, and packaging materials. Explore timeless elegance for a lasting impression."
+  },
+
+  "footer": {
+    "text": "Experience the epitome of luxury with our individually crafted and hand-painted artificial flowers, meticulously created to achieve an authentic and organic aesthetic. Renowned for their lifelike appearance and superior quality, our silk flower bouquets and artificial plants have garnered numerous five-star reviews, ensuring they add lasting beauty and radiance to your home.",
+    "shop": "Shop",
+    "more_info": "More info",
+    "copy": "2024. Floristika. All rights reserved."
+  },
+  "policies": {
+    "delivery_info": "Delivery Info",
+    "delivery_and_returns": "Delivery and Returns",
+    "privacy_policy": "Privacy Policy",
+    "terms_and_conditions": "Terms & Conditions"
+  },
+  "messages": {
+    "errors": {
+      "auth": {
+        "email_exists": "Email already exists.",
+        "login_credentials": "Check your email and password and try again.",
+        "password_1": "Password must be 8-16 characters and contain at least one uppercase letter, one lowercase letter, and one number.",
+        "password_match": "Passwords do not match.",
+        "first_name": "First name must be 2-20 characters long.",
+        "last_name": "Last name must be 2-20 characters long.",
+        "email": "Enter valid email address. (example@gmail.com)",
+        "phone_number": "Enter valid phone number with country code (+371 00000000).",
+        "required": "This field is required."
+      }
+    },
+    "success": {
+      "auth": {
+        "logged_in": "Successfully logged in!",
+        "details": "Details updated successfully",
+        "register": "Verification email sent. Check your inbox."
+      },
+      "wishlist": {
+        "add": "Product added to wishlist.",
+        "remove": "Product removed from wishlist."
+      },
+      "copying_url": "URL copied to clipboard",
+      "cart": {
+        "add": "Product added to cart.",
+        "remove": "Product removed from cart."
+      },
+      "reviews": {
+        "add": "Review submitted successfully"
+      }
+    },
+    "info": {}
+  }
+}

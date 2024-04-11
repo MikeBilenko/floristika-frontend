@@ -1,0 +1,210 @@
+{
+  "auth": {
+    "welcome_to": "Laipni lūdzam",
+    "register": "Reģistrēties",
+    "logout": "Iziet",
+    "login": "Pieteikties",
+    "my_account": "Mans konts",
+    "my_details": "Mana informācija",
+    "account": "Konts",
+    "my_orders": "Mani pasūtījumi",
+    "password": "Parole",
+    "password_confirm": "Apstiprināt paroli",
+    "email": "E-pasta adrese",
+    "forgot_password": "Aizmirsāt paroli?",
+    "first_name": "Vārds",
+    "last_name": "Uzvārds",
+    "reset_password": "Atiestatīt paroli",
+    "reset_password_text": "Ierakstiet tālāk savu e-pasta adresi, un mēs nosūtīsim jums e-pasta ziņojumu ar norādījumiem, kā izveidot jaunu paroli",
+    "reset_password_text_confirm": "Lūdzu, ievadiet jauno paroli un apstipriniet to.",
+    "new_password": "Jauna parole",
+    "confirm_new_password": "Apstiprināt jauno paroli",
+    "verify": "Pārbaudīt",
+    "verify_title": "Apstipriniet savu e-pastu",
+    "verify_text": "Lūdzu, apstipriniet savu e-pasta adresi, noklikšķinot uz tālāk esošās pogas.",
+    "phone_number": "Tālruņa numurs",
+    "change_password": "Mainīt paroli",
+    "address_book": "Adrešu grāmata",
+    "add_address_book": "Pievienot adrešu grāmatu",
+    "address": "Adrese",
+    "city": "Pilsēta",
+    "postal_code": "pasta indekss",
+    "country": "Valsts",
+    "default_address_book": "Šī ir noklusējuma adreses informācija piegādei un norēķiniem, lūdzu, aizpildiet, lai turpinātu.",
+    "default_billing": "Šī ir jūsu pamata norēķinu adrese.",
+    "default_shipping": "Šī ir jūsu bāzes piegādes adrese."
+  },
+  "company": {
+    "company": "Uzņēmums",
+    "name": "Uzņēmuma nosaukums",
+    "vat": "PVN",
+    "country": "Valsts",
+    "city": "Pilsēta",
+    "address": "Adrese",
+    "postal_code": "pasta indekss",
+    "compny_phone_number": "Uzņēmuma tālruņa numurs",
+    "company_email": "Uzņēmuma e-pasta adrese",
+    "save_company": "SAGLABĀT UZŅĒMUMU",
+    "delete_company": "DZĒST UZŅĒMUMU",
+    "company_text": "Ja jums ir uzņēmums, jums būs papildu atlaide no iestādēm."
+  },
+  "languages": {
+    "language": "Valoda",
+    "english": "Angļu Valoda",
+    "russian": "Krievu",
+    "latvian": "Latviešu"
+  },
+  "save": "Saglabāt",
+  "pagination": {
+    "prev": "Iepriekšējais",
+    "next": "Nākamais"
+  },
+  "search": {
+    "placeholder": "Meklēt",
+    "results_header": "Meklēšanas rezultāti",
+    "result_subheader": "Meklēšanas rezultāti vaicājumam: ",
+    "no_results": "Nav atrasts neviens rezultāts."
+  },
+  "addrevrtisement": {
+    "text": "REĢISTRĒJIES UN SAŅEM PAPILDUS ATLAIDI"
+  },
+  "sort": {
+    "sort_by": "Kārtot pēc",
+    "recent": "Nesen pievienots",
+    "price_asc": "Cena: no zemas līdz augstai",
+    "price_desc": "Cena: no augstas līdz zemai",
+    "discount": "% atlaide",
+    "stock_level": "Krājuma līmenis"
+  },
+  "product": {
+    "empty": "Nav atrasts neviens produkts.",
+    "quantity": "Daudzums",
+    "new_here_1": "JAUNS ŠEIT?",
+    "new_here_2": "Reģistrējieties un saņemiet atlaidi!",
+    "for_registered": "Reģistrētiem.",
+    "lower_price": "Zemākas cenas reģistrētiem lietotājiem.",
+    "free_delivery": "Bezmaksas piegāde virs €100",
+    "return": "Skatīt mūsu piegādes un atgriešanas politiku",
+    "description": "Apraksts",
+    "delivery_and_return": "Piegāde un atgriešana",
+    "care_instruction": "Aprūpes instrukcija",
+    "might_like": "Jums varētu arī patikt",
+    "delivery": {
+      "latvian": "latviešu",
+      "standart": "Standarta piegāde (2-4 darba dienas)",
+      "internal": "Starptautiskā piegāde",
+      "returns": "Atgriež"
+    }
+  },
+  "filters": {
+    "filter": "Filtrs",
+    "show": "Rādīt filtru",
+    "hide": "Paslēpt filtru",
+    "price": "Price",
+    "price_range": "Atlasīts cenu diapazons",
+    "colors": "Krāsas",
+    "sizes": "Izmēri",
+    "item": "LIETA",
+    "items": "PRECES"
+  },
+  "reviews": {
+    "verified": "Verified pircējs",
+    "customer_reviews": "Klientu atsauksmes",
+    "based_on": "Pamatojoties uz",
+    "review": "pārskats",
+    "reviews": "atsauksmes",
+    "write_a_review": "Rakstīt atsauksmi",
+    "rate": "Kā jūs novērtētu šo produktu?*",
+    "tell_us_more": "Pastāstiet mums savas atsauksmes par produktu*",
+    "name": "Vārds",
+    "email": "E-pasts"
+  },
+  "buttons": {
+    "cancel": "Atcelt",
+    "submit": "Iesniegt",
+    "load_more": "Ielādēt vairāk",
+    "checkout": "PĀRBAUDE",
+    "view_cart": "SKATĪT GROZU",
+    "edit": "Rediģēt",
+    "delete": "Dzēst"
+  },
+  "wishlist": {
+    "wishlist": "Vēlmju Saraksts",
+    "empty": "Jūsu vēlmju saraksts ir tukšs."
+  },
+  "cart": {
+    "cart": "Ratiņi",
+    "add_to_cart": "PIEVIENOT GROZAM",
+    "remove_from_cart": "IZŅEMT NO GROZA",
+    "item": "LIETA",
+    "items": "PRECES",
+    "tax_calc": "Nodokļi un piegāde tiek aprēķināta izrakstīšanās laikā",
+    "product": "Produkts",
+    "price": "Price",
+    "quantity": "Daudzums",
+    "totla": "Kopā",
+    "sub_total": "SUB-TOTAL",
+    "back_to_shop": "Atpakaļ uz veikalu",
+    "empty_cart": "Jūsu grozs ir tukšs."
+  },
+  "categories": {
+    "best_sellers": "Pārdotākie",
+    "new_in": "Jaunums",
+    "sale": "Izpārdošana",
+    "view_all": "Skatīt visu"
+  },
+  "contacts": {
+    "contacts": "Kontakti"
+  },
+
+  "best_sellers": {
+    "text": "Izceliet savu telpu ar mūsu vislabāk pārdotajiem mākslīgajiem ziediem, zaļumiem un iepakojuma materiāliem. Izpētiet mūžīgo eleganci, lai radītu ilgstošu iespaidu."
+  },
+  "footer": {
+    "text": "Izbaudiet greznības iemiesojumu ar mūsu individuāli izstrādātajiem un ar rokām apgleznotajiem mākslīgajiem ziediem, kas ir rūpīgi izveidoti, lai panāktu autentisku un organisku estētiku. Mūsu zīda ziedu pušķi un mākslīgie augi ir slaveni ar savu reālistisku izskatu un izcilo kvalitāti. piecu zvaigžņu atsauksmes, nodrošinot, ka tās piešķir jūsu mājām ilgstošu skaistumu un mirdzumu.",
+    "shop": "Veikals",
+    "more_info": "Papildinformācija",
+    "copy": "2024. Floristika. Visas tiesības aizsargātas."
+  },
+  "policies": {
+    "delivery_info": "Piegādes informācija",
+    "delivery_and_returns": "Piegāde un atgriešana",
+    "privacy_policy": "Privātuma politika",
+    "terms_and_conditions": "Noteikumi un nosacījumi"
+  },
+  "messages": {
+    "errors": {
+      "auth": {
+        "email_exists": "E-pasts jau pastāv.",
+        "login_credentials": "Pārbaudiet savu e-pastu un paroli un mēģiniet vēlreiz.",
+        "password_1": "Parolei ir jābūt 8–16 rakstzīmēm, un tajā ir jābūt vismaz vienam lielajam burtam, vienam mazajam burtam un vienam ciparam.",
+        "password_match": "Paroles nesakrīt.",
+        "first_name": "Vārdam ir jābūt 2-20 rakstzīmēm garam.",
+        "last_name": "Uzvārdam ir jābūt 2–20 rakstzīmes garam.",
+        "email": "Ievadiet derīgu e-pasta adresi. (example@gmail.com)",
+        "phone_number": "Ievadiet derīgu tālruņa numuru ar valsts kodu (+371 00000000).",
+        "required": "Šis lauks ir obligāts."
+      }
+    },
+    "success": {
+      "auth": {
+        "logged_in": "Veiksmīgi pieteicies!",
+        "details": "Detaļas ir veiksmīgi atjauninātas",
+        "register": "Verifikācijas e-pasts ir nosūtīts. Pārbaudiet savu iesūtni."
+      },
+      "wishlist": {
+        "add": "Produkts pievienots vēlmju sarakstam.",
+        "remove": "Produkts noņemts no vēlmju saraksta."
+      },
+      "copying_url": "URL kopēts starpliktuvē",
+      "cart": {
+        "add": "Prece pievienota grozam.",
+        "remove": "Produkts izņemts no groza."
+      },
+      "reviews": {
+        "add": "Atsauksme ir veiksmīgi iesniegta"
+      }
+    },
+    "info": {}
+  }
+}
