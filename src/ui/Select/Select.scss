@@ -11,8 +11,9 @@
 
 .selected {
   display: flex;
+  min-width: 280px;
   align-items: center;
-  border: 1px solid $light-grey;
+  border: 1px solid $dark-grey;
   border-radius: 4px;
   padding: 8px;
   cursor: pointer;
@@ -32,9 +33,11 @@
 }
 
 .options-list {
+  padding: 8px;
+
   position: absolute;
   top: 100%;
-  left: 0;
+  left: -5%;
   z-index: 1000;
   display: none;
   flex-direction: column;
@@ -43,6 +46,7 @@
   border-top: none;
   border-radius: 0 0 4px 4px;
   overflow: hidden;
+  box-shadow: $box-shadow;
 }
 
 .options-list.active {
@@ -52,6 +56,7 @@
 .option {
   padding: 8px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .option:hover {
@@ -59,7 +64,8 @@
 }
 
 .option.selected {
-  background-color: rgba($primary-green, 0.4);
+  border-color: $primary-green;
+  background-color: rgba($primary-green, 0.2);
   color: $primary-green; /* Adjust text color for selected option */
 }
 

@@ -39,4 +39,27 @@
       }
     }
   }
+  @include tablet {
+    & > div:last-child {
+      width: 100%;
+    }
+    & > div {
+      & > .product-list {
+        & > .product {
+        }
+      }
+    }
+    &.active {
+      & > div:last-child {
+        width: 100%;
+      }
+      & > div {
+        & > .product-list {
+          & > .product {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }

@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 const renderDate = (datums) => {
   const date = new Date(datums);
   const day = date.getDate().toString().padStart(2, "0"); // Ensure two digits (e.g., '01')
@@ -8,6 +10,7 @@ const renderDate = (datums) => {
 };
 
 const getOrderStatusText = (status) => {
+  // const { t } = useTranslation();
   switch (status) {
     case "pending":
       return "Pending";
@@ -29,5 +32,11 @@ const getOrderStatusText = (status) => {
       return "Unknown";
   }
 };
+const OrderStatusText = ({ status }) => {
+  const { t } = useTranslation();
+  return <span>{t(`status.${status}`)}</span>;
+};
+
+export default OrderStatusText;
 
 export { renderDate, getOrderStatusText };

@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./Filter.scss";
-import { FaChevronDown } from "react-icons/fa";
 import axios from "axios";
 import FilterPriceSection from "./FilterPriceSection";
 import FilterSizeSection from "./FilterSizeSection";
 import FilterColorSection from "./FilterColorSection";
+import { IoCloseSharp } from "react-icons/io5";
+import Button from "ui/Button/Button";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const FilterMobile = ({
   active,
+  setActive,
   selectedPriceRange,
   selectPriceRange,
   selectedSizes,
@@ -15,16 +19,22 @@ const FilterMobile = ({
   selectColors,
   selectedColors,
 }) => {
+  const { t } = useTranslation();
   const [selectedFilter, setSelectedFilter] = useState("");
   const [loading, setLoading] = useState(true);
-  const [priceActive, setPriceActive] = useState(true);
-  const [colorActive, setColorActive] = useState(true);
-  const [sizeActive, setSizeActive] = useState(true);
   const [colors, setColors] = useState([]);
   const [size, setSize] = useState([]);
 
   const [min, setMin] = useState([]);
   const [max, setMax] = useState([]);
+
+  useEffect(() => {
+    if (active) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.removeAttribute("style");
+    }
+  }, [active]);
 
   useEffect(() => {
     setLoading(true);
@@ -50,17 +60,25 @@ const FilterMobile = ({
 
   return (
     !loading && (
-      <div className="filter-mobile">
+      <div className={`filter-mobile ${active ? "active" : ""}`}>
         <div className="filter-mobile-wrapper">
           <div className="filter-mobile-wrapper-header">
-            <div>Filter</div>
+            <img src="/logo.svg" alt="" />
+            <div
+              className="header-mobile-close"
+              onClick={() => setActive(!active)}
+            >
+              <IoCloseSharp />
+            </div>
           </div>
 
-          <div>Price range color size</div>
+          <div className="header-mobile-content-extended-top-section">
+            {t("filters.price")}{" "}
+          </div>
 
           <div className={``}>
             <FilterPriceSection
-              show={priceActive}
+              show={true}
               min={min}
               max={max}
               selectedPriceRange={selectedPriceRange}
@@ -69,22 +87,37 @@ const FilterMobile = ({
               selectedFilter={selectedFilter}
             />
           </div>
+          <div className="header-mobile-content-extended-top-section">
+            {t("filters.colors")}{" "}
+          </div>
           <div>
             <FilterColorSection
               colors={colors}
-              show={colorActive}
+              show={true}
               selectedColors={selectedColors}
               selectColors={selectColors}
             />
           </div>
+          <div className="header-mobile-content-extended-top-section">
+            {t("filters.sizes")}{" "}
+          </div>
           <div>
             <FilterSizeSection
               sizes={size}
-              show={sizeActive}
+              show={true}
               selectedSizes={selectedSizes}
               selectSizes={selectSizes}
             />
           </div>
+          <Button
+            fullWidth
+            onClick={() => {
+              setActive(!active);
+              toast.success(t("filters.applied"));
+            }}
+          >
+            {t("filters.apply")}
+          </Button>
         </div>
       </div>
     )

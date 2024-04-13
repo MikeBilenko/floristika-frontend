@@ -13,6 +13,57 @@ import { FaRegAddressBook, FaRegTrashAlt } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 
 const AddressBook = () => {
+  const findClosestCountry = (searchTerm) => {
+    const countries = countryList().getData();
+    const levenshteinDistance = (s1, s2) => {
+      const memo = Array.from({ length: s1.length + 1 }, (_, i) =>
+        Array.from({ length: s2.length + 1 }, (_, j) => {
+          if (i === 0) return j;
+          if (j === 0) return i;
+          return 0;
+        })
+      );
+
+      for (let i = 1; i <= s1.length; i++) {
+        for (let j = 1; j <= s2.length; j++) {
+          const cost = s1[i - 1] === s2[j - 1] ? 0 : 1;
+          memo[i][j] = Math.min(
+            memo[i - 1][j] + 1,
+            memo[i][j - 1] + 1,
+            memo[i - 1][j - 1] + cost
+          );
+        }
+      }
+
+      return memo[s1.length][s2.length];
+    };
+
+    let minDistance = Infinity;
+    let closestCountry = null;
+
+    for (const country__ of countries) {
+      const distance = levenshteinDistance(
+        searchTerm.toLowerCase(),
+        country__.label.toLowerCase()
+      );
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestCountry = country__.label;
+      }
+    }
+
+    return closestCountry;
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const validatePhone = (phone) => {
+    const countryCodeRegex = /^\+\d{1,3}\d{9}$/;
+    return countryCodeRegex.test(phone);
+  };
+
   const { t } = useTranslation();
   const token = useSelector(selectToken);
   const navigate = useNavigate();
@@ -31,6 +82,16 @@ const AddressBook = () => {
     address_book_phone: "",
   });
   const [defaultData, setDefultData] = useState(false);
+
+  const [emailError, setEmailError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+  const [addressError, setAddressError] = useState(false);
+  const [postalCodeError, setPostalCodeError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+  const [countryError, setCountryError] = useState(false);
+  const [countrySpellError, setCountrySpellError] = useState(false);
+  const [possibleCountry, setPossibleCountry] = useState("");
+
   const options = useMemo(() => countryList().getData(), []);
   useEffect(() => {
     if (token && !user.email) {
@@ -44,7 +105,6 @@ const AddressBook = () => {
           if (response.status === 401) {
             navigate("/accounts/login/");
           }
-          console.log(response.data, "DATA");
 
           setUser({
             email: response.data.email,
@@ -53,7 +113,10 @@ const AddressBook = () => {
             phone: response.data.phone,
             country: options.find(
               (item) => item.value === response.data.country
-            ),
+            )
+              ? options.find((item) => item.value === response.data.country)
+                  .label
+              : "",
             address_books: response.data.address_books,
             city: response.data.city,
             address: response.data.address,
@@ -88,7 +151,7 @@ const AddressBook = () => {
         if (response.status === 401) {
           navigate("/accounts/login/");
         }
-        toast.success("Address book removed successfully");
+        toast.success(t("messages.success.auth.address_deleted"));
         setUser((prevUser) => {
           return {
             ...prevUser,
@@ -102,23 +165,65 @@ const AddressBook = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    console.log(
-      {
-        ...user,
-        country:
-          typeof user.country === "string" ? user.country : user.country.label,
-      },
-      "TEST"
-    );
+    let error = false;
+
+    let country_ = user.country;
+
+    if (user.country.length <= 0) {
+      setCountryError(true);
+      error = true;
+    } else {
+      setCountryError(false);
+    }
+    if (country_ !== findClosestCountry(country_)) {
+      setCountrySpellError(true);
+      setPossibleCountry(findClosestCountry(country_));
+      error = true;
+    } else {
+      setCountrySpellError(false);
+      setPossibleCountry("");
+    }
+    if (user.email.length <= 0 && validateEmail(user.email)) {
+      setEmailError(true);
+      error = true;
+    } else {
+      setEmailError(false);
+    }
+    if (validatePhone(user.address_book_phone)) {
+      setPhoneError(true);
+      error = true;
+    } else {
+      setPhoneError(false);
+    }
+    if (user.address.length <= 0) {
+      setAddressError(true);
+      error = true;
+    } else {
+      setAddressError(false);
+    }
+    if (user.city.length <= 0) {
+      setCityError(true);
+      error = true;
+    } else {
+      setCityError(false);
+    }
+    if (user.postal_code.length <= 0) {
+      setPostalCodeError(true);
+      error = true;
+    } else {
+      setPostalCodeError(false);
+    }
+
+    if (error) return;
+
+    country_ = options.find((item) => item.label === country_).value;
+    user.country = country_;
+
     axios
       .put(
         `${process.env.REACT_APP_API_URL}/users/user/`,
         {
           ...user,
-          country:
-            typeof user.country === "string"
-              ? user.country
-              : user.country.label,
         },
         {
           headers: {
@@ -127,9 +232,7 @@ const AddressBook = () => {
         }
       )
       .then((response) => {
-        console.log(response.data, "data");
         if (response.status === 200) {
-          console.log(response.data);
           setUser({
             email: response.data.email,
             first_name: response.data.first_name,
@@ -137,16 +240,13 @@ const AddressBook = () => {
             phone: response.data.phone,
             country: options.find(
               (item) => item.value === response.data.country
-            ),
+            ).label,
             city: response.data.city,
             address: response.data.address,
             postal_code: response.data.postal_code,
             address_book_phone: response.data.address_book_phone,
             address_books: response.data.address_books,
           });
-          console.log(
-            options.find((item) => item.value === response.data.country)
-          );
           if (
             response.data.address &&
             response.data.address_book_phone &&
@@ -161,7 +261,7 @@ const AddressBook = () => {
             setDefultData(false);
           }
 
-          toast.success("Details updated successfully");
+          toast.success(t("messages.success.auth.details"));
         }
       });
   };
@@ -264,16 +364,19 @@ const AddressBook = () => {
                 return { ...prevUser, address: e };
               })
             }
+            error={addressError}
+            error_message={t("messages.errors.auth.required")}
           />
           <Input
             label={`${t("auth.city")}:`}
             value={user.city}
             onChange={(e) =>
               setUser((prevUser) => {
-                console.log(e);
                 return { ...prevUser, city: e };
               })
             }
+            error={cityError}
+            error_message={t("messages.errors.auth.required")}
           />
           <Input
             label={`${t("auth.postal_code")}:`}
@@ -283,24 +386,39 @@ const AddressBook = () => {
                 return { ...prevUser, postal_code: e };
               })
             }
+            error={postalCodeError}
+            error_message={t("messages.errors.auth.required")}
           />
           <Input
             label={`${t("auth.country")}:`}
-            value={user.country ? user.country.label : ""}
+            value={user.country}
             onChange={(e) =>
               setUser((prevUser) => {
                 return { ...prevUser, country: e };
               })
             }
+            error={countryError || countrySpellError}
+            error_message={`${
+              countryError ? t("messages.errors.auth.required") : ""
+            }
+                ${
+                  countrySpellError
+                    ? `${t("messages.errors.auth.country")} ${possibleCountry}`
+                    : ""
+                }
+                `}
           />
           <Input
             label={`${t("auth.phone_number")}:`}
             value={user.address_book_phone}
+            placeholder={"e.g. +371 22222222"}
             onChange={(e) =>
               setUser((prevUser) => {
                 return { ...prevUser, address_book_phone: e };
               })
             }
+            error={phoneError}
+            error_message={t("messages.errors.auth.phone_number")}
           />
 
           <div className="account-info">{t("auth.default_address_book")}</div>

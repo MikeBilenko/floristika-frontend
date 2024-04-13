@@ -3,13 +3,14 @@ import AccountWrapper from "../../components/AccountWrapper/AccountWrapper";
 import Button from "../../ui/Button/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectToken } from "../../redux/slices/authSlice";
-import OrderItem from "../../components/Orders/OrderItem/OrderItem";
 import OrdersList from "../../components/Orders/OrdersList/OrdersList";
 import Pagination from "../../components/Pagination/Pagination";
+import { useTranslation } from "react-i18next";
 
 const Orders = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const token = useSelector(selectToken);
@@ -57,7 +58,6 @@ const Orders = () => {
           setOrders(response.data.results);
           setHasNext(!!response.data.next);
           setHasPrevious(!!response.data.previous);
-          console.log(response.data);
         });
     }
   };
@@ -65,7 +65,7 @@ const Orders = () => {
     <AccountWrapper>
       <div className="account-header">
         <img src="/accounts/icons/orders.svg" />
-        Orders
+        {t("auth.my_orders")}
       </div>
       {orders.length > 0 && (
         <>
@@ -81,9 +81,9 @@ const Orders = () => {
       {orders.length <= 0 && (
         <div className="no-orders">
           <img src="/accounts/icons/noOrders.svg" />
-          <div className="no-orders-message">YOU CURRENTLY HAVE NO ORDERS</div>
+          <div className="no-orders-message">{t("cart.empty_orders")}</div>
           <Button fullWidth onClick={() => navigate(`/`)}>
-            START SHOPPING
+            {t("cart.start_shopping")}
           </Button>
         </div>
       )}

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleCart } from "../../../redux/slices/cartSlice";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import "./CheckoutWrapper.scss";
 import { selectToken } from "../../../redux/slices/authSlice";
 import Title from "../../../ui/Title/Title";
 import Button from "../../../ui/Button/Button";
 import { useNavigate } from "react-router-dom";
-import Input from "../../../ui/Input/Input";
+import { useTranslation } from "react-i18next";
 
 const CheckoutWrapper = () => {
+  const { t } = useTranslation();
   const token = useSelector(selectToken);
   const navigate = useNavigate();
   const { productsNumber } = useSelector((state) => state.cart);
@@ -24,12 +24,12 @@ const CheckoutWrapper = () => {
 
   return (
     <div>
-      <Title>Checkout</Title>
+      <Title>{t("buttons.checkout")}</Title>
       <div className="continue-guest">
         <img src="/logo.svg" alt="" />
-        <p>Please login to continue to checkout or continue as a guest.</p>
+        <p>{t("auth.guest")}</p>
         <Button outlined fullWidth onClick={() => navigate(`/accounts/login/`)}>
-          LOGIN
+          {t("auth.login").toUpperCase()}
         </Button>
         <Button
           fullWidth
@@ -37,7 +37,7 @@ const CheckoutWrapper = () => {
             navigate("/cart/checkout/confirm/");
           }}
         >
-          CONTINUE AS A GUEST
+          {t("buttons.as_guest")}
         </Button>
       </div>
     </div>

@@ -34,6 +34,16 @@ const Company = () => {
   const [cityError, setCityError] = useState(false);
   const [countryError, setCountryError] = useState(false);
   const [countrySpellError, setCountrySpellError] = useState(false);
+  const [possibleCountry, setPossibleCountry] = useState("");
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const validatePhone = (phone) => {
+    const countryCodeRegex = /^\+\d{1,3}\d{9}$/; // Allows 1 to 3 digits for the country code
+    return countryCodeRegex.test(phone);
+  };
 
   const findClosestCountry = (searchTerm) => {
     const countries = countryList().getData();
@@ -92,7 +102,9 @@ const Company = () => {
           id: response.data.id,
           email: response.data.email,
           phone: response.data.phone,
-          country: options.find((item) => item.value === response.data.country),
+          country: response.data.country
+            ? options.find((item) => item.value === response.data.country).label
+            : "",
           city: response.data.city,
           address: response.data.address,
           postal_code: response.data.postal_code,
@@ -107,6 +119,7 @@ const Company = () => {
         }
         if (e.response.status === 404) {
           setUser({
+            id: "",
             email: "",
             phone: "",
             city: "",
@@ -132,6 +145,7 @@ const Company = () => {
       .then((response) => {
         if (response.status === 204) {
           setUser({
+            id: "",
             email: "",
             phone: "",
             city: "",
@@ -142,7 +156,7 @@ const Company = () => {
             company_name: "",
             vat: "",
           });
-          toast.success("Company deleted successfully");
+          toast.success("messages.success.company.delete");
         }
       });
   };
@@ -150,14 +164,79 @@ const Company = () => {
   const submit = (e) => {
     e.preventDefault();
     console.log(user);
+    let error = false;
+
+    let country_ = user.country;
+
+    console.log(country_, findClosestCountry(country_));
+    if (user.country.length <= 0) {
+      setCountryError(true);
+      error = true;
+    } else {
+      setCountryError(false);
+    }
+    if (country_ !== findClosestCountry(country_)) {
+      setCountrySpellError(true);
+      setPossibleCountry(findClosestCountry(country_));
+      error = true;
+    } else {
+      setCountrySpellError(false);
+      setPossibleCountry("");
+    }
+    if (user.company_name.length <= 0) {
+      setCompanyError(true);
+      error = true;
+    } else {
+      setCompanyError(false);
+    }
+    if (user.vat.length <= 0) {
+      setVatError(true);
+      error = true;
+    } else {
+      setVatError(false);
+    }
+    if (user.email.length <= 0 && validateEmail(user.email)) {
+      setEmailError(true);
+      error = true;
+    } else {
+      setEmailError(false);
+    }
+    if (validatePhone(user.phone)) {
+      setPhoneError(true);
+      error = true;
+    } else {
+      setPhoneError(false);
+    }
+    if (user.address.length <= 0) {
+      setAddressError(true);
+      error = true;
+    } else {
+      setAddressError(false);
+    }
+    if (user.city.length <= 0) {
+      setCityError(true);
+      error = true;
+    } else {
+      setCityError(false);
+    }
+    if (user.postal_code.length <= 0) {
+      setPostalCodeError(true);
+      error = true;
+    } else {
+      setPostalCodeError(false);
+    }
+
+    if (error) return;
+
+    country_ = options.find((item) => item.label === country_).value;
+    user.country = country_;
+
     axios
       .post(
         `${process.env.REACT_APP_API_URL}/users/company/`,
         {
           ...user,
-          country: user.country.value
-            ? user.country.value
-            : options.find((item) => item.label === user.country).value,
+          country: country_,
         },
         {
           headers: {
@@ -169,18 +248,20 @@ const Company = () => {
         console.log(response.data);
         if (response.status === 200) {
           setUser({
+            id: response.data.id,
             email: response.data.email,
             phone: response.data.phone,
             country: options.find(
               (item) => item.value === response.data.country
-            ),
+            ).label,
             city: response.data.city,
             address: response.data.address,
             postal_code: response.data.postal_code,
             company_name: response.data.company_name,
             vat: response.data.vat,
           });
-          toast.success("Company updated successfully");
+          toast.success(t("messages.success.company.update"));
+          window.scrollTo(0, 0);
         }
       });
   };
@@ -203,6 +284,7 @@ const Company = () => {
               })
             }
             error={emailError}
+            error_message={t("messages.errors.auth.email")}
           />
           <Input
             label={`${t("company.compny_phone_number")}*`}
@@ -213,6 +295,7 @@ const Company = () => {
               })
             }
             error={phoneError}
+            error_message={t("messages.errors.auth.phone_number")}
           />
           <Input
             label={`${t("company.address")}*`}
@@ -223,6 +306,7 @@ const Company = () => {
               })
             }
             error={addressError}
+            error_message={t("messages.errors.auth.required")}
           />
           <Input
             label={`${t("company.city")}*`}
@@ -234,6 +318,7 @@ const Company = () => {
               })
             }
             error={cityError}
+            error_message={t("messages.errors.auth.required")}
           />
           <Input
             label={`${t("company.postal_code")}*`}
@@ -244,16 +329,26 @@ const Company = () => {
               })
             }
             error={postalCodeError}
+            error_message={t("messages.errors.auth.required")}
           />
           <Input
             label={`${t("company.country")}*`}
-            value={user.country ? user.country.label : ""}
+            value={user.country}
             onChange={(e) =>
               setUser((prevUser) => {
                 return { ...prevUser, country: e };
               })
             }
             error={countryError || countrySpellError}
+            error_message={`${
+              countryError ? t("messages.errors.auth.required") : ""
+            }
+                ${
+                  countrySpellError
+                    ? `${t("messages.errors.auth.country")} ${possibleCountry}`
+                    : ""
+                }
+                `}
           />
           <Input
             label={`${t("company.name")}*`}
@@ -264,6 +359,7 @@ const Company = () => {
               })
             }
             error={companyError}
+            error_message={t("messages.errors.auth.required")}
           />
           <Input
             label={`${t("company.vat")}*`}
@@ -274,9 +370,9 @@ const Company = () => {
               })
             }
             error={vatError}
+            error_message={t("messages.errors.auth.required")}
           />
           <p>{t("company.company_text")}</p>
-          {findClosestCountry("Latvii")}
           <Button onClick={submit}>{t("company.save_company")}</Button>
           {user.id && (
             <Button onClick={delete_comp} remove>

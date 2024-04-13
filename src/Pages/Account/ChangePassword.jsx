@@ -14,6 +14,8 @@ import Input from "../../ui/Input/Input";
 import Button from "../../ui/Button/Button";
 import { MdOutlineKey } from "react-icons/md";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const ChangePassword = () => {
   const { t } = useTranslation();
@@ -52,7 +54,24 @@ const ChangePassword = () => {
     }
     if (error) return;
     if (!error) {
-      dispatch(changePassword({ token, credentials }));
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URL}/users/auth/password/change/`,
+          credentials,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            setCredentials({
+              new_password1: "",
+              new_password2: "",
+            });
+            toast.success(t("messages.success.auth.details"));
+          }
+        });
     }
   };
 

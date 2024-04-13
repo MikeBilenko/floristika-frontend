@@ -53,7 +53,7 @@ const ProductIntro = ({
   useEffect(() => {
     if (product.name) {
       const product_discount = price - (price * product.sale_percent) / 100;
-      const auth_price = price - (price * product.auth_percent.percent) / 100;
+      const auth_price = product.price_for_authenticated;
       const auth_price_discount =
         auth_price - (auth_price * product.sale_percent) / 100;
       setProductDiscount(product_discount);
@@ -160,6 +160,7 @@ const ProductIntro = ({
             </div>
           )}
         </div>
+
         {/* rating */}
         <div className="product-info-rating">
           <Rating rating={rate} />
@@ -168,6 +169,11 @@ const ProductIntro = ({
           </span>
         </div>
         {/* new here */}
+        {!user && (
+          <div className="product-info-rating sale">
+            {t("product.lower_price")}
+          </div>
+        )}
         {!user && (
           <div className="product-info-new-here">
             <div>

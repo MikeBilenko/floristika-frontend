@@ -10,6 +10,7 @@ import ContactsRouting from "./Routes/ContactsRouting/ContactsRouting";
 import ProductRouting from "./Routes/ProductRouting/ProductRouting";
 import CartRouting from "./Routes/CartRouting/CartRouting";
 import SearchRouting from "./Routes/SearchRouting/SearchRouting";
+import PoliciesRouting from "Routes/PolicesRouting/PoliciesRouting";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function App() {
         <Route path="/accounts/*" element={<AccountsRouting />} />
         <Route path="/products/*" element={<ProductRouting />} />
         <Route path="/cart/*" element={<CartRouting />} />
+        <Route path="/policies/*" element={<PoliciesRouting />} />
       </Routes>
       <Outlet />
     </Layout>

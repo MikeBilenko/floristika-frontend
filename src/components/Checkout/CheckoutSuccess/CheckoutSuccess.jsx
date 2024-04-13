@@ -8,6 +8,7 @@ import Button from "../../../ui/Button/Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../../../redux/slices/cartSlice";
+import { useTranslation } from "react-i18next";
 
 const CheckoutSuccess = () => {
   const { number } = useParams();
@@ -15,6 +16,8 @@ const CheckoutSuccess = () => {
   const token = useSelector(selectToken);
   const [order, setOrder] = useState({});
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (number) {
       axios
@@ -35,18 +38,18 @@ const CheckoutSuccess = () => {
 
   return (
     <div className="checkout-success-wrapper">
-      <Title>THANKS FOR YOUR ORDER</Title>
+      <Title>{t("checkout.thanks")}</Title>
       {order && (
         <div className="checkout-success-wrapper-content">
-          <div className="checkout-success-title">Order detail</div>
+          <div className="checkout-success-title">{t("checkout.detail")}</div>
           <div className="checkout-success-subtitle">
-            You’ll receive your order confirmation in your email
+            {t("checkout.subtitle")}
           </div>
           <div className="checkout-success-data">
             <div>
-              <div>Order number:</div>
-              <div>Total Cost:</div>
-              <div>Items:</div>
+              <div>{t("checkout.ordernumber")}</div>
+              <div>{t("checkout.total_cost")}</div>
+              <div>{t("checkout.items")}</div>
             </div>
             <div>
               <div>{order.number}</div>
@@ -61,7 +64,7 @@ const CheckoutSuccess = () => {
               window.scrollTo(0, 0);
             }}
           >
-            CONTINUE SHOPPING
+            {t("checkout.continue")}
           </Button>
         </div>
       )}

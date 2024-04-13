@@ -14,7 +14,6 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [categories, setCategories] = useState([]);
-  const user = useSelector(selectUser);
   const [types, setTypes] = useState([]);
   const { t, i18n } = useTranslation();
 
@@ -64,21 +63,21 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
     {
       href: "/products/?best-sellers=true",
       className: "",
-      text: "Best sellers",
+      text: t("categories.best_sellers"),
       icon: "",
       straight: true,
     },
     {
       href: "/products/?new-in=true",
       className: "",
-      text: "New in",
+      text: t("categories.new_in"),
       icon: "",
       straight: true,
     },
     {
       href: "/products/?sale=true",
       className: "sale",
-      text: "Sale",
+      text: t("categories.sale"),
       icon: "",
       straight: true,
     },
@@ -143,49 +142,59 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
             {selectedItem.slug && (
               <>
                 <Link
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     setSelectedItem("");
                     onMenu(false);
+                    navigate(`/products/${selectedItem.slug}/`);
                     window.location.reload();
                   }}
                   to={`/products/${selectedItem.slug}/`}
                 >
-                  VIEW ALL
+                  {t("categories.view_all").toUpperCase()}
                 </Link>
                 <Link
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     setSelectedItem("");
                     onMenu(false);
+                    navigate(
+                      `/products/${selectedItem.slug}/?best-sellers=true`
+                    );
                     window.location.reload();
                   }}
                   to={`/products/${selectedItem.slug}/?best-sellers=true`}
                 >
-                  BEST SELLERS
+                  {t("categories.best_sellers").toUpperCase()}
                 </Link>
                 <Link
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     setSelectedItem("");
                     onMenu(false);
+                    navigate(`/products/${selectedItem.slug}/?new-in=true`);
                     window.location.reload();
                   }}
                   to={`/products/${selectedItem.slug}/?new-in=true`}
                 >
-                  NEW IN
+                  {t("categories.new_in").toUpperCase()}
                 </Link>
                 <Link
                   to={`/products/${selectedItem.slug}/?sale=true`}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(`/products/${selectedItem.slug}/?sale=true`);
                     setSelectedItem("");
                     onMenu(false);
                     window.location.reload();
                   }}
                 >
-                  SALE
+                  {t("categories.sale").toUpperCase()}
                 </Link>
               </>
             )}
             <div className="header-mobile-content-extended-top-section">
-              SHOP BY TYPE
+              {t("shop_by.by_type").toUpperCase()}
             </div>
             {types.length > 0 &&
               types.map((type) => (
@@ -200,11 +209,13 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     setSelectedItem("");
                   }}
                 >
-                  {type.name}
+                  {i18n.language === "en" && type.name}
+                  {i18n.language === "lv" && type.name_lv}
+                  {i18n.language === "ru" && type.name_ru}
                 </Link>
               ))}
             <div className="header-mobile-content-extended-top-section">
-              SHOP BY COLOR
+              {t("shop_by.by_color").toUpperCase()}
             </div>
             {colors &&
               colors.length > 0 &&
@@ -222,11 +233,13 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     onMenu(false);
                   }}
                 >
-                  {color.name}
+                  {i18n.language === "en" && color.name}
+                  {i18n.language === "ru" && color.name_ru}
+                  {i18n.language === "lv" && color.name_lv}
                 </Link>
               ))}
             <div className="header-mobile-content-extended-top-section">
-              SHOP BY SIZE
+              {t("shop_by.by_size").toUpperCase()}
             </div>
             {sizes &&
               sizes.length > 0 &&
@@ -244,7 +257,9 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     window.location.reload();
                   }}
                 >
-                  {size.name}
+                  {i18n.language === "en" && size.name}
+                  {i18n.language === "ru" && size.name_ru}
+                  {i18n.language === "lv" && size.name_lv}
                 </Link>
               ))}
           </div>

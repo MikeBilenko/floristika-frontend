@@ -32,7 +32,9 @@
     "country": "Country",
     "default_address_book": "This is a default address details for delivery and billing please fill in to procced.",
     "default_billing": "This is your base billing address.",
-    "default_shipping": "This is your base delivery address."
+    "default_shipping": "This is your base delivery address.",
+    "use_login": "Use link bellow to login.",
+    "guest": "Please login to continue to checkout or continue as a guest."
   },
   "company": {
     "company": "Company",
@@ -46,7 +48,7 @@
     "company_email": "Company email address",
     "save_company": "SAVE COMPANY",
     "delete_company": "DELETE COMPANY",
-    "company_text": "If you have a compnay you will have an additional discount from authorities."
+    "company_text": "If you have a compnay you might have an additional discount from owners."
   },
   "languages": {
     "language": "Language",
@@ -106,7 +108,9 @@
     "colors": "Colors",
     "sizes": "Sizes",
     "item": "ITEM",
-    "items": "ITEMS"
+    "items": "ITEMS",
+    "apply": "APPLY",
+    "applied": "Filters Applied"
   },
   "reviews": {
     "verified": "Verified buyer",
@@ -127,7 +131,8 @@
     "checkout": "CHECKOUT",
     "view_cart": "VIEW CART",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "as_guest": "CONTINUE AS A GUEST"
   },
 
   "wishlist": {
@@ -147,13 +152,44 @@
     "total": "Total",
     "sub_total": "SUB-TOTAL",
     "back_to_shop": "Back to shop",
-    "empty_cart": "Your cart is empty."
+    "empty_cart": "Your cart is empty.",
+    "empty_orders": "YOU CURRENTLY HAVE NO ORDERS",
+    "start_shopping": "START SHOPPING",
+    "order_number": "Order nr.",
+    "order_date": "Order date",
+    "cost": "Cost"
+  },
+  "status": {
+    "status": "Status",
+    "pending": "Pending",
+    "processing": "Processing",
+    "shipped": "Shipped",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled",
+    "refunded": "Refunded",
+    "on-hold": "On Hold",
+    "ready-for-pickup": "Ready for Pickup",
+    "completed": "Completed"
+  },
+  "checkout": {
+    "thanks": "THANKS FOR YOUR ORDER",
+    "detail": "Order detail",
+    "subtitle": "You’ll receive your order confirmation in your email",
+    "ordernumber": "Order number:",
+    "total_cost": "Total cost:",
+    "items": "Items:",
+    "continue": "CONTINUE SHOPPING"
   },
   "categories": {
     "best_sellers": "Best sellers",
     "new_in": "New in",
     "sale": "Sale",
     "view_all": "View all"
+  },
+  "shop_by": {
+    "by_size": "Shop By Size",
+    "by_color": "Shop By Color",
+    "by_type": "Shop By Type"
   },
   "contacts": {
     "contacts": "Contacts"
@@ -184,27 +220,37 @@
         "first_name": "First name must be 2-20 characters long.",
         "last_name": "Last name must be 2-20 characters long.",
         "email": "Enter valid email address. (example@gmail.com)",
-        "phone_number": "Enter valid phone number with country code (+371 00000000).",
-        "required": "This field is required."
+        "phone_number": "Enter valid phone number with country code as in the example (+371 00000000).",
+        "required": "This field is required.",
+        "country": "Probably you meant (in English):"
       }
     },
     "success": {
       "auth": {
+        "logout": "Logout Successfully",
+        "check_email": "Check your email for a link to reset password.",
+        "changed": "Password reset successfully.",
         "logged_in": "Successfully logged in!",
         "details": "Details updated successfully",
-        "register": "Verification email sent. Check your inbox."
+        "register": "Verification email sent. Check your inbox.",
+        "address_deleted": "Address book removed successfully",
+        "verify": "Thanks for verifying! Use link bellow to login."
       },
       "wishlist": {
         "add": "Product added to wishlist.",
         "remove": "Product removed from wishlist."
       },
-      "copying_url": "URL copied to clipboard",
+      "copying_url": "Copied to clipboard",
       "cart": {
         "add": "Product added to cart.",
         "remove": "Product removed from cart."
       },
       "reviews": {
         "add": "Review submitted successfully"
+      },
+      "company": {
+        "update": "Company updated successfully",
+        "delete": "Company deleted successfully"
       }
     },
     "info": {}

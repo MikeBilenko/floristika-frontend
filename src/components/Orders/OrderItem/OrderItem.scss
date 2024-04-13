@@ -10,7 +10,8 @@
   align-items: center;
 
   color: $text;
-  font-size: 14px;
+  font-size: 12px;
+  white-space: nowrap;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -65,6 +66,10 @@
   }
   &.processing {
     color: #39a92f;
+  }
+
+  &.ready-for-pickup {
+    color: #39a9a9;
   }
 
   &.cancelled {

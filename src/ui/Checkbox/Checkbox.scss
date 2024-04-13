@@ -1,6 +1,6 @@
 @import "../../styles/variables.scss";
 
-.radio {
+.checkbox {
   display: flex;
   align-items: center;
   border-radius: 4px;
@@ -13,19 +13,19 @@
   line-height: 16px;
   user-select: none;
 
-  .radio-inner {
+  .checkbox-inner {
     display: flex;
     width: 18px;
     height: 18px;
     border: 1px solid #c8c8c8;
-    border-radius: 50%;
+    border-radius: 4px;
     margin-right: 4px;
     & > svg {
       color: white;
     }
   }
 
-  &.checked.checkbox-inner {
+  &.checked .checkbox-inner {
     background-color: $primary-green;
     border-color: $primary-green;
     & > svg {

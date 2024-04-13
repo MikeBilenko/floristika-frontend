@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import AccountWrapper from "../../components/AccountWrapper/AccountWrapper";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectToken } from "../../redux/slices/authSlice";
 import axios from "axios";
-import {
-  renderDate,
-  getOrderStatusText,
-} from "../../components/Orders/Helpers/helpers";
-import Button from "../../ui/Button/Button";
+import { renderDate } from "../../components/Orders/Helpers/helpers";
+import OrderStatusText from "../../components/Orders/Helpers/helpers";
+import { useTranslation } from "react-i18next";
+import countryList from "react-select-country-list";
+// TODO: finish translations
 
 const OrderDetails = () => {
+  const options = useMemo(() => countryList().getData(), []);
+  const { t } = useTranslation();
   const [order, setOrder] = useState({});
   const [discount, setDiscount] = useState(0.0);
   const [companyDiscount, setCompanyDiscount] = useState(0.0);
@@ -26,6 +28,7 @@ const OrderDetails = () => {
           },
         })
         .then((response) => {
+          console.log(response, "ORDER");
           if (response.status === 200) {
             setOrder(response.data);
             if (response.data.discount) {
@@ -33,13 +36,14 @@ const OrderDetails = () => {
                 (response.data.total_auth * response.data.discount.discount) /
                 100;
               setDiscount(discount_.toFixed(2));
-              if (response.data.company) {
-                const company_discount =
-                  (response.data.total_auth *
-                    response.data.company.sale_percent) /
-                  100;
-                setCompanyDiscount(company_discount);
-              }
+            }
+            if (response.data.company) {
+              const company_discount =
+                (response.data.total_auth *
+                  response.data.company.sale_percent) /
+                100;
+              console.log(response.data.company, "COMPANY");
+              setCompanyDiscount(company_discount);
             }
             console.log(response.data);
           }
@@ -51,18 +55,23 @@ const OrderDetails = () => {
     <AccountWrapper>
       <div className="account-header">
         <img src="/accounts/icons/orders.svg" />
-        Order nr.{order && order.number}
+        {t("cart.order_number")}
+        {order && order.number}
       </div>
       {order && order.number && (
         <div className="order-details">
           <div className="order-details-header">
             <div>
-              <div className="order-number">Order: {order.number}</div>
-              <div>Order date: {renderDate(order.order_date)}</div>
+              <div className="order-number">
+                {t("cart.order_number")}: {order.number}
+              </div>
               <div>
-                Status:{" "}
+                {t("cart.order_date")}: {renderDate(order.order_date)}
+              </div>
+              <div>
+                {t("status.status")}:{" "}
                 <span className={`status ${order.status}`}>
-                  {getOrderStatusText(order.status)}
+                  <OrderStatusText status={order.status} />
                 </span>
               </div>
             </div>
@@ -141,6 +150,69 @@ const OrderDetails = () => {
                   </span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {order && order.number && (
+        <div className="order-details-delivery">
+          <div>
+            <div className="order-title">Billing address</div>
+            <div>
+              {order.guest
+                ? `${order.guest.first_name} ${order.guest.last_name}`
+                : `${order.user.first_name} ${order.user.last_name}`}
+            </div>
+            <div>{order.billing.address}</div>
+            <div>{order.billing.city}</div>
+            <div>{order.billing.postal_code}</div>
+            <div>
+              {
+                options.find((item) => item.value === order.billing.country)
+                  .label
+              }
+            </div>
+            <div>{order.billing.phone}</div>
+          </div>
+          {order.shipping && (
+            <div>
+              <div className="order-title">Shipping</div>
+              <div>
+                {order.guest
+                  ? `${order.guest.first_name} ${order.guest.last_name}`
+                  : `${order.user.first_name} ${order.user.last_name}`}
+              </div>
+              <div>{order.billing.address}</div>
+              <div>{order.billing.city}</div>
+              <div>{order.billing.postal_code}</div>
+              <div>
+                {
+                  options.find((item) => item.value === order.billing.country)
+                    .label
+                }
+              </div>
+              <div>{order.billing.phone}</div>
+            </div>
+          )}
+          {order.store && (
+            <div>
+              <div className="order-title">Store: {order.store.name}</div>
+              <div>{order.store.address}</div>
+              <div>{order.store.city}</div>
+              <div>{order.store.postal_code}</div>
+              <div>
+                {
+                  options.find((item) => item.value === order.store.country)
+                    .label
+                }
+              </div>
+              <div>{order.store.phone_number}</div>
+            </div>
+          )}
+          <div>
+            <div className="order-title">Payment</div>
+            <div>
+              <div>Invoice</div>
             </div>
           </div>
         </div>

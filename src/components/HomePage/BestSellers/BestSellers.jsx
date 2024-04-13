@@ -27,7 +27,10 @@ const BestSellers = () => {
       {products && <ProductList products={products} />}
       <Button
         uppercase
-        onClick={() => navigate("/products/?best-sellers=true")}
+        onClick={() => {
+          window.scrollTo(0, 0);
+          navigate("/products/?best-sellers=true");
+        }}
       >
         {`${t("categories.view_all")} ${t("categories.best_sellers")}`}
       </Button>

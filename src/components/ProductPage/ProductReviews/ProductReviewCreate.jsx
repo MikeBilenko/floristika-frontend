@@ -77,6 +77,7 @@ const ProductReviewCreate = ({ product, open, setOpen }) => {
       .then((res) => {
         toast.success(t("messages.success.reviews.add"));
         setOpen(false);
+        window.location.reload();
       })
       .catch((err) => {
         toast.error(err);

@@ -2,6 +2,8 @@ import React from "react";
 import "./OrderItem.scss";
 import { useNavigate } from "react-router-dom";
 import { getOrderStatusText, renderDate } from "../Helpers/helpers";
+import OrderStatusText from "../Helpers/helpers";
+// TODO: finish translations
 
 const OrderItem = ({ orderItem }) => {
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const OrderItem = ({ orderItem }) => {
         <div>{renderDate(orderItem.order_date)}</div>
         <div>€{orderItem.total_auth}</div>
         <div className={`status ${orderItem.status}`}>
-          {getOrderStatusText(orderItem.status)}
+          <OrderStatusText status={orderItem.status} />
         </div>
         <div className={`order-images ${length > 3 ? "more" : ""} `}>
           {images.map((item, index) => (

@@ -398,6 +398,40 @@
   }
 }
 
+.order-details-delivery {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-radius: 4px;
+  padding: 16px;
+  border: 1px solid var(--Beige, #dddbcb);
+  background: var(--Beige-light-80, #f8f8f5);
+
+  color: $text;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.4px;
+  & > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  & > div > .order-title {
+    color: $orders-text;
+    margin-bottom: 4px;
+  }
+
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+  }
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
 .change-password {
   width: 100%;
   padding: 25px 24px;

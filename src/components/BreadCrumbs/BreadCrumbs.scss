@@ -6,6 +6,7 @@
   align-items: center;
   padding: 0 0 18px;
   border-bottom: 1px solid $light-grey-300;
+  margin-bottom: 40px;
 
   @include tablet {
     overflow: scroll;

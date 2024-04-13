@@ -257,7 +257,9 @@ const Header = () => {
                         >
                           <TbBriefcase2 /> {t("auth.my_orders")}
                         </div>
-                        <div onClick={() => navigate("/policies/return/")}>
+                        <div
+                          onClick={() => navigate("/policies/delivery-return/")}
+                        >
                           <MdOutlineInfo /> {t("policies.delivery_info")}
                         </div>
                       </div>
@@ -375,32 +377,34 @@ const Header = () => {
               </>
             )}
           </div>
-          <div
-            className="account-links-user-dropout-links"
-            onClick={() => setActiveMenu(false)}
-          >
+          {user && user.first_name && (
             <div
-              onClick={() =>
-                user
-                  ? navigate("/accounts/account/details/")
-                  : navigate("/accounts/login/")
-              }
+              className="account-links-user-dropout-links"
+              onClick={() => setActiveMenu(false)}
             >
-              <LuUser /> {t("auth.my_account")}
+              <div
+                onClick={() =>
+                  user
+                    ? navigate("/accounts/account/details/")
+                    : navigate("/accounts/login/")
+                }
+              >
+                <LuUser /> {t("auth.my_account")}
+              </div>
+              <div
+                onClick={() =>
+                  user
+                    ? navigate("/accounts/account/orders/")
+                    : navigate("/accounts/login/")
+                }
+              >
+                <TbBriefcase2 /> {t("auth.my_orders")}
+              </div>
+              <div onClick={() => navigate("/policies/delivery-return/")}>
+                <MdOutlineInfo /> {t("policies.delivery_info")}
+              </div>
             </div>
-            <div
-              onClick={() =>
-                user
-                  ? navigate("/accounts/account/orders/")
-                  : navigate("/accounts/login/")
-              }
-            >
-              <TbBriefcase2 /> {t("auth.my_orders")}
-            </div>
-            <div onClick={() => navigate("/policies/return/")}>
-              <MdOutlineInfo /> {t("policies.delivery_info")}
-            </div>
-          </div>
+          )}
           <div className="user-side-menu-content-header-language">
             <IoLanguageSharp /> {t("languages.language")}
           </div>

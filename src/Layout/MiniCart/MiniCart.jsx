@@ -26,6 +26,14 @@ const MiniCart = () => {
     }, 1000);
   }, [token]);
 
+  useEffect(() => {
+    if (isVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.removeAttribute("style");
+    }
+  }, [isVisible]);
+
   return (
     <div className={`minicart ${isVisible ? "active" : ""} `}>
       <div className="minicart-wrapper">

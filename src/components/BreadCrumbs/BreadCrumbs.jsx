@@ -7,6 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 const BreadCrumbs = () => {
   const location = useLocation();
   const [routes, setRoutes] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const pathname = location.pathname.replace(/\/$/, ""); // Remove trailing slash
@@ -46,7 +47,11 @@ const BreadCrumbs = () => {
               "breadcrumb",
               index === routes.length - 1 ? "last" : "",
             ].join(" ")}
-            onClick={() => window.location.reload()}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(route.path);
+              window.location.reload();
+            }}
           >
             {route.name}
             {index < routes.length - 1 && (

@@ -284,7 +284,9 @@
           letter-spacing: 0.1px;
         }
         & > div:last-child {
-          font-size: 11px;
+          @include tablet {
+            font-size: 14px;
+          }
         }
       }
 
@@ -348,6 +350,7 @@
       padding: 20px;
 
       & > .account-links-user-dropout-buttons {
+        border-bottom: none;
         & > .button {
           width: 100%;
         }
@@ -362,11 +365,16 @@
         margin-bottom: 20px;
         font-size: 20px;
 
+        & > .account-links-user-dropout-links {
+          border-top: 1px solid $light-grey-300;
+          border-bottom: 1px solid $light-grey-300;
+        }
+
         &-language {
           display: flex;
           align-items: center;
           justify-content: center;
-          border-bottom: 1px solid $light-grey-300;
+
           padding: 10px 0;
           margin: 20px 0;
           border-top: 1px solid $light-grey-300;

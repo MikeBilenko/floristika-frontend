@@ -26,6 +26,7 @@ const ProductsWrapper = ({ category, type }) => {
   const [newIn, setNewIn] = useState(false);
   const [bestSeller, setBestSeller] = useState(false);
   const [filterOpened, setOpenedFilter] = useState(false);
+  const [filterMobileOpened, setOpenedFilterMobile] = useState(false);
   const [selectedColors, setSelectedColors] = useState(
     new URLSearchParams(location.search).get("colors")
       ? new URLSearchParams(location.search).get("colors").split(",")
@@ -73,17 +74,6 @@ const ProductsWrapper = ({ category, type }) => {
   }, []);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const unlisten = navigate.subscribe(({ pathname }) => {
-  //     // Clear products state here
-  //     setProducts([]);
-  //   });
-
-  //   // Cleanup function to remove the listener when component unmounts
-  //   return () => {
-  //     unlisten();
-  //   };
-  // }, [navigate]);
   useEffect(() => {
     let otherParams = [
       category ? `category=${category}` : "",
@@ -178,6 +168,8 @@ const ProductsWrapper = ({ category, type }) => {
         onChange={setSort}
         filterOpened={filterOpened}
         setOpenedFilter={setOpenedFilter}
+        filterOpenedMobile={filterMobileOpened}
+        setOpenedFilterMobile={setOpenedFilterMobile}
       />
       <div
         className={["products-page-content", filterOpened ? "active" : ""].join(
@@ -194,7 +186,8 @@ const ProductsWrapper = ({ category, type }) => {
           selectedColors={selectedColors}
         />
         <FilterMobile
-          active={filterOpened}
+          active={filterMobileOpened}
+          setActive={setOpenedFilterMobile}
           selectedPriceRange={selectedPriceRange}
           selectPriceRange={setSelectedPriceRange}
           selectedSizes={selectedSizes}

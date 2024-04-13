@@ -32,7 +32,9 @@
     "country": "Valsts",
     "default_address_book": "Šī ir noklusējuma adreses informācija piegādei un norēķiniem, lūdzu, aizpildiet, lai turpinātu.",
     "default_billing": "Šī ir jūsu pamata norēķinu adrese.",
-    "default_shipping": "Šī ir jūsu bāzes piegādes adrese."
+    "default_shipping": "Šī ir jūsu bāzes piegādes adrese.",
+    "use_login": "Lai pieteiktos, izmantojiet tālāk norādīto saiti.",
+    "guest": "Lūdzu, piesakieties, lai turpinātu norēķināties vai turpinātu kā viesis."
   },
   "company": {
     "company": "Uzņēmums",
@@ -46,7 +48,7 @@
     "company_email": "Uzņēmuma e-pasta adrese",
     "save_company": "SAGLABĀT UZŅĒMUMU",
     "delete_company": "DZĒST UZŅĒMUMU",
-    "company_text": "Ja jums ir uzņēmums, jums būs papildu atlaide no iestādēm."
+    "company_text": "Ja jums ir uzņēmums, jums var būt papildu atlaide no īpašniekiem."
   },
   "languages": {
     "language": "Valoda",
@@ -105,7 +107,9 @@
     "colors": "Krāsas",
     "sizes": "Izmēri",
     "item": "LIETA",
-    "items": "PRECES"
+    "items": "PRECES",
+    "apply": "PIETEIKT",
+    "applied": "Lietoti filtri"
   },
   "reviews": {
     "verified": "Verified pircējs",
@@ -126,7 +130,8 @@
     "checkout": "PĀRBAUDE",
     "view_cart": "SKATĪT GROZU",
     "edit": "Rediģēt",
-    "delete": "Dzēst"
+    "delete": "Dzēst",
+    "as_guest": "TURPINĀT KĀ VIESIS"
   },
   "wishlist": {
     "wishlist": "Vēlmju Saraksts",
@@ -145,7 +150,24 @@
     "totla": "Kopā",
     "sub_total": "SUB-TOTAL",
     "back_to_shop": "Atpakaļ uz veikalu",
-    "empty_cart": "Jūsu grozs ir tukšs."
+    "empty_cart": "Jūsu grozs ir tukšs.",
+    "empty_orders": "JUMS PAŠREIZ NAV PASŪTĪJUMU",
+    "start_shopping": "SĀKT IEPIRKŠANU",
+    "order_number": "Nr.",
+    "order_date": " Datums",
+    "cost": "Izmaksas"
+  },
+  "status": {
+    "status": "Statuss"
+  },
+  "checkout": {
+    "thanks": "PALDIES PAR JŪSU PASŪTĪJUMU",
+    "detail": "Pasūtījuma informācija",
+    "subtitle": "Jūs saņemsit pasūtījuma apstiprinājumu savā e-pastā",
+    "ordernumber": "Pasūtījuma numurs:",
+    "total_cost": "Kopējās izmaksas:",
+    "items": "Preces:",
+    "continue": "TURPINĀT IEPIRKUMU"
   },
   "categories": {
     "best_sellers": "Pārdotākie",
@@ -153,10 +175,14 @@
     "sale": "Izpārdošana",
     "view_all": "Skatīt visu"
   },
+  "shop_by": {
+    "by_size": "Iepirkties pēc izmēra",
+    "by_color": "Iepirkties pēc krāsas",
+    "by_type": "Iepirkties pēc veida"
+  },
   "contacts": {
     "contacts": "Kontakti"
   },
-
   "best_sellers": {
     "text": "Izceliet savu telpu ar mūsu vislabāk pārdotajiem mākslīgajiem ziediem, zaļumiem un iepakojuma materiāliem. Izpētiet mūžīgo eleganci, lai radītu ilgstošu iespaidu."
   },
@@ -182,27 +208,37 @@
         "first_name": "Vārdam ir jābūt 2-20 rakstzīmēm garam.",
         "last_name": "Uzvārdam ir jābūt 2–20 rakstzīmes garam.",
         "email": "Ievadiet derīgu e-pasta adresi. (example@gmail.com)",
-        "phone_number": "Ievadiet derīgu tālruņa numuru ar valsts kodu (+371 00000000).",
-        "required": "Šis lauks ir obligāts."
+        "phone_number": "Ievadiet derīgu tālruņa numuru ar valsts kodu, kā parādīts piemērā (+371 00000000).",
+        "required": "Šis lauks ir obligāts.",
+        "valsts": "Laikam jūs domājāt (angļu valodā):"
       }
     },
     "success": {
       "auth": {
+        "logout": "Выход выполнен успешно",
+        "check_email": "Pārbaudiet savā e-pastā saiti paroles atiestatīšanai.",
+        "changed": "Paroles atiestatīšana veiksmīgi.",
         "logged_in": "Veiksmīgi pieteicies!",
         "details": "Detaļas ir veiksmīgi atjauninātas",
-        "register": "Verifikācijas e-pasts ir nosūtīts. Pārbaudiet savu iesūtni."
+        "register": "Verifikācijas e-pasts ir nosūtīts. Pārbaudiet savu iesūtni.",
+        "address_deleted": "Adrešu grāmata ir veiksmīgi noņemta",
+        "verify": "Paldies, ka verificējāt! Lai pieteiktos, izmantojiet zemāk esošo saiti."
       },
       "wishlist": {
         "add": "Produkts pievienots vēlmju sarakstam.",
         "remove": "Produkts noņemts no vēlmju saraksta."
       },
-      "copying_url": "URL kopēts starpliktuvē",
+      "copying_url": "Kopēts starpliktuvē",
       "cart": {
         "add": "Prece pievienota grozam.",
         "remove": "Produkts izņemts no groza."
       },
       "reviews": {
         "add": "Atsauksme ir veiksmīgi iesniegta"
+      },
+      "company": {
+        "update": "Uzņēmums ir veiksmīgi atjaunināts",
+        "delete": "Uzņēmums veiksmīgi izdzēsts"
       }
     },
     "info": {}

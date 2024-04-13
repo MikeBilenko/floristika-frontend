@@ -21,11 +21,14 @@
 
   @include tablet {
     margin: 0 auto;
-    width: 100%;
     min-width: 300px;
     & > .product-top-section > .product-hover {
       opacity: 1;
     }
+  }
+  @include mobile {
+    max-width: 320px;
+    width: 100%;
   }
 }
 

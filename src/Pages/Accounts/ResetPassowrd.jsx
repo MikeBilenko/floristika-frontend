@@ -1,30 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectLoading,
-  selectError,
-  selectUser,
-  resetPassword,
-} from "../../redux/slices/authSlice";
+import { useSelector } from "react-redux";
+import { selectLoading, selectUser } from "../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import AuthWrapper from "../../components/AuthPages/AuthWrapper/AuthWrapper";
 import Input from "../../ui/Input/Input";
 import Button from "../../ui/Button/Button";
+import { useTranslation } from "react-i18next";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const ResetPassword = () => {
+  const { t } = useTranslation();
   const [credentials, setCredentials] = useState({
-    email: "mike@codnity.com",
+    email: "",
   });
-  const dispatch = useDispatch();
+  const [emailError, setEmailError] = useState(false);
   const isAuthenticated = useSelector(selectUser);
   const navigate = useNavigate();
 
   const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(resetPassword(credentials));
+    if (!credentials.email.length > 0) {
+      setEmailError(true);
+      return;
+    } else {
+      setEmailError(false);
+    }
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/users/auth/password/reset/`,
+        credentials
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success(t("messages.success.auth.check_email"));
+        }
+      })
+      .catch((error) => {
+        toast.error("Something went wrong!");
+      });
   };
 
   useEffect(() => {
@@ -38,7 +54,7 @@ const ResetPassword = () => {
       <form onSubmit={handleSubmit}>
         <Input
           type="email"
-          label="Email address"
+          label={`${t("auth.email")}*`}
           value={credentials.email}
           onChange={(e) =>
             setCredentials((prevCredentials) => {
@@ -48,12 +64,14 @@ const ResetPassword = () => {
               };
             })
           }
+          error={emailError}
+          error_message={t("messages.errors.auth.required")}
         />
-        {/* Username and password input fields */}
         <Button fullWidth submit={true} disabled={loading}>
-          {loading ? "RESETTING PASSWORD IN..." : "RESET PASSWORD"}
+          {loading
+            ? `${t("auth.reset_password").toUpperCase()}...`
+            : t("auth.reset_password").toUpperCase()}
         </Button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
     </AuthWrapper>
   );

@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const Intro = () => {
   const [intro, setIntro] = useState({});
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   useEffect(() => {
     axios
@@ -19,7 +19,7 @@ const Intro = () => {
   }, []);
   const handleCopyCode = (code) => {
     navigator.clipboard.writeText(code).then(() => {
-      toast.success("Code copied to clipboard");
+      toast.success(t("messages.success.copying_url"));
     });
   };
   return (

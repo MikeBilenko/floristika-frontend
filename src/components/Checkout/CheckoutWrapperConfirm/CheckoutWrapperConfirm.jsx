@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import Radio from "../../../ui/Radio/Radio";
 import countryList from "react-select-country-list";
 import { useTranslation } from "react-i18next";
+// TODO: translate and check calculations
 
 const CheckoutWrapperConfirm = () => {
   const { t, i18n } = useTranslation();

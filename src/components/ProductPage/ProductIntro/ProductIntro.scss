@@ -58,6 +58,10 @@
     line-height: normal;
     letter-spacing: 1.6px;
   }
+
+  &.sale {
+    color: $red;
+  }
 }
 
 .product-info-price {

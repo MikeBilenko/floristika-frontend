@@ -3,6 +3,7 @@ import "./ExtendedMenu.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const ExtendedMenu = ({
   isVisible,
@@ -15,6 +16,7 @@ const ExtendedMenu = ({
   const [sizes, setSizes] = useState([]);
   const [types, setTypes] = useState([]);
   const [image, setImage] = useState("");
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     setTypes([]);
@@ -83,7 +85,7 @@ const ExtendedMenu = ({
           onClick={(e) => e.stopPropagation()}
         >
           <div className="menu-types-links">
-            <h3 className="menu-types-links-title">Shop By Type</h3>
+            <h3 className="menu-types-links-title">{t("shop_by.by_type")}</h3>
             <ul className="menu-types-links-list">
               {types.length > 0 &&
                 types.map((type) => (
@@ -99,14 +101,16 @@ const ExtendedMenu = ({
                         window.location.reload();
                       }}
                     >
-                      {type.name}
+                      {i18n.language === "en" && type.name}
+                      {i18n.language === "lv" && type.name_lv}
+                      {i18n.language === "ru" && type.name_ru}
                     </Link>
                   </li>
                 ))}
             </ul>
           </div>
           <div className="menu-types-links">
-            <h3 className="menu-types-links-title">Shop By Color</h3>
+            <h3 className="menu-types-links-title">{t("shop_by.by_color")}</h3>
             <ul className="menu-types-links-list">
               {colors.length > 0 &&
                 colors.map((color) => (
@@ -123,14 +127,16 @@ const ExtendedMenu = ({
                         window.location.reload();
                       }}
                     >
-                      {color.name}
+                      {i18n.language === "en" && color.name}
+                      {i18n.language === "ru" && color.name_ru}
+                      {i18n.language === "lv" && color.name_lv}
                     </Link>
                   </li>
                 ))}
             </ul>
           </div>
           <div className="menu-types-links">
-            <h3 className="menu-types-links-title">Shop By Size</h3>
+            <h3 className="menu-types-links-title">{t("shop_by.by_size")}</h3>
             <ul className="menu-types-links-list">
               {sizes.length > 0 &&
                 sizes.map((size) => (
@@ -147,7 +153,9 @@ const ExtendedMenu = ({
                         window.location.reload();
                       }}
                     >
-                      {size.name}
+                      {i18n.language === "en" && size.name}
+                      {i18n.language === "ru" && size.name_ru}
+                      {i18n.language === "lv" && size.name_lv}
                     </Link>
                   </li>
                 ))}
@@ -165,7 +173,7 @@ const ExtendedMenu = ({
               >
                 <picture>
                   <img src={image.image} alt="" />
-                  <caption>VIEW ALL FLOWERS</caption>
+                  <caption>{t("categories.view_all").toUpperCase()}</caption>
                 </picture>
               </Link>
               <Link
@@ -178,7 +186,9 @@ const ExtendedMenu = ({
               >
                 <picture>
                   <img src={image.image} alt="" />
-                  <caption>BEST SELLERS</caption>
+                  <caption>
+                    {t("categories.best_sellers").toUpperCase()}
+                  </caption>
                 </picture>
               </Link>
               <Link
@@ -191,7 +201,7 @@ const ExtendedMenu = ({
               >
                 <picture>
                   <img src={image.image} alt="" />
-                  <caption>NEW IN</caption>
+                  <caption>{t("categories.new_in").toUpperCase()}</caption>
                 </picture>
               </Link>
               <Link
@@ -204,7 +214,7 @@ const ExtendedMenu = ({
               >
                 <picture>
                   <img src={image.image} alt="" />
-                  <caption>SALE</caption>
+                  <caption>{t("categories.sale").toUpperCase()}</caption>
                 </picture>
               </Link>
             </div>

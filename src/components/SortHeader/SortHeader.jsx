@@ -11,6 +11,8 @@ const SortHeader = ({
   count,
   sort,
   onChange,
+  filterOpenedMobile,
+  setOpenedFilterMobile,
 }) => {
   const { t, i18n } = useTranslation();
   const [options, setOptions] = useState([
@@ -58,7 +60,9 @@ const SortHeader = ({
       {products && (
         <>
           <div className="sort-header-mobile">
-            <div>{t("filters.filter")}</div>
+            <div onClick={() => setOpenedFilterMobile(!filterOpenedMobile)}>
+              {t("filters.filter")}
+            </div>
             <div onClick={() => setOpenSortMobile(true)}>
               {t("sort.sort_by")}
             </div>

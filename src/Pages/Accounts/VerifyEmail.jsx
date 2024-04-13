@@ -1,45 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import {
-  selectError,
-  selectLoading,
-  selectEmailVerification,
-} from "../../redux/slices/authSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { verifyEmail } from "../../redux/slices/authSlice";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import Button from "../../ui/Button/Button";
 import AuthWrapper from "../../components/AuthPages/AuthWrapper/AuthWrapper";
+import { useTranslation } from "react-i18next";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const VerifyEmail = () => {
   const { token } = useParams();
+  const { t } = useTranslation();
 
-  const dispatch = useDispatch();
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
-  const [verifiedEmail, setVerifiedEmail] = useState(false);
+  const navigate = useNavigate();
 
   const verify = () => {
-    dispatch(verifyEmail(token));
-    setVerifiedEmail(true);
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/users/auth/registration/verify-email/`,
+        {
+          key: token,
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success(t("messages.success.auth.verify"));
+          navigate("/accounts/login/");
+        }
+      })
+      .catch((error) => {
+        toast.error("Something went wring.");
+      });
   };
 
   return (
     <AuthWrapper>
-      {!verifiedEmail && (
-        <>
-          <p>Please verify your email address by clicking the button below.</p>
-          <Button fullWidth onClick={verify}>
-            Verify
-          </Button>
-        </>
-      )}
-      {verifiedEmail && error && !loading && (
-        <div>
-          Thanks for verifying! Use link bellow to login.
-          <br />
-          <Link to={"/accounts/login/"}>Login.</Link>
-        </div>
-      )}
+      <p>{t("auth.verify_text")}</p>
+      <Button fullWidth onClick={verify}>
+        {t("auth.verify")}
+      </Button>
     </AuthWrapper>
   );
 };

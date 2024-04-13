@@ -30,7 +30,7 @@ const CartItem = ({ cartItem }) => {
         )
         .then((response) => {
           if (response.status === 201 || response.status === 200) {
-            toast.success(t("messages.succes.wishlist.add"));
+            toast.success(t("messages.success.wishlist.add"));
             setWishlist(true);
           }
         });
@@ -48,7 +48,7 @@ const CartItem = ({ cartItem }) => {
         .then((response) => {
           if (response.status === 204) {
             setWishlist(false);
-            toast.success(t("messages.succes.wishlist.remove"));
+            toast.success(t("messages.success.wishlist.remove"));
           }
         });
     }

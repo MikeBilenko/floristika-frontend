@@ -23,7 +23,13 @@ const NewIn = () => {
     <Container className="new-in">
       <Title>{t("categories.new_in")}</Title>
       {products && <ProductList products={products} />}
-      <Button uppercase onClick={() => navigate("/products/?new-in=true")}>
+      <Button
+        uppercase
+        onClick={() => {
+          window.scrollTo(0, 0);
+          navigate("/products/?new-in=true");
+        }}
+      >
         {`${t("categories.view_all")} ${t("categories.new_in")}`}
       </Button>
     </Container>

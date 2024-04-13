@@ -17,11 +17,10 @@ const Product = ({ product, setProducts = null }) => {
   const [wishlist, setWishlist] = useState(false);
   const navigate = useNavigate();
   const link = `/products/${product.category.slug}/${product.subcategory.slug}/${product.slug}/`;
-  const product_discount =
-    product.price - (product.price * product.sale_percent) / 100;
-  const auth_price =
-    product.price - (product.price * product.auth_percent.percent) / 100;
-  const auth_price_discount = (auth_price * product.sale_percent) / 100;
+  console.log(product);
+  const product_discount = product.price - (product.price * product.sale) / 100;
+  const auth_price = product.price_for_authenticated;
+  const auth_price_discount = (auth_price * product.sale) / 100;
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
@@ -127,7 +126,7 @@ const Product = ({ product, setProducts = null }) => {
         <img src={product.images[0].image} alt={product.images[0].alt} />
         {product.sale && (
           <div className="product-sale">
-            {t("save")} {product.sale_percent}%
+            {t("save")} {product.sale}%
           </div>
         )}
 
