@@ -30,6 +30,7 @@ const WishList = () => {
               return [...prevProducts, response.data];
             });
           });
+        return item;
       });
     } else if (token) {
       axios
@@ -44,10 +45,11 @@ const WishList = () => {
             setProducts((prevProducts) => {
               return [...prevProducts, item.product];
             });
+            return item;
           });
         });
     }
-  }, []);
+  }, [loading, token]);
 
   return (
     <div>

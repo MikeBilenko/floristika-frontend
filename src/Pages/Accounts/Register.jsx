@@ -107,7 +107,7 @@ function Register() {
     if (isAuthenticated) {
       navigate("/");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <AuthWrapper>

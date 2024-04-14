@@ -47,7 +47,7 @@ const Filter = ({
         setMax(response.data.max_price);
         setLoading(false);
       });
-  }, []);
+  }, [selectPriceRange]);
 
   return (
     !loading && (

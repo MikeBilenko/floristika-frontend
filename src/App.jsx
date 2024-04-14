@@ -20,7 +20,7 @@ function App() {
     if (token) {
       dispatch(validateToken(token));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <Layout>

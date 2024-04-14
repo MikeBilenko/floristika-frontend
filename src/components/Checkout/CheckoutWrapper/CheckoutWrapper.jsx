@@ -44,7 +44,7 @@ const CheckoutWrapper = () => {
         });
       navigate("/cart/checkout/confirm/");
     }
-  }, [token, productsNumber]);
+  }, [token, productsNumber, navigate, t]);
 
   return (
     <div>

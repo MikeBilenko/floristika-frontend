@@ -129,7 +129,7 @@ const Company = () => {
           });
         }
       });
-  }, [token]);
+  }, [token, navigate, options]);
 
   const delete_comp = (e) => {
     e.preventDefault();

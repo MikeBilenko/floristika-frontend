@@ -274,6 +274,7 @@ const cart = createSlice({
             let product = item.product;
             product.quantity = item.quantity;
             items.push(product);
+            return item;
           });
         }
         state.items = items;

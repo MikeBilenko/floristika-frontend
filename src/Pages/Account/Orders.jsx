@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import AccountWrapper from "../../components/AccountWrapper/AccountWrapper";
 import Button from "../../ui/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -33,33 +33,36 @@ const Orders = () => {
     }
   }, [token]);
 
+  const updateOrders = useCallback(
+    (ppage) => {
+      let new_page = ppage;
+      if (token) {
+        axios
+          .get(
+            `${process.env.REACT_APP_API_URL}/orders/orders/?page=${new_page}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((response) => {
+            setOrders(response.data.results);
+            setHasNext(!!response.data.next);
+            setHasPrevious(!!response.data.previous);
+          });
+      }
+    },
+    [token]
+  );
+
   useEffect(() => {
     if (page > 1) {
       updateOrders(page);
     } else {
       updateOrders(1);
     }
-  }, [page]);
-
-  const updateOrders = (ppage) => {
-    let new_page = ppage;
-    if (token) {
-      axios
-        .get(
-          `${process.env.REACT_APP_API_URL}/orders/orders/?page=${new_page}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((response) => {
-          setOrders(response.data.results);
-          setHasNext(!!response.data.next);
-          setHasPrevious(!!response.data.previous);
-        });
-    }
-  };
+  }, [page, updateOrders]);
   return (
     <AccountWrapper>
       <div className="account-header">

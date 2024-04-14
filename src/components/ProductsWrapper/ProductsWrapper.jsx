@@ -141,6 +141,7 @@ const ProductsWrapper = ({ category, type }) => {
     newIn,
     bestSeller,
     page,
+    token,
   ]);
   useEffect(() => {}, []);
 

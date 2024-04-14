@@ -47,7 +47,7 @@ const ResetPassword = () => {
     if (isAuthenticated) {
       navigate("/");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <AuthWrapper>

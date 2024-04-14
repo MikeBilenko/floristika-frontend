@@ -18,7 +18,7 @@ const Product = () => {
       .then((response) => {
         setProduct(response.data);
       });
-  }, []);
+  }, [slug]);
 
   useEffect(() => {
     const handleLoadingComplete = () => {

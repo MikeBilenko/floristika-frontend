@@ -32,7 +32,7 @@ const CheckoutSuccess = () => {
           }
         });
     }
-  }, [number]);
+  }, [number, dispatch]);
 
   return (
     <div className="checkout-success-wrapper">

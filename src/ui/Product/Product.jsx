@@ -36,7 +36,7 @@ const Product = ({ product, setProducts = null }) => {
     } else {
       setInCart(false);
     }
-  }, [cart, product]);
+  }, [cart, product, product.slug]);
 
   const addToWishlist = (slug) => {
     if (token && !wishlist) {
@@ -111,7 +111,7 @@ const Product = ({ product, setProducts = null }) => {
           }
         });
     }
-  }, [token]);
+  }, [token, product.slug]);
 
   return (
     <div

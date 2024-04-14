@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Button from "../../../ui/Button/Button";
 import ProductReview from "./ProductReview";
 import Rating from "../../../ui/Rating/Rating";
@@ -15,25 +15,29 @@ const ProductReviews = ({ product, rate }) => {
   const [count, setCount] = useState(0);
   const [writeReview, setWriteReview] = useState(false);
 
+  const fetchReviews = useCallback(
+    (page) => {
+      if (product) {
+        axios
+          .get(
+            `${process.env.REACT_APP_API_URL}/products/${product}/reviews/?page=${page}`
+          )
+          .then((response) => {
+            const newReviews = response.data.results;
+            setCount(response.data.count);
+            setReviews((prevState) => [...prevState, ...newReviews]);
+
+            setHasMore(response.data.next !== null);
+          });
+      }
+    },
+    [product]
+  );
+
   useEffect(() => {
     fetchReviews(1);
-  }, [product]);
+  }, [product, fetchReviews]);
 
-  const fetchReviews = (page) => {
-    if (product) {
-      axios
-        .get(
-          `${process.env.REACT_APP_API_URL}/products/${product}/reviews/?page=${page}`
-        )
-        .then((response) => {
-          const newReviews = response.data.results;
-          setCount(response.data.count);
-          setReviews((prevState) => [...prevState, ...newReviews]);
-
-          setHasMore(response.data.next !== null);
-        });
-    }
-  };
   const clicked = () => {
     let spage = page + 1;
     fetchReviews(spage);

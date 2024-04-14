@@ -29,6 +29,7 @@ const BreadCrumbs = () => {
           });
         }
       }
+      return segment;
     });
     setRoutes(breads);
   }, [location]);

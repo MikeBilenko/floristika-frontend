@@ -23,7 +23,7 @@ const MiniCart = () => {
         dispatch(fetchCartItems({ token: token }));
       }
     }, 1000);
-  }, [token]);
+  }, [token, dispatch]);
 
   useEffect(() => {
     if (isVisible) {

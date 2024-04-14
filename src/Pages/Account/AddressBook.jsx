@@ -55,10 +55,6 @@ const AddressBook = () => {
     return closestCountry;
   };
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
   const validatePhone = (phone) => {
     const countryCodeRegex = /^\+\d{1,3}\d{9}$/;
     return countryCodeRegex.test(phone);
@@ -136,7 +132,7 @@ const AddressBook = () => {
           }
         });
     }
-  }, [token, user]);
+  }, [token, user, navigate, options]);
 
   const removeAddressBook = (id) => {
     axios

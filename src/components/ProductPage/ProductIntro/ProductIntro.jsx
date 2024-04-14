@@ -49,7 +49,7 @@ const ProductIntro = ({
     } else {
       setInCart(false);
     }
-  }, [cart, product]);
+  }, [cart, product, slug]);
   useEffect(() => {
     if (product.name) {
       const auth_price = product.price_for_authenticated;
@@ -64,7 +64,7 @@ const ProductIntro = ({
 
       setAuthPrice(auth_price);
     }
-  }, [product]);
+  }, [product, price]);
 
   const addToWishlist = (slug) => {
     if (token && !wishlist) {

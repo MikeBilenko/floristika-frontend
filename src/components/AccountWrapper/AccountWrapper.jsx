@@ -22,7 +22,7 @@ const AccountWrapper = ({ children }) => {
       navigate("/accounts/login/");
       dispatch(logout());
     }
-  }, [token]);
+  }, [token, dispatch, navigate]);
 
   return (
     <div className="account-wrapper">

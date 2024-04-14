@@ -29,7 +29,7 @@ const Search = () => {
         toast.info(t("search.no_results"));
       });
     setSearchParam(searchValue);
-  }, []);
+  }, [t]);
 
   return (
     <div>

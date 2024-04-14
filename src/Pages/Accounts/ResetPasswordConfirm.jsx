@@ -71,7 +71,7 @@ function ResetPasswordConfirm() {
     if (isAuthenticated) {
       navigate("/");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <AuthWrapper>

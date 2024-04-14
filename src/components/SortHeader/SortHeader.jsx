@@ -15,7 +15,7 @@ const SortHeader = ({
   setOpenedFilterMobile,
 }) => {
   const { t } = useTranslation();
-  const [options, setOptions] = useState([
+  const options = [
     {
       key: "recently_added",
       value: "sort.recent",
@@ -36,7 +36,7 @@ const SortHeader = ({
       key: "stock_level",
       value: "sort.stock_level",
     },
-  ]);
+  ];
   const [openSortMobile, setOpenSortMobile] = useState(false);
   const setSelectedValue = (val) => onChange(val);
   return (

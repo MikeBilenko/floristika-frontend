@@ -42,7 +42,7 @@ const OrderDetails = () => {
           }
         });
     }
-  }, [token]);
+  }, [token, id]);
 
   return (
     <AccountWrapper>

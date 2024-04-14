@@ -53,7 +53,7 @@ const Details = () => {
           });
         });
     }
-  }, [token]);
+  }, [token, navigate]);
 
   const submit = (e) => {
     e.preventDefault();

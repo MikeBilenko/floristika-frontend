@@ -60,7 +60,7 @@ function Login() {
     if (isAuthenticated) {
       navigate("/accounts/account/details/");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <AuthWrapper>

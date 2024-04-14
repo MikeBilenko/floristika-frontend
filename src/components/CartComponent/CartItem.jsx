@@ -70,7 +70,7 @@ const CartItem = ({ cartItem }) => {
           }
         });
     }
-  }, [token]);
+  }, [token, cartItem.slug]);
 
   return (
     <div className="cart-products-list-item">

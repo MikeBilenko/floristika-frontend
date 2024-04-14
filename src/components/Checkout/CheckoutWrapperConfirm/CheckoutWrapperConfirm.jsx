@@ -119,7 +119,7 @@ const CheckoutWrapperConfirm = () => {
     axios.get(`${process.env.REACT_APP_API_URL}/stores/`).then((response) => {
       setStores(response.data);
     });
-  }, [productsNumber]);
+  }, [productsNumber, navigate]);
 
   useEffect(() => {
     if (selectedDelivery) {
@@ -170,7 +170,7 @@ const CheckoutWrapperConfirm = () => {
           console.log("Error");
         });
     }
-  }, [token]);
+  }, [token, navigate, t]);
 
   const checkCode = (e) => {
     e.preventDefault();

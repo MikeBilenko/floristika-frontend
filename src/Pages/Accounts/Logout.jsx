@@ -17,7 +17,7 @@ const Logout = () => {
     Cookies.remove("token");
     toast.success(t("messages.success.auth.logout"));
     return navigate("/");
-  }, []);
+  }, [dispatch, t, navigate]);
   return <></>;
 };
 

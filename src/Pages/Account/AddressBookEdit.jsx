@@ -97,7 +97,7 @@ const AddressBookEdit = () => {
           }
         });
     }
-  }, [id, token]);
+  }, [id, token, options]);
 
   const submit = (e) => {
     e.preventDefault();
