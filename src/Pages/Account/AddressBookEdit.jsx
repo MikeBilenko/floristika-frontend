@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import AccountWrapper from "../../components/AccountWrapper/AccountWrapper";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectToken } from "../../redux/slices/authSlice";
 import axios from "axios";
 import Input from "../../ui/Input/Input";
@@ -8,8 +8,6 @@ import Button from "../../ui/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import countryList from "react-select-country-list";
-import { MdEdit } from "react-icons/md";
-import { FaRegAddressBook } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -65,7 +63,6 @@ const AddressBookEdit = () => {
   const { id } = useParams();
   const token = useSelector(selectToken);
   const navigate = useNavigate();
-  const [edit, setEdit] = useState(false);
 
   const [user, setUser] = useState({
     address: "",

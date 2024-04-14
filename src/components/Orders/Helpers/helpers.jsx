@@ -9,29 +9,6 @@ const renderDate = (datums) => {
   return formattedDate;
 };
 
-const getOrderStatusText = (status) => {
-  // const { t } = useTranslation();
-  switch (status) {
-    case "pending":
-      return "Pending";
-    case "processing":
-      return "Processing";
-    case "shipped":
-      return "Shipped";
-    case "delivered":
-      return "Delivered";
-    case "cancelled":
-      return "Cancelled";
-    case "refunded":
-      return "Refunded";
-    case "on-hold":
-      return "On Hold";
-    case "completed":
-      return "Completed";
-    default:
-      return "Unknown";
-  }
-};
 const OrderStatusText = ({ status }) => {
   const { t } = useTranslation();
   return <span>{t(`status.${status}`)}</span>;
@@ -39,4 +16,4 @@ const OrderStatusText = ({ status }) => {
 
 export default OrderStatusText;
 
-export { renderDate, getOrderStatusText };
+export { renderDate };

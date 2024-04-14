@@ -12,7 +12,6 @@ const Logout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("logout");
     dispatch(logout());
     dispatch(clearCart());
     Cookies.remove("token");

@@ -29,7 +29,6 @@ const Orders = () => {
           setOrders(response.data.results);
           setHasNext(!!response.data.next);
           setHasPrevious(!!response.data.previous);
-          console.log(response.data);
         });
     }
   }, [token]);

@@ -4,8 +4,6 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { selectUser } from "../../redux/slices/authSlice";
 import { FaAngleRight, FaArrowLeftLong } from "react-icons/fa6";
 
 const HeaderMobile = ({ isOpen, onMenu }) => {
@@ -56,8 +54,6 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
         });
     }
   }, [selectedItem]);
-
-  const dispatch = useDispatch();
 
   const links = [
     {

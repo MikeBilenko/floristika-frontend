@@ -63,7 +63,6 @@ const ChangePassword = () => {
           }
         )
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
             setCredentials({
               new_password1: "",
@@ -79,7 +78,7 @@ const ChangePassword = () => {
     <AccountWrapper>
       <div className="account-header">
         <MdOutlineKey />
-        {t("auth.cjange_password")}
+        {t("auth.change_password")}
       </div>
       <form onSubmit={handleSubmit} className="change-password">
         <div className="change-password-wrapper">

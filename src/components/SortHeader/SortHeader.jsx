@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./SortHeader.scss";
 import Select from "../../ui/Select/Select";
 import Sort from "./control.svg";
@@ -14,7 +14,7 @@ const SortHeader = ({
   filterOpenedMobile,
   setOpenedFilterMobile,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [options, setOptions] = useState([
     {
       key: "recently_added",

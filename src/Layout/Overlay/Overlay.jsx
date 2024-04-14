@@ -1,5 +1,5 @@
 import React from "react";
-import "./Overlay.scss"; // Assuming you have a separate SCSS file for styling
+import "./Overlay.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleCart } from "../../redux/slices/cartSlice";
 

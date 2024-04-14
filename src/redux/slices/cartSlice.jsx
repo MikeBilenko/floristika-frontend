@@ -34,23 +34,43 @@ const cart = createSlice({
     addToCart(state, action) {
       const { product, qty, token = null } = action.payload;
       const existingItem = state.items.find((item) => item.id === product.id);
+
       if (existingItem) {
-        if (existingItem.qty >= existingItem.quantity + qty) {
+        // Adjust quantity if qty is positive and won't exceed available quantity
+        if (qty > 0 && existingItem.qty >= existingItem.quantity + qty) {
           existingItem.quantity += qty;
         } else {
-          toast.error("We dont have more");
+          existingItem.quantity += qty;
         }
       } else {
+        // Add new item to state if it doesn't exist
         state.productsNumber += 1;
         state.items.push({ ...product, quantity: qty });
       }
+
+      // Calculate totalAmount
       state.totalAmount = state.items.reduce((acc, item) => {
-        return acc + item.price * item.quantity;
+        if (item.sale) {
+          return (
+            acc + (item.price - (item.price * item.sale) / 100) * item.quantity
+          );
+        } else {
+          return acc + item.price * item.quantity;
+        }
       }, 0);
+
+      // Calculate totalAuthenticatedAmount
       state.totalAuthenticatedAmount = state.items.reduce((acc, item) => {
-        let temp_price =
-          item.price - (item.price * item.auth_percent.percent) / 100;
-        return acc + temp_price * item.quantity;
+        if (item.sale) {
+          return (
+            acc +
+            (item.price_for_authenticated -
+              (item.price_for_authenticated * item.sale) / 100) *
+              item.quantity
+          );
+        } else {
+          return acc + item.price_for_authenticated * item.quantity;
+        }
       }, 0);
 
       if (token) {
@@ -84,21 +104,43 @@ const cart = createSlice({
     updateQuantity(state, action) {
       const { slug, quantity, token } = action.payload;
       const existingItem = state.items.find((item) => item.slug === slug);
+
       if (existingItem) {
         existingItem.quantity = Math.max(0, quantity); // Ensure quantity is not negative
+
         if (existingItem.quantity === 0) {
-          state.items = state.items.filter((item) => item.slug !== slug); // Remove item if quantity is zero
+          // Remove item if quantity is zero
+          state.items = state.items.filter((item) => item.slug !== slug);
           state.productsNumber -= 1;
         }
       }
+
+      // Recalculate total amount and total authenticated amount
       state.totalAmount = state.items.reduce((acc, item) => {
-        return acc + item.price * item.quantity;
+        if (item.sale) {
+          return (
+            acc + (item.price - (item.price * item.sale) / 100) * item.quantity
+          );
+        } else {
+          return acc + item.price * item.quantity;
+        }
       }, 0);
+
+      // Calculate totalAuthenticatedAmount
       state.totalAuthenticatedAmount = state.items.reduce((acc, item) => {
-        let temp_price =
-          item.price - (item.price * item.auth_percent.percent) / 100;
-        return acc + temp_price * item.quantity;
+        if (item.sale) {
+          return (
+            acc +
+            (item.price_for_authenticated -
+              (item.price_for_authenticated * item.sale) / 100) *
+              item.quantity
+          );
+        } else {
+          return acc + item.price_for_authenticated * item.quantity;
+        }
       }, 0);
+
+      // Make API call if token is provided
       if (token) {
         axios.put(
           `${process.env.REACT_APP_API_URL}/orders/cart/`,
@@ -113,6 +155,8 @@ const cart = createSlice({
           }
         );
       }
+
+      // Update localStorage
       localStorage.setItem("cartItems", JSON.stringify(state.items));
       localStorage.setItem(
         "cartTotalAmount",
@@ -127,22 +171,37 @@ const cart = createSlice({
         JSON.stringify(state.totalAuthenticatedAmount)
       );
     },
+
     removeFromCart(state, action) {
       const { product, qty, token } = action.payload;
       const itemIndex = state.items.findIndex((item) => item.id === product.id);
       if (itemIndex > -1) {
         state.items.splice(itemIndex, 1);
 
-        state.totalAmount = state.items.reduce(
-          (acc, item) => acc + item.price * item.quantity,
-          0
-        );
-        state.productsNumber -= 1;
-        state.totalAuthenticatedAmount = state.items.reduce((acc, item) => {
-          let temp_price =
-            item.price - (item.price * item.auth_percent.percent) / 100;
-          return acc + temp_price * item.quantity;
+        state.totalAmount = state.items.reduce((acc, item) => {
+          if (item.sale) {
+            return (
+              acc +
+              (item.price - (item.price * item.sale) / 100) * item.quantity
+            );
+          } else {
+            return acc + item.price * item.quantity;
+          }
         }, 0);
+
+        state.totalAuthenticatedAmount = state.items.reduce((acc, item) => {
+          if (item.sale) {
+            return (
+              acc +
+              (item.price_for_authenticated -
+                (item.price_for_authenticated * item.sale) / 100) *
+                item.quantity
+            );
+          } else {
+            return acc + item.price_for_authenticated * item.quantity;
+          }
+        }, 0);
+        state.productsNumber -= 1;
       }
       if (token) {
         axios.delete(
@@ -169,13 +228,6 @@ const cart = createSlice({
         JSON.stringify(state.totalAuthenticatedAmount)
       );
     },
-    isInCart(state, action) {
-      const { productId } = action.payload;
-      if (state.items && state.items.length > 0) {
-        return state.items.filter((item) => item.id === productId);
-      }
-      return false;
-    },
     setCartItemQuantity(state, action) {
       const itemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
@@ -184,6 +236,14 @@ const cart = createSlice({
         state.items[itemIndex].quantity = action.payload.quantity;
       }
     },
+    isInCart(state, action) {
+      const { productId } = action.payload;
+      if (state.items && state.items.length > 0) {
+        return state.items.filter((item) => item.id === productId);
+      }
+      return false;
+    },
+
     openMenu: (state) => {
       state.isVisible = true;
     },
@@ -210,7 +270,6 @@ const cart = createSlice({
       })
       .addCase(fetchCartItems.fulfilled, (state, action) => {
         let items = [];
-        console.log(action.payload);
         if (action.payload && action.payload.length > 0) {
           action.payload.map((item) => {
             let product = item.product;
@@ -219,14 +278,28 @@ const cart = createSlice({
           });
         }
         state.items = items;
-        state.totalAmount = state.items.reduce(
-          (acc, item) => acc + item.price * item.quantity,
-          0
-        );
+        state.totalAmount = state.items.reduce((acc, item) => {
+          if (item.sale) {
+            return (
+              acc +
+              (item.price - (item.price * item.sale) / 100) * item.quantity
+            );
+          } else {
+            return acc + item.price * item.quantity;
+          }
+        }, 0);
+
         state.totalAuthenticatedAmount = state.items.reduce((acc, item) => {
-          let temp_price =
-            item.price - (item.price * item.auth_percent.percent) / 100;
-          return acc + temp_price * item.quantity;
+          if (item.sale) {
+            return (
+              acc +
+              (item.price_for_authenticated -
+                (item.price_for_authenticated * item.sale) / 100) *
+                item.quantity
+            );
+          } else {
+            return acc + item.price_for_authenticated * item.quantity;
+          }
         }, 0);
         state.productsNumber = state.items.length;
       })

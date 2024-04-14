@@ -16,7 +16,6 @@ const ProductWrapper = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     axios.get(`${apiUrl}/products/${slug}/`).then((response) => {
       setProduct(response.data);
-      console.log(product);
     });
   }, []);
   return (

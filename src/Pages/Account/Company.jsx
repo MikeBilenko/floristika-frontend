@@ -113,7 +113,6 @@ const Company = () => {
         });
       })
       .catch((e) => {
-        console.log(e);
         if (e.response.status === 401) {
           navigate("/accounts/login/");
         }
@@ -163,12 +162,11 @@ const Company = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    console.log(user);
+
     let error = false;
 
     let country_ = user.country;
 
-    console.log(country_, findClosestCountry(country_));
     if (user.country.length <= 0) {
       setCountryError(true);
       error = true;
@@ -245,7 +243,6 @@ const Company = () => {
         }
       )
       .then((response) => {
-        console.log(response.data);
         if (response.status === 200) {
           setUser({
             id: response.data.id,
@@ -313,7 +310,6 @@ const Company = () => {
             value={user.city}
             onChange={(e) =>
               setUser((prevUser) => {
-                console.log(e);
                 return { ...prevUser, city: e };
               })
             }
@@ -381,7 +377,6 @@ const Company = () => {
           )}
         </div>
       )}
-      {/* {user && user.email} */}
     </AccountWrapper>
   );
 };

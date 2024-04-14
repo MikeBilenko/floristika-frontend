@@ -46,7 +46,6 @@ const Filter = ({
         setMin(response.data.min_price);
         setMax(response.data.max_price);
         setLoading(false);
-        console.log(response.data);
       });
   }, []);
 

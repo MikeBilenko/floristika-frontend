@@ -13,7 +13,6 @@ const CartItem = ({ cartItem }) => {
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
-  console.log(cartItem);
   const [wishlist, setWishlist] = useState(false);
 
   const addToWishlist = (slug) => {
@@ -133,13 +132,20 @@ const CartItem = ({ cartItem }) => {
         </div>
       </div>
       <div className="cart-products-list-item-price">
-        €
-        {!token
-          ? cartItem.price.toFixed(2)
-          : (
-              cartItem.price -
-              (cartItem.price * cartItem.auth_percent.percent) / 100
-            ).toFixed(2)}
+        <div>
+          €
+          {!token
+            ? cartItem.sale
+              ? ((cartItem.price * (100 - cartItem.sale)) / 100).toFixed(2)
+              : cartItem.price.toFixed(2)
+            : cartItem.sale
+            ? (
+                (cartItem.price_for_authenticated * (100 - cartItem.sale)) /
+                100
+              ).toFixed(2)
+            : cartItem.price_for_authenticated.toFixed(2)}
+        </div>
+        {cartItem.sale && <div>-{cartItem.sale}%</div>}
       </div>
       <div className="cart-products-list-item-qty">
         <div
@@ -176,12 +182,19 @@ const CartItem = ({ cartItem }) => {
       <div className="cart-products-list-item-total">
         €
         {!token
-          ? (cartItem.quantity * cartItem.price).toFixed(2)
-          : (
-              (cartItem.price -
-                (cartItem.price * cartItem.auth_percent.percent) / 100) *
+          ? cartItem.sale
+            ? (
+                ((cartItem.price * (100 - cartItem.sale)) / 100) *
+                cartItem.quantity
+              ).toFixed(2)
+            : (cartItem.price * cartItem.quantity).toFixed(2)
+          : cartItem.sale
+          ? (
+              ((cartItem.price_for_authenticated * (100 - cartItem.sale)) /
+                100) *
               cartItem.quantity
-            ).toFixed(2)}
+            ).toFixed(2)
+          : (cartItem.price_for_authenticated * cartItem.quantity).toFixed(2)}
         <IoTrashOutline
           onClick={() => {
             dispatch(

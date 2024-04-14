@@ -48,7 +48,3 @@ const FilterPriceSection = ({
 };
 
 export default FilterPriceSection;
-
-// (
-//           //
-//         )}

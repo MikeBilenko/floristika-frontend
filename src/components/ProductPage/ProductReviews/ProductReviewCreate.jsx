@@ -14,12 +14,20 @@ import { useTranslation } from "react-i18next";
 
 const ProductReviewCreate = ({ product, open, setOpen }) => {
   const { t } = useTranslation();
-  const [rate, setRate] = useState(1);
+  const [rate, setRate] = useState(0);
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [text, setText] = useState("");
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const [emailError, setEmailError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const [messageError, setMessageError] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -59,7 +67,28 @@ const ProductReviewCreate = ({ product, open, setOpen }) => {
 
   const submit = (e) => {
     e.preventDefault();
-    console.log(product);
+    let error = false;
+    if (name.length <= 0) {
+      setNameError(true);
+      error = true;
+    } else {
+      setNameError(false);
+    }
+    if (!validateEmail(email)) {
+      setEmailError(true);
+      error = true;
+    } else {
+      setEmailError(false);
+    }
+    if (text.length <= 0) {
+      setMessageError(true);
+      error = true;
+    } else {
+      setMessageError(false);
+    }
+
+    if (error) return;
+
     axios
       .post(
         `${process.env.REACT_APP_API_URL}/reviews/create/`,
@@ -83,7 +112,6 @@ const ProductReviewCreate = ({ product, open, setOpen }) => {
         toast.error(err);
       });
   };
-  // TODO: Add propper validation
 
   return (
     <div
@@ -107,6 +135,8 @@ const ProductReviewCreate = ({ product, open, setOpen }) => {
           value={text}
           onChange={(e) => setText(e)}
           label={t("reviews.tell_us_more")}
+          error={messageError}
+          error_message={t("messages.errors.auth.required")}
         />
         <div className="product-review-create-content-inputs">
           <Input
@@ -114,6 +144,8 @@ const ProductReviewCreate = ({ product, open, setOpen }) => {
             onChange={(e) => setName(e)}
             type="text"
             label={t("reviews.name")}
+            error={nameError}
+            error_message={t("messages.errors.auth.required")}
           />
 
           <Input
@@ -121,6 +153,8 @@ const ProductReviewCreate = ({ product, open, setOpen }) => {
             label={t("reviews.email")}
             value={email}
             onChange={(e) => setEmail(e)}
+            error={emailError}
+            error_message={t("messages.errors.auth.email")}
           />
         </div>
         <div className="product-review-create-content-buttons">

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./MiniCart.scss";
-import { LuTrash2, LuShoppingCart, LuX } from "react-icons/lu";
+import { LuShoppingCart, LuX } from "react-icons/lu";
 import Button from "../../ui/Button/Button";
 import { Link } from "react-router-dom";
 import MiniCartItem from "./MiniCartItem";
@@ -8,10 +8,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { closeMenu, fetchCartItems } from "../../redux/slices/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
 
 const MiniCart = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const isVisible = useSelector((state) => state.cart.isVisible);
   const token = useSelector((state) => state.auth.token);

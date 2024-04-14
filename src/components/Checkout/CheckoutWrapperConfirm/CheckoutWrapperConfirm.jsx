@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleCart, clearCart } from "../../../redux/slices/cartSlice";
-import { selectToken, selectUser } from "../../../redux/slices/authSlice";
+import { clearCart } from "../../../redux/slices/cartSlice";
+import { selectToken } from "../../../redux/slices/authSlice";
 import Title from "../../../ui/Title/Title";
 import Button from "../../../ui/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 import Radio from "../../../ui/Radio/Radio";
 import countryList from "react-select-country-list";
 import { useTranslation } from "react-i18next";
-// TODO: translate and check calculations
 
 const CheckoutWrapperConfirm = () => {
   const { t, i18n } = useTranslation();
@@ -52,6 +51,67 @@ const CheckoutWrapperConfirm = () => {
     setSelectedStore(value);
   };
 
+  const findClosestCountry = (searchTerm) => {
+    const countries = countryList().getData();
+    const levenshteinDistance = (s1, s2) => {
+      const memo = Array.from({ length: s1.length + 1 }, (_, i) =>
+        Array.from({ length: s2.length + 1 }, (_, j) => {
+          if (i === 0) return j;
+          if (j === 0) return i;
+          return 0;
+        })
+      );
+
+      for (let i = 1; i <= s1.length; i++) {
+        for (let j = 1; j <= s2.length; j++) {
+          const cost = s1[i - 1] === s2[j - 1] ? 0 : 1;
+          memo[i][j] = Math.min(
+            memo[i - 1][j] + 1,
+            memo[i][j - 1] + 1,
+            memo[i - 1][j - 1] + cost
+          );
+        }
+      }
+
+      return memo[s1.length][s2.length];
+    };
+
+    let minDistance = Infinity;
+    let closestCountry = null;
+
+    for (const country__ of countries) {
+      const distance = levenshteinDistance(
+        searchTerm.toLowerCase(),
+        country__.label.toLowerCase()
+      );
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestCountry = country__.label;
+      }
+    }
+
+    return closestCountry;
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const validatePhone = (phone) => {
+    const countryCodeRegex = /^\+\d{1,3}\d{9}$/;
+    return countryCodeRegex.test(phone);
+  };
+  const [emailError, setEmailError] = useState(false);
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [lastNameError, setLastNameError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+  const [addressError, setAddressError] = useState(false);
+  const [postalCodeError, setPostalCodeError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+  const [countryError, setCountryError] = useState(false);
+  const [countrySpellError, setCountrySpellError] = useState(false);
+  const [possibleCountry, setPossibleCountry] = useState("");
+
   useEffect(() => {
     if (productsNumber <= 0) {
       navigate("/cart/");
@@ -62,21 +122,15 @@ const CheckoutWrapperConfirm = () => {
   }, [productsNumber]);
 
   useEffect(() => {
-    // setTimeout(() => {
     if (selectedDelivery) {
       setSelectedStore(null);
     }
-    // }, 400);
   }, [selectedDelivery]);
 
   useEffect(() => {
-    // setTimeout(() => {
-    console.log(selectedStore, "SELECTED STORE");
     if (selectedStore) {
-      console.log(selectedStore);
       setSelectedDelivery(null);
     }
-    // }, 400);
   }, [selectedStore]);
 
   useEffect(() => {
@@ -88,8 +142,20 @@ const CheckoutWrapperConfirm = () => {
           },
         })
         .then((response) => {
+          const { country, city, postal_code, address_book_phone, address } =
+            response.data;
+          if (
+            !country &&
+            !city &&
+            !postal_code &&
+            !address &&
+            !address_book_phone
+          ) {
+            toast.info(t("messages.info.auth.address_book"));
+            navigate(`/accounts/account/address-book/`);
+          }
+
           setUser(response.data);
-          console.log(response.data, "USER DATA");
         });
       axios
         .get(`${process.env.REACT_APP_API_URL}/users/company/`, {
@@ -99,11 +165,9 @@ const CheckoutWrapperConfirm = () => {
         })
         .then((response) => {
           setCompanyDiscount(response.data.sale_percent);
-
-          console.log(response.data, "Company data");
         })
         .catch((e) => {
-          //
+          console.log("Error");
         });
     }
   }, [token]);
@@ -116,17 +180,16 @@ const CheckoutWrapperConfirm = () => {
       })
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data);
           setDiscountPercent(response.data.discount);
-          toast.success("Discount code applied");
+          toast.success(t("messages.success.discount.applied"));
         } else {
-          toast.error("Invalid discount code");
+          toast.error(t("messages.errors.discount.invalid"));
           setDiscountPercent(0);
           setDiscount("");
         }
       })
       .catch((e) => {
-        toast.error("Invalid discount code");
+        toast.error(t("messages.errors.discount.invalid"));
         setDiscountPercent(0);
         setDiscount("");
       });
@@ -153,15 +216,83 @@ const CheckoutWrapperConfirm = () => {
         )
         .then((response) => {
           if (response.status === 200) {
-            dispatch(clearCart());
-            dispatch(clearCart());
             navigate(`/cart/checkout/confirm/success/${response.data.number}/`);
+            dispatch(clearCart());
           }
         });
     } else {
       let checkoutItems = items.map((item) => {
         return { product: item.slug, quantity: item.quantity };
       });
+
+      e.preventDefault();
+      let error = false;
+      if (name.length <= 0) {
+        setFirstNameError(true);
+        error = true;
+      } else {
+        setFirstNameError(false);
+      }
+      if (surname.length <= 0) {
+        setLastNameError(true);
+        error = true;
+      } else {
+        setLastNameError(false);
+      }
+      if (!validateEmail(email)) {
+        setEmailError(true);
+        error = true;
+      } else {
+        setEmailError(false);
+      }
+      if (validatePhone(phoneNumber)) {
+        setPhoneError(true);
+        error = true;
+      } else {
+        setPhoneError(false);
+      }
+
+      let country_ = country;
+
+      if (country.length <= 0) {
+        setCountryError(true);
+        error = true;
+      } else {
+        setCountryError(false);
+      }
+      if (country_ !== findClosestCountry(country_)) {
+        setCountrySpellError(true);
+        setPossibleCountry(findClosestCountry(country_));
+        error = true;
+      } else {
+        setCountrySpellError(false);
+        setPossibleCountry("");
+      }
+
+      if (address.length <= 0) {
+        setAddressError(true);
+        error = true;
+      } else {
+        setAddressError(false);
+      }
+      if (city.length <= 0) {
+        setCityError(true);
+        error = true;
+      } else {
+        setCityError(false);
+      }
+      if (postalCode.length <= 0) {
+        setPostalCodeError(true);
+        error = true;
+      } else {
+        setPostalCodeError(false);
+      }
+
+      if (error) return;
+
+      country_ = options.find((item) => item.label === country_).value;
+      user.country = country_;
+
       axios
         .post(`${process.env.REACT_APP_API_URL}/orders/order/guest/`, {
           email: email,
@@ -180,9 +311,9 @@ const CheckoutWrapperConfirm = () => {
         .then((response) => {
           console.error(response, "RESPONSE");
           if (response.status === 200 || response.status === 201) {
-            dispatch(clearCart());
             navigate(`/cart/checkout/confirm/success/${response.data.number}/`);
             window.scrollTo(0, 0);
+            dispatch(clearCart());
           }
         });
     }
@@ -190,64 +321,96 @@ const CheckoutWrapperConfirm = () => {
 
   return (
     <div>
-      <Title>CONFIRM YOUR ORDER</Title>
+      <Title>{t("checkout.confirm_order")}</Title>
       <div className="checkout-confirm-wrapper">
         {!token && (
           <div className="checkout-confirm-wrapper-form">
-            <Input label="Name*" value={name} onChange={(e) => setName(e)} />
             <Input
-              label="Surname*"
+              label={`${t("auth.first_name")}*`}
+              error={firstNameError}
+              error_message={t("messages.errors.auth.first_name")}
+              value={name}
+              onChange={(e) => setName(e)}
+            />
+            <Input
+              label={`${t("auth.last_name")}*`}
               value={surname}
               onChange={(e) => setSurname(e)}
+              error={lastNameError}
+              error_message={t("messages.errors.auth.last_name")}
             />
-            <Input label="Email*" value={email} onChange={(e) => setEmail(e)} />
             <Input
-              label="Phone Number*"
+              label={`${t("auth.email")}*`}
+              value={email}
+              onChange={(e) => setEmail(e)}
+              error={emailError}
+              error_message={t("messages.errors.auth.email")}
+            />
+            <Input
+              label={`${t("auth.phone_number")}*`}
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e)}
+              error={phoneError}
+              placeholder={"e.g. +371 22222222"}
+              error_message={t("messages.errors.auth.phone_number")}
             />
             <Input
-              label="Address*"
+              label={`${t("auth.address")}*`}
               value={address}
               onChange={(e) => setAddress(e)}
+              error={addressError}
+              error_message={t("messages.errors.auth.required")}
             />
-            <Input label="City*" value={city} onChange={(e) => setCity(e)} />
             <Input
-              label="Country*"
+              label={`${t("auth.city")}*`}
+              value={city}
+              onChange={(e) => setCity(e)}
+              error={cityError}
+              error_message={t("messages.errors.auth.required")}
+            />
+            <Input
+              label={`${t("auth.country")}*`}
               value={country}
               onChange={(e) => setCountry(e)}
+              error={countryError || countrySpellError}
+              error_message={`${
+                countryError ? t("messages.errors.auth.required") : ""
+              }
+                ${
+                  countrySpellError
+                    ? `${t("messages.errors.auth.country")} ${possibleCountry}`
+                    : ""
+                }
+                `}
             />
             <Input
-              label="Postal Code *"
+              label={`${t("auth.postal_code")}*`}
               value={postalCode}
               onChange={(e) => setPostalCode(e)}
+              error={postalCodeError}
+              error_message={t("messages.errors.auth.required")}
             />
-            <div className="checkout-confirm-wrapper-content">
-              <div className="select-delivery-address">
-                <div className="info">
-                  If you want to pick up from store, please choose one.
-                </div>
-                <p>You still need to fill-in all fields.</p>
-                {stores &&
-                  stores.length > 0 &&
-                  stores.map((store) => (
-                    <Radio
-                      key={`delivery_store_${store.id}`}
-                      label={`Store ${store.name}: ${store.address}, ${
-                        store.postal_code
-                      }, ${
-                        options.find((item) => item.value === store.country)
-                          .label
-                      }, ${store.city}, ${store.phone_number}`}
-                      value={store.id}
-                      checkedValue={selectedStore}
-                      onChange={handleStoresRadioChange}
-                    />
-                  ))}
-              </div>
+            <div className="select-delivery-address">
+              <div className="info">{t("checkout.pick_from_store")}</div>
+              <p>{t("checkout.fill_in")}</p>
+              {stores &&
+                stores.length > 0 &&
+                stores.map((store) => (
+                  <Radio
+                    key={`delivery_store_${store.id}`}
+                    label={`Store ${store.name}: ${store.address}, ${
+                      store.postal_code
+                    }, ${
+                      options.find((item) => item.value === store.country).label
+                    }, ${store.city}, ${store.phone_number}`}
+                    value={store.id}
+                    checkedValue={selectedStore}
+                    onChange={handleStoresRadioChange}
+                  />
+                ))}
             </div>
             <Button fullWidth onClick={submit}>
-              ORDER
+              {t("checkout.order")}
             </Button>
           </div>
         )}
@@ -255,10 +418,8 @@ const CheckoutWrapperConfirm = () => {
         {token && user && user.email && (
           <div className="checkout-confirm-wrapper-content">
             <div className="select-delivery-address">
-              <div className="info">
-                Please choose one to which you want to deliver.
-              </div>
-              <p>This is default:</p>
+              <div className="info">{t("checkout.choose_delivery")}</div>
+              <p>{t("checkout.default")}</p>
               <Radio
                 label={`${user.address}, ${user.postal_code}, ${
                   options.find((item) => item.value === user.country).label
@@ -267,7 +428,9 @@ const CheckoutWrapperConfirm = () => {
                 checkedValue={selectedDelivery}
                 onChange={handleRadioChange}
               />
-              <p>These ones from address book:</p>
+              {user.address_books && user.address_books.length > 0 && (
+                <p>{t("checkout.from_address_book")}</p>
+              )}
               {user.address_books &&
                 user.address_books.length > 0 &&
                 user.address_books.map((address_book) => (
@@ -285,7 +448,7 @@ const CheckoutWrapperConfirm = () => {
                     onChange={handleRadioChange}
                   />
                 ))}
-              <div className="info">Or you can pickup from store:</div>
+              <div className="info">{t("checkout.pickup")}</div>
               {stores &&
                 stores.length > 0 &&
                 stores.map((store) => (
@@ -303,10 +466,8 @@ const CheckoutWrapperConfirm = () => {
                 ))}
             </div>
             <div className="select-delivery-address">
-              <div className="info">
-                Please choose one to which you want to be your billing address.
-              </div>
-              <p>This is default:</p>
+              <div className="info">{t("checkout.choose_billing")}</div>
+              <p>{t("checkout.default")}</p>
               <Radio
                 label={`${user.address}, ${user.postal_code}, ${
                   options.find((item) => item.value === user.country).label
@@ -315,7 +476,9 @@ const CheckoutWrapperConfirm = () => {
                 checkedValue={selectedBilling}
                 onChange={handleBillingRadioChange}
               />
-              <p>These ones from address book:</p>
+              {user.address_books && user.address_books.length > 0 && (
+                <p>{t("checkout.from_address_book")}</p>
+              )}
 
               {user.address_books &&
                 user.address_books.length > 0 &&
@@ -336,7 +499,7 @@ const CheckoutWrapperConfirm = () => {
                 ))}
             </div>
             <Button fullWidth onClick={submit}>
-              ORDER
+              {t("checkout.order")}
             </Button>
           </div>
         )}
@@ -355,26 +518,13 @@ const CheckoutWrapperConfirm = () => {
                   <span>{item.quantity}</span>
                   <span>
                     €
-                    {console.log(
-                      item.price -
-                        ((item.price -
-                          (item.price * item.auth_percent.percent) / 100) *
-                          item.sale_percent) /
-                          100,
-                      item.price,
-                      item.auth_percent.percent,
-                      item.sale_percent,
-                      "price"
-                    )}
-                    {token
+                    {token && item.price_for_authenticated
                       ? item.sale
-                        ? item.price -
-                          ((item.price -
-                            (item.price * item.auth_percent.percent) / 100) *
-                            item.sale_percent) /
-                            100
-                        : item.price -
-                          (item.price * item.auth_percent.percent) / 100
+                        ? item.price_for_authenticated -
+                          (item.price_for_authenticated * item.sale) / 100
+                        : item.price_for_authenticated
+                      : item.sale
+                      ? item.price - (item.price * item.sale) / 100
                       : item.price}
                   </span>
                 </div>
@@ -386,10 +536,10 @@ const CheckoutWrapperConfirm = () => {
               value={discount}
               onChange={(e) => setDiscount(e)}
             />
-            <Button onClick={checkCode}>APPLY</Button>
+            <Button onClick={checkCode}>{t("filters.apply")}</Button>
           </div>
           <div className="checkout-total">
-            <span>TOTAL</span>
+            <span>{t("cart.total").toUpperCase()}</span>
             {!token && (
               <span className="price">
                 {discountPercent === 0 && `€${totalAmount}`}
@@ -425,8 +575,8 @@ const CheckoutWrapperConfirm = () => {
           </div>
           {companyDiscount > 0 && (
             <span className="checkout-total">
-              As a company you will recieve {companyDiscount}% to your orders.
-              You can see in checkout.
+              {t("company.discount")}
+              {companyDiscount}%.
             </span>
           )}
         </div>

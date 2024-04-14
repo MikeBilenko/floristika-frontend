@@ -1,7 +1,5 @@
 import React from "react";
 import { Route, Routes, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/slices/authSlice";
 import Product from "../../Pages/Products/Product";
 import Products from "../../Pages/Products/Products";
 

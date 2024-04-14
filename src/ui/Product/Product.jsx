@@ -17,7 +17,6 @@ const Product = ({ product, setProducts = null }) => {
   const [wishlist, setWishlist] = useState(false);
   const navigate = useNavigate();
   const link = `/products/${product.category.slug}/${product.subcategory.slug}/${product.slug}/`;
-  console.log(product);
   const product_discount = product.price - (product.price * product.sale) / 100;
   const auth_price = product.price_for_authenticated;
   const auth_price_discount = (auth_price * product.sale) / 100;

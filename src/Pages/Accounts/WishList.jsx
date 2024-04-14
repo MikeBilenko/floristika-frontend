@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  selectUser,
-  selectToken,
-  selectLoading,
-} from "../../redux/slices/authSlice";
+import { selectToken, selectLoading } from "../../redux/slices/authSlice";
 import axios from "axios";
 import ProductList from "../../components/ProductList/ProductList";
 import Title from "../../ui/Title/Title";
@@ -15,7 +11,6 @@ import { useTranslation } from "react-i18next";
 const WishList = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const user = useSelector(selectUser);
   const loading = useSelector(selectLoading);
   const token = useSelector(selectToken);
   const [products, setProducts] = useState([]);
@@ -45,7 +40,6 @@ const WishList = () => {
         })
         .then((response) => {
           setProducts([]);
-          console.log(response.data);
           response.data.map((item) => {
             setProducts((prevProducts) => {
               return [...prevProducts, item.product];

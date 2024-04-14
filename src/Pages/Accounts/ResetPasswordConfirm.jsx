@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectLoading, selectUser } from "../../redux/slices/authSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthWrapper from "../../components/AuthPages/AuthWrapper/AuthWrapper";

@@ -112,6 +112,7 @@
 
     &-price {
       display: flex;
+      flex-direction: column;
       @include tablet {
         display: none;
       }
@@ -249,7 +250,6 @@
 
   &-dots {
     display: flex;
-    // height: 16px;
 
     gap: 8px;
     & > div {

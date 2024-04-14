@@ -52,13 +52,17 @@ const ProductIntro = ({
   }, [cart, product]);
   useEffect(() => {
     if (product.name) {
-      const product_discount = price - (price * product.sale_percent) / 100;
       const auth_price = product.price_for_authenticated;
-      const auth_price_discount =
-        auth_price - (auth_price * product.sale_percent) / 100;
-      setProductDiscount(product_discount);
+
+      if (product.sale) {
+        const product_discount = price - (price * product.sale) / 100;
+        const auth_price_discount =
+          auth_price - (auth_price * product.sale) / 100;
+        setProductDiscount(product_discount);
+        setAuthPriceDiscount(auth_price_discount);
+      }
+
       setAuthPrice(auth_price);
-      setAuthPriceDiscount(auth_price_discount);
     }
   }, [product]);
 
@@ -148,9 +152,7 @@ const ProductIntro = ({
 
           {product.sale && (
             <div className="sale">
-              {`${t("categories.sale")}! ${t("save")} ${
-                product.sale_percent
-              }:%`}
+              {`${t("categories.sale")}! ${t("save")} ${product.sale}:%`}
               <div className="price">
                 {!user && <div>€{productDiscount}</div>}
                 <div>

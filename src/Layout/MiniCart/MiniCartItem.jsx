@@ -15,7 +15,6 @@ const MiniCartItem = ({ cartItem }) => {
   const token = useSelector(selectToken);
   const dispatch = useDispatch();
 
-  console.log(cartItem);
   return (
     <div className="minicart-item">
       <img src={cartItem.images[0].image} alt={cartItem.images[0].alt} />
@@ -28,26 +27,16 @@ const MiniCartItem = ({ cartItem }) => {
             <div className="sale">
               {cartItem.sale && (
                 <span className="sale">
-                  {t("categories.sale").toUpperCase()} -{cartItem.sale_percent}%
+                  {t("categories.sale").toUpperCase()} -{cartItem.sale}%
                 </span>
               )}
             </div>
           </div>
           <div className={`price ${!token ? "declined" : ""}`}>
             <div>
-              €
-              {token
-                ? cartItem.price -
-                  (cartItem.price * cartItem.auth_percent.percent) / 100
-                : cartItem.price}
+              €{token ? cartItem.price_for_authenticated : cartItem.price}
             </div>
-            {!token && (
-              <div>
-                €
-                {cartItem.price -
-                  (cartItem.price * cartItem.auth_percent.percent) / 100}
-              </div>
-            )}
+            {!token && <div>€{cartItem.price_for_authenticated}</div>}
           </div>
         </div>
         <div className="minicart-product-actions">

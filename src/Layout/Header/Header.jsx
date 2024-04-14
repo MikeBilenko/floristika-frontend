@@ -8,7 +8,6 @@ import { TbBriefcase2 } from "react-icons/tb";
 import { MdOutlineInfo } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { openMenu } from "../../redux/megaMenuSlice";
 import { useTranslation } from "react-i18next";
 import Button from "../../ui/Button/Button";
 import axios from "axios";
@@ -33,7 +32,6 @@ const Header = () => {
   const { t, i18n } = useTranslation();
   const handleChangeLanguage = (lang) => {
     i18n.changeLanguage(lang);
-    console.log(lang);
     setActiveLang(false);
   };
 

@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  register,
-  selectLoading,
-  selectError,
-  selectUser,
-} from "../../redux/slices/authSlice";
+import { useSelector } from "react-redux";
+import { selectLoading, selectUser } from "../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import AuthWrapper from "../../components/AuthPages/AuthWrapper/AuthWrapper";
 import Input from "../../ui/Input/Input";
@@ -39,7 +34,6 @@ function Register() {
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastNameError, setLastNameError] = useState(false);
 
-  const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectUser);
   const navigate = useNavigate();
 
@@ -197,7 +191,7 @@ function Register() {
           error={lastNameError}
           error_message={t("messages.errors.auth.last_name")}
         />
-        {/* Username and password input fields */}
+
         <Button fullWidth submit={true} disabled={loading}>
           {loading
             ? `${t("auth.register").toUpperCase()}...`

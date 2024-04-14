@@ -9,7 +9,6 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../redux/slices/authSlice";
 import Pagination from "../Pagination/Pagination";
-import { useNavigate } from "react-router-dom";
 import FilterMobile from "../Filter/FilterMobile";
 import { useTranslation } from "react-i18next";
 
@@ -72,7 +71,6 @@ const ProductsWrapper = ({ category, type }) => {
         setLimitedRange([response.data.min_price, response.data.max_price]);
       });
   }, []);
-  const navigate = useNavigate();
 
   useEffect(() => {
     let otherParams = [
@@ -110,7 +108,6 @@ const ProductsWrapper = ({ category, type }) => {
           setHasPrevious(response.data.previous !== null);
           setHasNext(response.data.next !== null);
           setCount(response.data.count);
-          console.log(response.data.results);
           if (response.data.results.length === 0) {
             setProducts([]);
           } else {

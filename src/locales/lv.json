@@ -28,7 +28,7 @@
     "add_address_book": "Pievienot adrešu grāmatu",
     "address": "Adrese",
     "city": "Pilsēta",
-    "postal_code": "pasta indekss",
+    "postal_code": "Pasta indekss",
     "country": "Valsts",
     "default_address_book": "Šī ir noklusējuma adreses informācija piegādei un norēķiniem, lūdzu, aizpildiet, lai turpinātu.",
     "default_billing": "Šī ir jūsu pamata norēķinu adrese.",
@@ -43,12 +43,13 @@
     "country": "Valsts",
     "city": "Pilsēta",
     "address": "Adrese",
-    "postal_code": "pasta indekss",
+    "postal_code": "Pasta indekss",
     "compny_phone_number": "Uzņēmuma tālruņa numurs",
     "company_email": "Uzņēmuma e-pasta adrese",
     "save_company": "SAGLABĀT UZŅĒMUMU",
     "delete_company": "DZĒST UZŅĒMUMU",
-    "company_text": "Ja jums ir uzņēmums, jums var būt papildu atlaide no īpašniekiem."
+    "company_text": "Ja jums ir uzņēmums, jums var būt papildu atlaide no īpašniekiem.",
+    "discount": "Kā uzņēmums jūs saņemsit "
   },
   "languages": {
     "language": "Valoda",
@@ -158,7 +159,16 @@
     "cost": "Izmaksas"
   },
   "status": {
-    "status": "Statuss"
+    "status": "Statuss",
+    "pending": "Gaida",
+    "processing": "Apstrāde",
+    "shipped": "Nosūtīts",
+    "delivered": "Piegādāts",
+    "cancelled": "Atcelts",
+    "refunded": "Atmaksāts",
+    "on-hold": "Aizturēts",
+    "ready-for-pickup": "Gatavs saņemšanai",
+    "completed": "pabeigts"
   },
   "checkout": {
     "thanks": "PALDIES PAR JŪSU PASŪTĪJUMU",
@@ -167,7 +177,33 @@
     "ordernumber": "Pasūtījuma numurs:",
     "total_cost": "Kopējās izmaksas:",
     "items": "Preces:",
-    "continue": "TURPINĀT IEPIRKUMU"
+    "continue": "TURPINĀT IEPIRKUMU",
+    "order": "PASŪTĪT",
+    "confirm_order": "APSTIPRINĀT PASŪTĪJUMU",
+    "from_address_book": "Šie no adrešu grāmatas:",
+    "choose_billing": "Lūdzu, izvēlieties vienu, kurai vēlaties būt norēķinu adrese.",
+    "default": "Tas ir noklusējuma: ",
+    "pickup": "Vai arī varat izņemt no veikala:",
+    "choose_delivery": "Lūdzu, izvēlieties vienu, uz kuru vēlaties piegādāt.",
+    "pick_from_store": "Ja vēlaties izņemt no veikala, lūdzu, izvēlieties vienu.",
+    "fill_in": "Jums joprojām ir jāaizpilda visi lauki."
+  },
+  "order": {
+    "payment": "Maksājums",
+    "invoice": "Rēķins",
+    "item": "Prece",
+    "price": "Cena",
+    "quantity": "Daudzums",
+    "total_cost": "Summa",
+    "total": "Kopā",
+    "delivery": "Piegāde",
+    "comapny_discount": "Uzņēmuma atlaide",
+    "color": "Krāsa",
+    "size": "Izmērs",
+    "shipping": "Piegāde",
+    "billing_address": "Norēķinu adrese",
+    "discount": "Atlaide",
+    "store": "Veikals"
   },
   "categories": {
     "best_sellers": "Pārdotākie",
@@ -211,11 +247,17 @@
         "phone_number": "Ievadiet derīgu tālruņa numuru ar valsts kodu, kā parādīts piemērā (+371 00000000).",
         "required": "Šis lauks ir obligāts.",
         "valsts": "Laikam jūs domājāt (angļu valodā):"
+      },
+      "discount": {
+        "invalid": "Atlaides kods nav derīgs!"
       }
     },
     "success": {
+      "discount": {
+        "applied": "Piemērots atlaides kods!"
+      },
       "auth": {
-        "logout": "Выход выполнен успешно",
+        "logout": "Iziet veiksmīgi",
         "check_email": "Pārbaudiet savā e-pastā saiti paroles atiestatīšanai.",
         "changed": "Paroles atiestatīšana veiksmīgi.",
         "logged_in": "Veiksmīgi pieteicies!",
@@ -241,6 +283,10 @@
         "delete": "Uzņēmums veiksmīgi izdzēsts"
       }
     },
-    "info": {}
+    "info": {
+      "auth": {
+        "address_book": "Aizpildi adrešu grāmatu!"
+      }
+    }
   }
 }

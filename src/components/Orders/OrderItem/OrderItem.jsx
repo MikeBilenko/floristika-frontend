@@ -1,9 +1,8 @@
 import React from "react";
 import "./OrderItem.scss";
 import { useNavigate } from "react-router-dom";
-import { getOrderStatusText, renderDate } from "../Helpers/helpers";
+import { renderDate } from "../Helpers/helpers";
 import OrderStatusText from "../Helpers/helpers";
-// TODO: finish translations
 
 const OrderItem = ({ orderItem }) => {
   const navigate = useNavigate();
@@ -19,7 +18,7 @@ const OrderItem = ({ orderItem }) => {
       >
         <div>{orderItem.number}</div>
         <div>{renderDate(orderItem.order_date)}</div>
-        <div>€{orderItem.total_auth}</div>
+        <div>€{orderItem.total}</div>
         <div className={`status ${orderItem.status}`}>
           <OrderStatusText status={orderItem.status} />
         </div>

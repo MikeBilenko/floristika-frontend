@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setUser,
   selectLoading,
-  selectError,
   selectUser,
 } from "../../redux/slices/authSlice";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,7 +27,6 @@ function Login() {
   const navigate = useNavigate();
 
   const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
 
   const handleSubmit = (e) => {
     e.preventDefault();

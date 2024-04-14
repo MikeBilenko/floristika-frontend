@@ -189,25 +189,25 @@ const AddressBook = () => {
     } else {
       setEmailError(false);
     }
-    if (validatePhone(user.address_book_phone)) {
+    if (!user.address_book_phone || validatePhone(user.address_book_phone)) {
       setPhoneError(true);
       error = true;
     } else {
       setPhoneError(false);
     }
-    if (user.address.length <= 0) {
+    if (!user.address || user.address.length <= 0) {
       setAddressError(true);
       error = true;
     } else {
       setAddressError(false);
     }
-    if (user.city.length <= 0) {
+    if (!user.city || user.city.length <= 0) {
       setCityError(true);
       error = true;
     } else {
       setCityError(false);
     }
-    if (user.postal_code.length <= 0) {
+    if (!user.postal_code || user.postal_code.length <= 0) {
       setPostalCodeError(true);
       error = true;
     } else {
@@ -296,7 +296,7 @@ const AddressBook = () => {
                 <div>{user.address}</div>
                 <div>{user.city}</div>
                 <div>{user.postal_code}</div>
-                <div>{user.country.label}</div>
+                <div>{user.country}</div>
                 <div>{user.address_book_phone}</div>
               </div>
               <div

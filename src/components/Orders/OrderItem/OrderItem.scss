@@ -64,6 +64,7 @@
   &.pending {
     color: #a67e19;
   }
+  &.delivered,
   &.processing {
     color: #39a92f;
   }

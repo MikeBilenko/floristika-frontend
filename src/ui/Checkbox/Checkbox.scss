@@ -29,7 +29,7 @@
     background-color: $primary-green;
     border-color: $primary-green;
     & > svg {
-      display: block; /* Show the check icon when checkbox is checked */
+      display: block;
       color: white;
     }
   }

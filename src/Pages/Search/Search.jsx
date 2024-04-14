@@ -20,7 +20,6 @@ const Search = () => {
         search: searchValue,
       })
       .then((response) => {
-        console.log(response.data);
         if (response.status === 200) {
           setProducts(response.data.results);
         }

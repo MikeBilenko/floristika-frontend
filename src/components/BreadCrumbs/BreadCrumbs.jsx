@@ -12,10 +12,8 @@ const BreadCrumbs = () => {
   useEffect(() => {
     const pathname = location.pathname.replace(/\/$/, ""); // Remove trailing slash
     const pathSegments = pathname.split("/");
-    console.log(pathSegments);
     let breads = [];
     pathSegments.map((segment, index) => {
-      console.log(segment, index, pathSegments.length);
       if (index === 0) {
         breads.push({ path: "/", name: "Home" });
       } else {

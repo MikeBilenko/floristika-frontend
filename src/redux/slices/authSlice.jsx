@@ -47,7 +47,6 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      // Get user data
       .addCase(validateToken.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -68,7 +67,6 @@ const authSlice = createSlice({
   },
 });
 
-// Selectors (optional)
 export const { logout, setUser } = authSlice.actions;
 export const selectUser = (state) => state.auth.user;
 export const selectToken = (state) => state.auth.token;

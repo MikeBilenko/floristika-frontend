@@ -48,7 +48,8 @@
     "company_email": "Company email address",
     "save_company": "SAVE COMPANY",
     "delete_company": "DELETE COMPANY",
-    "company_text": "If you have a compnay you might have an additional discount from owners."
+    "company_text": "If you have a compnay you might have an additional discount from owners.",
+    "discount": "As a company you will recieve "
   },
   "languages": {
     "language": "Language",
@@ -178,7 +179,33 @@
     "ordernumber": "Order number:",
     "total_cost": "Total cost:",
     "items": "Items:",
-    "continue": "CONTINUE SHOPPING"
+    "continue": "CONTINUE SHOPPING",
+    "order": "ORDER",
+    "confirm_order": "CONFIRM YOUR ORDER",
+    "from_address_book": "These ones from address book:",
+    "choose_billing": "Please choose one to which you want to be your billing address.",
+    "default": "This is default: ",
+    "pickup": "Or you can pickup from store:",
+    "choose_delivery": "Please choose one to which you want to deliver.",
+    "pick_from_store": "If you want to pick up from store, please choose one.",
+    "fill_in": "You still need to fill-in all fields."
+  },
+  "order": {
+    "payment": "Payment",
+    "invoice": "Invoice",
+    "item": "Item",
+    "price": "Price",
+    "quantity": "Quantity",
+    "total_cost": "Total cost",
+    "total": "Total",
+    "delivery": "Delivery",
+    "comapny_discount": "Company Discount",
+    "color": "Color",
+    "size": "Size",
+    "shipping": "Shipping",
+    "billing_address": "Billing Address",
+    "discount": "Discount",
+    "store": "Store"
   },
   "categories": {
     "best_sellers": "Best sellers",
@@ -223,9 +250,15 @@
         "phone_number": "Enter valid phone number with country code as in the example (+371 00000000).",
         "required": "This field is required.",
         "country": "Probably you meant (in English):"
+      },
+      "discount": {
+        "invalid": "Discount code invalid!"
       }
     },
     "success": {
+      "discount": {
+        "applied": "Discount code applied!"
+      },
       "auth": {
         "logout": "Logout Successfully",
         "check_email": "Check your email for a link to reset password.",
@@ -253,6 +286,10 @@
         "delete": "Company deleted successfully"
       }
     },
-    "info": {}
+    "info": {
+      "auth": {
+        "address_book": "Fill in address book!"
+      }
+    }
   }
 }

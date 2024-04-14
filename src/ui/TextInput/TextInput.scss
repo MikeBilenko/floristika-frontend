@@ -8,6 +8,10 @@
     line-height: 16px; /* 100% */
     margin-bottom: 8px;
   }
+  & > .error {
+    font-size: 12px;
+    color: $red;
+  }
 }
 
 .input-wrapper {
@@ -29,7 +33,7 @@
   border-radius: 4px;
 
   border: 1px solid $border-color;
-  background-color: white; /* Standard background to ensure consistency */
+  background-color: white;
   resize: none;
 
   &::placeholder {
@@ -40,6 +44,10 @@
     line-height: normal;
     letter-spacing: 1.4px;
   }
+
+  &.error {
+    border-color: $red;
+  }
 }
 
 .rating-label {
@@ -47,6 +55,6 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px; /* 100% */
+  line-height: 16px;
   margin-bottom: 8px;
 }

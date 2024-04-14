@@ -53,7 +53,7 @@ const CheckoutSuccess = () => {
             </div>
             <div>
               <div>{order.number}</div>
-              <div>€{token ? order.total_auth : order.total}</div>
+              <div>€{order.total}</div>
               <div>{order.items}</div>
             </div>
           </div>
