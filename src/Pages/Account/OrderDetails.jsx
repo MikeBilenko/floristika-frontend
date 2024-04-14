@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import AccountWrapper from "../../components/AccountWrapper/AccountWrapper";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectToken } from "../../redux/slices/authSlice";
 import axios from "axios";
 import { renderDate } from "../../components/Orders/Helpers/helpers";
@@ -17,7 +17,6 @@ const OrderDetails = () => {
   const [companyDiscount, setCompanyDiscount] = useState(0.0);
   const { id } = useParams();
   const token = useSelector(selectToken);
-  const dispatch = useDispatch();
   useEffect(() => {
     if (token) {
       axios
@@ -48,7 +47,7 @@ const OrderDetails = () => {
   return (
     <AccountWrapper>
       <div className="account-header">
-        <img src="/accounts/icons/orders.svg" />
+        <img src="/accounts/icons/orders.svg" alt="order-details" />
         {t("cart.order_number")}
         {": "}
         {order && order.number}

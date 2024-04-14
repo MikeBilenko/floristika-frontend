@@ -63,7 +63,7 @@ const Orders = () => {
   return (
     <AccountWrapper>
       <div className="account-header">
-        <img src="/accounts/icons/orders.svg" />
+        <img src="/accounts/icons/orders.svg" alt="orders" />
         {t("auth.my_orders")}
       </div>
       {orders.length > 0 && (
@@ -79,7 +79,7 @@ const Orders = () => {
       )}
       {orders.length <= 0 && (
         <div className="no-orders">
-          <img src="/accounts/icons/noOrders.svg" />
+          <img src="/accounts/icons/noOrders.svg" alt="no-orders" />
           <div className="no-orders-message">{t("cart.empty_orders")}</div>
           <Button fullWidth onClick={() => navigate(`/`)}>
             {t("cart.start_shopping")}

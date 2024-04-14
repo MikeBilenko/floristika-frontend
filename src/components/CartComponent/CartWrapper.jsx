@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./CartWrapper.scss";
 import Title from "../../ui/Title/Title";
 import CartItem from "./CartItem";
 import Button from "../../ui/Button/Button";
-import CartCarousel from "./CartCarousel";
-import Product from "../../ui/Product/Product";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { t } from "i18next";
 import { useNavigate } from "react-router-dom";
 import SubTitle from "../../ui/SubTitle/SubTitle";
 
 const CartWrapper = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { items, totalAmount, totalAuthenticatedAmount, productsNumber } =
     useSelector((state) => state.cart);

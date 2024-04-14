@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import AccountWrapper from "../../components/AccountWrapper/AccountWrapper";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectToken } from "../../redux/slices/authSlice";
 import axios from "axios";
 import Input from "../../ui/Input/Input";
@@ -77,13 +77,11 @@ const AddressBook = () => {
     address: "",
     address_books: [],
     postal_code: "",
-    city: "",
     country: "",
     address_book_phone: "",
   });
   const [defaultData, setDefultData] = useState(false);
 
-  const [emailError, setEmailError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [addressError, setAddressError] = useState(false);
   const [postalCodeError, setPostalCodeError] = useState(false);
@@ -183,12 +181,6 @@ const AddressBook = () => {
       setCountrySpellError(false);
       setPossibleCountry("");
     }
-    if (user.email.length <= 0 && validateEmail(user.email)) {
-      setEmailError(true);
-      error = true;
-    } else {
-      setEmailError(false);
-    }
     if (!user.address_book_phone || validatePhone(user.address_book_phone)) {
       setPhoneError(true);
       error = true;
@@ -269,7 +261,7 @@ const AddressBook = () => {
   return (
     <AccountWrapper>
       <div className="account-header">
-        <img src="/accounts/icons/book.svg" />
+        <img src="/accounts/icons/book.svg" alt="address-bboks" />
         {t("auth.address_book")}
       </div>
       {!edit && user && defaultData && user.address_books.length < 5 && (

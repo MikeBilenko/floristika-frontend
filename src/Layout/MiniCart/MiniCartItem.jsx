@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "./MiniCart.scss";
 import { LuTrash2 } from "react-icons/lu";
-import Button from "../../ui/Button/Button";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken } from "../../redux/slices/authSlice";
 import { removeFromCart, updateQuantity } from "../../redux/slices/cartSlice";
@@ -11,7 +9,6 @@ import { useTranslation } from "react-i18next";
 
 const MiniCartItem = ({ cartItem }) => {
   const { t, i18n } = useTranslation();
-  const [counter, setCounter] = useState(1);
   const token = useSelector(selectToken);
   const dispatch = useDispatch();
 

@@ -54,7 +54,7 @@ const ProductReviews = ({ product, rate }) => {
         <div className="reviews-header-title">
           <div>{t("reviews.customer_reviews")}</div>
           <Button outlined onClick={() => setWriteReview(true)}>
-            <img src={Icon} />
+            <img src={Icon} alt="icon" />
             {t("reviews.write_a_review")}
           </Button>
           <ProductReviewCreate

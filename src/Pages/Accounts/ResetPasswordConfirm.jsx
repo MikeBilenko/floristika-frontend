@@ -125,7 +125,6 @@ function ResetPasswordConfirm() {
             to={"/accounts/login/"}
             style={{
               textAlign: "center",
-              textAlign: "center",
               fontSize: "18px",
               fontWeight: 700,
               lineHeight: "20px",

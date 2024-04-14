@@ -270,14 +270,14 @@ const Header = () => {
                     <LuHeart />
                   </Link>
                 )}
-                <a
+                <div
                   onClick={(e) => {
                     e.preventDefault();
                     dispatch(toggleCart());
                   }}
                 >
                   <LuShoppingCart />
-                </a>
+                </div>
               </div>
             </div>
           </div>

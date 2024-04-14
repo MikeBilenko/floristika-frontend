@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import AccountWrapper from "../../components/AccountWrapper/AccountWrapper";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectToken } from "../../redux/slices/authSlice";
 import axios from "axios";
 import Input from "../../ui/Input/Input";
@@ -19,7 +19,6 @@ const Company = () => {
     city: "",
     address: "",
     postal_code: "",
-    city: "",
     country: "",
     company_name: "",
     vat: "",
@@ -121,7 +120,6 @@ const Company = () => {
             id: "",
             email: "",
             phone: "",
-            city: "",
             address: "",
             postal_code: "",
             city: "",
@@ -150,7 +148,6 @@ const Company = () => {
             city: "",
             address: "",
             postal_code: "",
-            city: "",
             country: "",
             company_name: "",
             vat: "",
@@ -266,7 +263,7 @@ const Company = () => {
   return (
     <AccountWrapper>
       <div className="account-header">
-        <img src="/accounts/icons/company.svg" />
+        <img src="/accounts/icons/company.svg" alt="company" />
         {t("company.company")}
       </div>
 

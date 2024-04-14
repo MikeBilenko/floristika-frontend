@@ -9,8 +9,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/slices/authSlice";
+import { useTranslation } from "react-i18next";
 
 const ContactForm = () => {
+  const { t } = useTranslation();
   const user = useSelector(selectUser);
   const setup = {
     name: user ? `${user.first_name} ${user.last_name}` : "",
@@ -18,6 +20,14 @@ const ContactForm = () => {
     message: "",
   };
   const [formData, setFormData] = useState(setup);
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [messageError, setMessageError] = useState(false);
 
   const setName = (name) => {
     setFormData((prevState) => {
@@ -48,6 +58,26 @@ const ContactForm = () => {
 
   const formSubmit = (e) => {
     e.preventDefault();
+    let error = false;
+    if (formData.name.length <= 0) {
+      setNameError(true);
+      error = true;
+    } else {
+      setNameError(false);
+    }
+    if (formData.message.length <= 0) {
+      setMessageError(true);
+      error = true;
+    } else {
+      setMessage(false);
+    }
+    if (!validateEmail(formData.email)) {
+      setEmailError(true);
+      error = true;
+    } else {
+      setEmailError(false);
+    }
+    if (error) return;
 
     axios
       .post(`${process.env.REACT_APP_API_URL}/contacts/create/`, {
@@ -56,42 +86,48 @@ const ContactForm = () => {
       .then((response) => {
         if (response.status === 201) {
           setFormData(setup);
-          toast.success("Your contacts saved we will contact you later!");
+          toast.success(t("messages.success.contacts"));
         }
       });
   };
 
   return (
     <form onSubmit={formSubmit} action="" className="contact-form">
-      <Title>Leave us a message</Title>
-      <p className="description">
-        Please complete the below form and one of our dedicated faux flower
-        experts will get back to you as soon as possible
-      </p>
+      <Title>{t("contacts.leave_message")}</Title>
+      <p className="description">{t("contacts.message_text")}</p>
       <div className="form-inputs">
         <Input
           onChange={setName}
           value={formData.name}
           label="Name"
           type="text"
+          error={nameError}
+          error_message={t("messages.errors.auth.required")}
         />
         <Input
           onChange={setEmail}
           value={formData.email}
           label="Email"
           type="email"
+          error={emailError}
+          error_message={t("messages.errors.auth.email")}
         />
         <TextInput
           onChange={setMessage}
           label="Message"
           value={formData.message}
+          error={messageError}
+          error_message={t("messages.errors.auth.required")}
         />
       </div>
       <p className="confirm-message">
-        By sending message you agree that the data you submit is processed and
-        stored. Read <Link className="link">Privacy Policy</Link>.
+        {t("contacts.sub_text")}{" "}
+        <Link className="link" to="policies/privacy-policy/">
+          Privacy Policy
+        </Link>
+        .
       </p>
-      <Button fullWidth>Send message</Button>
+      <Button fullWidth>{t("contacts.send_message")}</Button>
     </form>
   );
 };

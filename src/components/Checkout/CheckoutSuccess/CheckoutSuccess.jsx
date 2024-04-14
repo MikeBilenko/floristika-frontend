@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./CheckoutSuccess.scss";
 import { useParams } from "react-router-dom";
 import Title from "../../../ui/Title/Title";
-import { useDispatch, useSelector } from "react-redux";
-import { selectToken } from "../../../redux/slices/authSlice";
+import { useDispatch } from "react-redux";
 import Button from "../../../ui/Button/Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +12,6 @@ import { useTranslation } from "react-i18next";
 const CheckoutSuccess = () => {
   const { number } = useParams();
   const dispatch = useDispatch();
-  const token = useSelector(selectToken);
   const [order, setOrder] = useState({});
   const navigate = useNavigate();
   const { t } = useTranslation();

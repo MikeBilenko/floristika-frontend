@@ -4,7 +4,7 @@ import "./AccountWrapper.scss";
 import Title from "../../ui/Title/Title";
 import { MdOutlineKey } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUser, selectToken, logout } from "../../redux/slices/authSlice";
+import { selectToken, logout } from "../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { useTranslation } from "react-i18next";

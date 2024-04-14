@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import "rc-slider/assets/index.css";
-import Checkbox from "../../ui/Checkbox/Checkbox";
 import Slider from "rc-slider";
 import { useTranslation } from "react-i18next";
 

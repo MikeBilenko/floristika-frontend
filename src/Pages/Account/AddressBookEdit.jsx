@@ -88,9 +88,6 @@ const AddressBookEdit = () => {
         })
         .then((response) => {
           if (response.status === 200) {
-            let coun = options.find(
-              (item) => item.value === response.data.country
-            ).label;
             setUser({
               ...response.data,
               country: options.find(
@@ -195,7 +192,7 @@ const AddressBookEdit = () => {
   return (
     <AccountWrapper>
       <div className="account-header">
-        <img src="/accounts/icons/book.svg" />
+        <img src="/accounts/icons/book.svg" alt="addreess-book" />
         {t("auth.address_book")}
       </div>
 

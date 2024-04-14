@@ -28,14 +28,8 @@ const CheckoutWrapper = () => {
         })
         .then((response) => {
           if (response.status === 200) {
-            const {
-              country,
-              city,
-              postal_code,
-              address_books,
-              address_book_phone,
-              address,
-            } = response.data;
+            const { country, city, postal_code, address_book_phone, address } =
+              response.data;
             if (
               !country &&
               !city &&

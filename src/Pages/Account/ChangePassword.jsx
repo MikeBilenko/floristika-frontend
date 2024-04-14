@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
-  login,
   selectLoading,
   selectError,
-  selectUser,
-  changePassword,
   selectToken,
 } from "../../redux/slices/authSlice";
-import { useNavigate } from "react-router-dom";
 import AccountWrapper from "../../components/AccountWrapper/AccountWrapper";
 import Input from "../../ui/Input/Input";
 import Button from "../../ui/Button/Button";
@@ -25,9 +21,6 @@ const ChangePassword = () => {
   });
   const [passwordError, setPasswordError] = useState(false); // Add state for password error
   const [passwordConfirmError, setPasswordConfirmError] = useState(false); // Add state for password confirm error
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector(selectUser);
-  const navigate = useNavigate();
   const token = useSelector(selectToken); // Get access token
 
   const loading = useSelector(selectLoading);

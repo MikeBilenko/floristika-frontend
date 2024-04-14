@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ContactInfo.scss";
 import Title from "../../../ui/Title/Title";
-import { LuPhone } from "react-icons/lu";
+import { useTranslation } from "react-i18next";
 import {
   CiMail,
   CiLocationOn,
@@ -13,6 +13,7 @@ import axios from "axios";
 
 const ContactInfo = () => {
   const [info, setInfo] = useState();
+  const { t } = useTranslation();
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/contacts/info/`)
@@ -22,30 +23,27 @@ const ContactInfo = () => {
   }, []);
   return (
     <div className="contact-info">
-      <Title>Our Contacts</Title>
-      <p className="description">
-        We are always delighted to answer questions about our artificial flowers
-        and other products.
-      </p>
+      <Title>{t("contacts.contacts")}</Title>
+      <p className="description">{t("contacts.text")}</p>
       <ul className="contact-info-list">
         <li>
           <CiPhone />
           <div className="info">
-            <div className="info-title">Call us</div>
+            <div className="info-title">{t("contacts.call_us")}</div>
             <div className="data">{info && info.phone}</div>
           </div>
         </li>
         <li>
           <CiMail />
           <div className="info">
-            <div className="info-title">Write us</div>
+            <div className="info-title">{t("contacts.write_us")}</div>
             <div className="data">{info && info.email}</div>
           </div>
         </li>
         <li>
           <CiLocationOn />
           <div className="info">
-            <div className="info-title">Our address</div>
+            <div className="info-title">{t("contacts.our_address")}</div>
             <div className="data">
               {info &&
                 info.address &&
@@ -61,7 +59,7 @@ const ContactInfo = () => {
         <li>
           <CiClock1 />
           <div className="info">
-            <div className="info-title">Working hours</div>
+            <div className="info-title">{t("contacts.working_hours")}</div>
             <div className="data">
               {info &&
                 info.working_hours &&
@@ -77,7 +75,7 @@ const ContactInfo = () => {
         <li>
           <CiHome />
           <div className="info">
-            <div className="info-title">Company details</div>
+            <div className="info-title">{t("contacts.company_details")}</div>
             <div className="data">
               {info &&
                 info.details &&

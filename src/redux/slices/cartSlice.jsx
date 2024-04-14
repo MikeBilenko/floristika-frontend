@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import axios from "axios";
 
 const initialState = {
@@ -173,7 +172,7 @@ const cart = createSlice({
     },
 
     removeFromCart(state, action) {
-      const { product, qty, token } = action.payload;
+      const { product, token } = action.payload;
       const itemIndex = state.items.findIndex((item) => item.id === product.id);
       if (itemIndex > -1) {
         state.items.splice(itemIndex, 1);
