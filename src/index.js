@@ -9,6 +9,10 @@ import "react-toastify/dist/ReactToastify.css";
 import i18n from "./i18n";
 import { ToastContainer } from "react-toastify";
 import "./styles/main.scss";
+import axios from "axios";
+
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
