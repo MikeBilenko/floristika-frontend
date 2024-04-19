@@ -25,6 +25,10 @@
 
   @include mobile {
     width: 350px;
+
+    @supports (-webkit-touch-callout: none) {
+      height: 90vh;
+    }
   }
 }
 

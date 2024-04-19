@@ -8,6 +8,7 @@ import ResetPassword from "../../Pages/Accounts/ResetPassowrd";
 import ResetPasswordConfirm from "../../Pages/Accounts/ResetPasswordConfirm";
 import WishList from "../../Pages/Accounts/WishList";
 import AccountRouting from "../AccountRouting/AccountRouting";
+import NotFound from "Pages/NotFound";
 
 const AccountsRouting = () => {
   return (
@@ -24,6 +25,7 @@ const AccountsRouting = () => {
         <Route path="logout/" element={<Logout />} />
         <Route path="wishlist/" element={<WishList />} />
         <Route path="account/*" element={<AccountRouting />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Outlet />
     </div>

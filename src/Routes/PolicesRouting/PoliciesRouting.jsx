@@ -1,3 +1,4 @@
+import NotFound from "Pages/NotFound";
 import DeliveryReturn from "Pages/Policies/DeliveryReturn";
 import PrivacyPolicy from "Pages/Policies/PrivacyPolicy";
 import TermsConditions from "Pages/Policies/TermsConditions";
@@ -11,6 +12,7 @@ const PoliciesRouting = () => {
         <Route path="privacy-policy/" element={<PrivacyPolicy />} />
         <Route path="terms-conditions/" element={<TermsConditions />} />
         <Route path="delivery-return/" element={<DeliveryReturn />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Outlet />
     </div>

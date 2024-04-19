@@ -13,16 +13,20 @@
   border-radius: 16px;
   position: relative;
   align-items: center;
+  overflow: hidden;
 
   & > img {
     width: 100%;
     border-radius: 16px;
   }
   @include mobile {
+    border-radius: 0;
     & > img {
-      width: 100%;
+      display: block;
+      width: 130%;
       height: 337px;
       border-radius: 0;
+      background-size: contain;
     }
     justify-content: center;
   }

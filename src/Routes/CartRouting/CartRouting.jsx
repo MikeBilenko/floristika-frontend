@@ -4,6 +4,7 @@ import Cart from "../../Pages/Cart/Cart";
 import Checkout from "../../Pages/Cart/Checkout";
 import CheckoutConfirm from "../../Pages/Cart/CheckoutConfirm";
 import CheckoutSuccess from "../../components/Checkout/CheckoutSuccess/CheckoutSuccess";
+import NotFound from "Pages/NotFound";
 
 const CartRouting = () => {
   return (
@@ -16,6 +17,7 @@ const CartRouting = () => {
           path="/checkout/confirm/success/:number/"
           element={<CheckoutSuccess />}
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Outlet />
     </div>

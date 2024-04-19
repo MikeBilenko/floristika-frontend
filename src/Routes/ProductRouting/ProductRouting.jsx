@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes, Outlet } from "react-router-dom";
 import Product from "../../Pages/Products/Product";
 import Products from "../../Pages/Products/Products";
+import NotFound from "Pages/NotFound";
 
 const ProductRouting = () => {
   return (
@@ -11,6 +12,7 @@ const ProductRouting = () => {
         <Route path="/:category/*" element={<Products />} />
         <Route path="/:category/:type/*" element={<Products />} />
         <Route path=":category/:type/:slug/" element={<Product />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Outlet />
     </div>

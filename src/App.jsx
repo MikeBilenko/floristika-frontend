@@ -11,6 +11,7 @@ import ProductRouting from "./Routes/ProductRouting/ProductRouting";
 import CartRouting from "./Routes/CartRouting/CartRouting";
 import SearchRouting from "./Routes/SearchRouting/SearchRouting";
 import PoliciesRouting from "Routes/PolicesRouting/PoliciesRouting";
+import NotFound from "Pages/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function App() {
         <Route path="/products/*" element={<ProductRouting />} />
         <Route path="/cart/*" element={<CartRouting />} />
         <Route path="/policies/*" element={<PoliciesRouting />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Outlet />
     </Layout>
