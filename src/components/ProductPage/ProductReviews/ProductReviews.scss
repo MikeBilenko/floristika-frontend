@@ -208,6 +208,7 @@
     background-color: $white;
     @include mobile {
       padding: 16px;
+      overflow: scroll;
     }
 
     &-header {

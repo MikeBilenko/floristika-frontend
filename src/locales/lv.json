@@ -227,7 +227,10 @@
     "leave_message": "Atstājiet mums ziņu",
     "message_text": " Lūdzu, aizpildiet tālāk esošo veidlapu, un kāds no mūsu īpašajiem mākslīgo ziedu ekspertiem sazināsies ar jums, cik drīz vien iespējams",
     "sub_text": " Nosūtot ziņojumu jūs piekrītat, ka jūsu iesniegtie dati tiek apstrādāti un saglabāti. Lasīt",
-    "send_message": "Sūtīt ziņojumu"
+    "send_message": "Sūtīt ziņojumu",
+    "message": "Ziņojums",
+    "name": "Vārds",
+    "email": "E-pasts"
   },
   "best_sellers": {
     "text": "Izceliet savu telpu ar mūsu vislabāk pārdotajiem mākslīgajiem ziediem, zaļumiem un iepakojuma materiāliem. Izpētiet mūžīgo eleganci, lai radītu ilgstošu iespaidu."

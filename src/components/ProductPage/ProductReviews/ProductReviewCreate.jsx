@@ -113,6 +113,14 @@ const ProductReviewCreate = ({ product, open, setOpen }) => {
       });
   };
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.removeAttribute("style");
+    }
+  }, [open]);
+
   return (
     <div
       className={`product-review-create ${open ? "active" : ""}`}

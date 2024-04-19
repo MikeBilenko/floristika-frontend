@@ -99,7 +99,7 @@ const ContactForm = () => {
         <Input
           onChange={setName}
           value={formData.name}
-          label="Name"
+          label={t("contacts.name")}
           type="text"
           error={nameError}
           error_message={t("messages.errors.auth.required")}
@@ -107,14 +107,14 @@ const ContactForm = () => {
         <Input
           onChange={setEmail}
           value={formData.email}
-          label="Email"
+          label={t("contacts.email")}
           type="email"
           error={emailError}
           error_message={t("messages.errors.auth.email")}
         />
         <TextInput
           onChange={setMessage}
-          label="Message"
+          label={t("contacts.message")}
           value={formData.message}
           error={messageError}
           error_message={t("messages.errors.auth.required")}
@@ -123,7 +123,7 @@ const ContactForm = () => {
       <p className="confirm-message">
         {t("contacts.sub_text")}{" "}
         <Link className="link" to="policies/privacy-policy/">
-          Privacy Policy
+          {t("policies.privacy_policy")}
         </Link>
         .
       </p>

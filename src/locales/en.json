@@ -229,7 +229,10 @@
     "leave_message": "Leave us a message",
     "message_text": " Please complete the below form and one of our dedicated faux flower experts will get back to you as soon as possible",
     "sub_text": " By sending message you agree that the data you submit is processed and stored. Read",
-    "send_message": "Send message"
+    "send_message": "Send message",
+    "message": "Message",
+    "name": "Name",
+    "email": "Email"
   },
   "best_sellers": {
     "text": "Elevate your space with our bestselling artificial flowers, greenery, and packaging materials. Explore timeless elegance for a lasting impression."
