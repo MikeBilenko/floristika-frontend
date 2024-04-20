@@ -9,8 +9,6 @@ import { FaAngleRight, FaArrowLeftLong } from "react-icons/fa6";
 const HeaderMobile = ({ isOpen, onMenu }) => {
   const [selectedItem, setSelectedItem] = useState({});
   const navigate = useNavigate();
-  const [colors, setColors] = useState([]);
-  const [sizes, setSizes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [types, setTypes] = useState([]);
   const { t, i18n } = useTranslation();
@@ -32,24 +30,6 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
         .then((response) => {
           if (response.status === 200) {
             setTypes(response.data);
-          }
-        });
-      axios
-        .get(
-          `${process.env.REACT_APP_API_URL}/filters/${selectedItem.slug}/color/list/`
-        )
-        .then((response) => {
-          if (response.status === 200) {
-            setColors(response.data);
-          }
-        });
-      axios
-        .get(
-          `${process.env.REACT_APP_API_URL}/filters/${selectedItem.slug}/size/list/`
-        )
-        .then((response) => {
-          if (response.status === 200) {
-            setSizes(response.data);
           }
         });
     }
@@ -208,54 +188,6 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                   {i18n.language === "en" && type.name}
                   {i18n.language === "lv" && type.name_lv}
                   {i18n.language === "ru" && type.name_ru}
-                </Link>
-              ))}
-            <div className="header-mobile-content-extended-top-section">
-              {t("shop_by.by_color").toUpperCase()}
-            </div>
-            {colors &&
-              colors.length > 0 &&
-              colors.map((color) => (
-                <Link
-                  key={color.slug}
-                  to={`/products/${selectedItem.slug}/?colors=${color.slug}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigate(
-                      `/products/${selectedItem.slug}/?colors=${color.slug}`
-                    );
-                    window.location.reload();
-                    setSelectedItem("");
-                    onMenu(false);
-                  }}
-                >
-                  {i18n.language === "en" && color.name}
-                  {i18n.language === "ru" && color.name_ru}
-                  {i18n.language === "lv" && color.name_lv}
-                </Link>
-              ))}
-            <div className="header-mobile-content-extended-top-section">
-              {t("shop_by.by_size").toUpperCase()}
-            </div>
-            {sizes &&
-              sizes.length > 0 &&
-              sizes.map((size) => (
-                <Link
-                  key={size.slug}
-                  to={`/products/${selectedItem.slug}/?sizes=${size.slug}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigate(
-                      `/products/${selectedItem.slug}/?sizes=${size.slug}`
-                    );
-                    setSelectedItem("");
-                    onMenu(false);
-                    window.location.reload();
-                  }}
-                >
-                  {i18n.language === "en" && size.name}
-                  {i18n.language === "ru" && size.name_ru}
-                  {i18n.language === "lv" && size.name_lv}
                 </Link>
               ))}
           </div>
