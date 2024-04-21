@@ -152,11 +152,11 @@ const ProductIntro = ({
 
           {product.sale && (
             <div className="sale">
-              {`${t("categories.sale")}! ${t("save")} ${product.sale}:%`}
+              {`${t("categories.sale")}! ${t("save")} ${product.sale}%`}
               <div className="price">
-                {!user && <div>€{productDiscount}</div>}
+                {!user && <div>€{productDiscount.toFixed(2)}</div>}
                 <div>
-                  <FiUser />€{authPriceDiscount}
+                  <FiUser />€{authPriceDiscount.toFixed(2)}
                 </div>
               </div>
             </div>
@@ -167,7 +167,7 @@ const ProductIntro = ({
         <div className="product-info-rating">
           <Rating rating={rate} />
           <span>
-            {rate ? parseInt(rate) : 0.0}. ({reviews})
+            {rate ? parseFloat(rate).toFixed(2) : 0.0}. ({reviews})
           </span>
         </div>
         {/* new here */}

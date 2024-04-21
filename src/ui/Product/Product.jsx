@@ -176,7 +176,7 @@ const Product = ({ product, setProducts = null }) => {
               €{product.price}
             </span>
             {product.sale && (
-              <span className="sale-price">€{product_discount}</span>
+              <span className="sale-price">€{product_discount.toFixed(2)}</span>
             )}
           </h3>
         )}
@@ -192,7 +192,7 @@ const Product = ({ product, setProducts = null }) => {
           <span className={`${product.sale ? "sale" : ""}`}>€{auth_price}</span>
           {product.sale && (
             <span className="sale-price">
-              €{auth_price - auth_price_discount}
+              €{(auth_price - auth_price_discount).toFixed(2)}
             </span>
           )}
           {!user && (
