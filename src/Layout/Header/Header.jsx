@@ -102,6 +102,7 @@ const Header = () => {
         onClick={() => {
           setActiveLang(false);
           setActiveMenu(false);
+          setMegaMenu(false);
         }}
       >
         <Container>
