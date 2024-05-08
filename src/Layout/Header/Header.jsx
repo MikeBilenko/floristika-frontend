@@ -285,11 +285,12 @@ const Header = () => {
 
           <div className="divider" />
 
-          <div className="header-links">
+          <div className="header-links" onClick={(e) => e.stopPropagation()}>
             {categories.length > 0 &&
               categories.map((category) => (
                 <span
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setSelectedItem(category.slug);
                     setMegaMenu(true);
                   }}
