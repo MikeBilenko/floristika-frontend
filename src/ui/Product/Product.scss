@@ -30,11 +30,6 @@
     max-width: 320px;
     width: 100%;
   }
-
-  & > img {
-    display: block;
-    width: 100%;
-  }
 }
 
 .product-top-section {
@@ -45,6 +40,11 @@
 
   @include mobile {
     height: 281px;
+  }
+
+  & > img {
+    display: block;
+    width: 100%;
   }
 }
 
