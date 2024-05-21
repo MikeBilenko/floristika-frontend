@@ -118,6 +118,7 @@ const CheckoutWrapperConfirm = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       navigate("/cart/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
