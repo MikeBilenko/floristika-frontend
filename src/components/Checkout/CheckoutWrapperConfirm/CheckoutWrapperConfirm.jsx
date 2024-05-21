@@ -113,13 +113,18 @@ const CheckoutWrapperConfirm = () => {
   const [possibleCountry, setPossibleCountry] = useState("");
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     if (productsNumber <= 0) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       navigate("/cart/");
     }
+  }, []);
+
+  useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/stores/`).then((response) => {
       setStores(response.data);
     });
-  }, [productsNumber, navigate]);
+  }, [productsNumber]);
 
   useEffect(() => {
     if (selectedDelivery) {
