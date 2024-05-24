@@ -163,11 +163,15 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
         .map((key) => `${key}=${params[key]}`)
         .join("&");
 
+      const categoryQueryString = `${
+        propsCategory ? `category=${propsCategory}&` : ""
+      }${propsType ? `type=${propsType}&` : ""}`;
+
       navigate(`?${queryString}`);
 
       axios
         .get(
-          `${process.env.REACT_APP_API_URL}/products/?category=${propsCategory}&type=${propsType}&${queryString}`
+          `${process.env.REACT_APP_API_URL}/products/?${categoryQueryString}${queryString}`
         )
         .then((response) => {
           if (response.status === 200) {
