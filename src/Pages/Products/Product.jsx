@@ -24,7 +24,7 @@ const Product = () => {
     const handleLoadingComplete = () => {
       setTimeout(() => {
         setLoading(false);
-      }, [500]);
+      }, 1000);
     };
 
     if (document.readyState === "complete") {
@@ -46,34 +46,32 @@ const Product = () => {
     <>
       <Loader loading={loading} />
 
-      {!loading && (
-        <div>
-          <BreadCrumbs />
-          {product && (
-            <>
-              <ProductIntro
-                product={product}
-                images={product.images}
-                name={product.name}
-                name_lv={product.name_lv}
-                name_ru={product.name_ru}
-                slug={product.slug}
-                qty={product.qty}
-                rate={product.rate}
-                price={product.price}
-                reviews={product.reviews}
-              />
-              <ProductDescription
-                description={product.description}
-                delivery={product.delivery}
-                care={product.care}
-              />
-              <ProductRecomended products={product.related_products} />
-              <ProductReviews product={product.slug} rate={product.rate} />
-            </>
-          )}
-        </div>
-      )}
+      <div>
+        <BreadCrumbs />
+        {product && (
+          <>
+            <ProductIntro
+              product={product}
+              images={product.images}
+              name={product.name}
+              name_lv={product.name_lv}
+              name_ru={product.name_ru}
+              slug={product.slug}
+              qty={product.qty}
+              rate={product.rate}
+              price={product.price}
+              reviews={product.reviews}
+            />
+            <ProductDescription
+              description={product.description}
+              delivery={product.delivery}
+              care={product.care}
+            />
+            <ProductRecomended products={product.related_products} />
+            <ProductReviews product={product.slug} rate={product.rate} />
+          </>
+        )}
+      </div>
     </>
   );
 };

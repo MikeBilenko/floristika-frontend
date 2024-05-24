@@ -13,7 +13,11 @@ const ProductList = ({ products, setProducts = null }) => {
         {products &&
           products.length > 0 &&
           products.map((product) => (
-            <Product product={product} setProducts={setProducts} />
+            <Product
+              product={product}
+              key={`product_list_${product.slug}`}
+              setProducts={setProducts}
+            />
           ))}
       </div>
     </>

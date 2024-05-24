@@ -100,6 +100,7 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                 onClick={() => {
                   setSelectedItem("");
                   onMenu(false);
+                  window.history.replaceState({}, "", window.location.href);
                   navigate(link.href);
                   window.location.reload();
                 }}
@@ -122,6 +123,7 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     e.preventDefault();
                     setSelectedItem("");
                     onMenu(false);
+                    window.history.replaceState({}, "", window.location.href);
                     navigate(`/products/${selectedItem.slug}/`);
                     window.location.reload();
                   }}
@@ -134,6 +136,7 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     e.preventDefault();
                     setSelectedItem("");
                     onMenu(false);
+                    window.history.replaceState({}, "", window.location.href);
                     navigate(
                       `/products/${selectedItem.slug}/?best-sellers=true`
                     );
@@ -148,7 +151,9 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     e.preventDefault();
                     setSelectedItem("");
                     onMenu(false);
+                    window.history.replaceState({}, "", window.location.href);
                     navigate(`/products/${selectedItem.slug}/?new-in=true`);
+
                     window.location.reload();
                   }}
                   to={`/products/${selectedItem.slug}/?new-in=true`}
@@ -159,6 +164,7 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                   to={`/products/${selectedItem.slug}/?sale=true`}
                   onClick={(e) => {
                     e.preventDefault();
+                    window.history.replaceState({}, "", window.location.href);
                     navigate(`/products/${selectedItem.slug}/?sale=true`);
                     setSelectedItem("");
                     onMenu(false);
@@ -179,8 +185,11 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                   to={`/products/${selectedItem.slug}/${type.slug}/`}
                   onClick={(e) => {
                     e.preventDefault();
+                    window.history.replaceState({}, "", window.location.href);
                     window.location.reload();
-                    navigate(`/products/${selectedItem.slug}/${type.slug}/`);
+                    navigate(`/products/${selectedItem.slug}/${type.slug}/`, {
+                      replace: false,
+                    });
                     onMenu(false);
                     setSelectedItem("");
                   }}

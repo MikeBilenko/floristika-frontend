@@ -10,7 +10,9 @@ const Home = () => {
 
   useEffect(() => {
     const handleLoadingComplete = () => {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     };
 
     if (document.readyState === "complete") {
@@ -30,14 +32,12 @@ const Home = () => {
   return (
     <>
       <Loader loading={loading} />
-      {!loading && (
-        <>
-          <Intro />
-          <BestSellers />
-          <Advertisement />
-          <NewIn />
-        </>
-      )}
+      <>
+        <Intro />
+        <BestSellers />
+        <Advertisement />
+        <NewIn />
+      </>
     </>
   );
 };

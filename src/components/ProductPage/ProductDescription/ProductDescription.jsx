@@ -33,7 +33,11 @@ const ProductDescription = ({ description, delivery, care }) => {
         <div className="product-description-step">
           {description && (
             <>
-              <p>{description.text}</p>
+              <p>
+                {i18n.language === "en" && description.text}
+                {i18n.language === "ru" && description.text_ru}
+                {i18n.language === "lv" && description.text_lv}
+              </p>
               <ul>
                 {description.list.map((item) => (
                   <li key={item.slug}>

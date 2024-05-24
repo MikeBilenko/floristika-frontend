@@ -12,7 +12,7 @@ const Products = () => {
     const handleLoadingComplete = () => {
       setTimeout(() => {
         setLoading(false);
-      }, [500]);
+      }, 1000);
     };
 
     if (document.readyState === "complete") {
@@ -33,12 +33,10 @@ const Products = () => {
   return (
     <>
       <Loader loading={loading} />
-      {!loading && (
-        <>
-          <BreadCrumbs />
-          <ProductsWrapper category={category} type={type} />
-        </>
-      )}
+      <>
+        <BreadCrumbs />
+        <ProductsWrapper category={category} type={type} />
+      </>
     </>
   );
 };

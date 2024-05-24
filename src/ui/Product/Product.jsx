@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Product.scss";
 import Button from "../Button/Button";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi2";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 import { IoInformationCircle } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
@@ -25,6 +25,12 @@ const Product = ({ product, setProducts = null }) => {
   const token = useSelector(selectToken);
   const cart = useSelector((state) => state.cart.items);
   const { t, i18n } = useTranslation();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+    });
+  }, []);
 
   useEffect(() => {
     if (
@@ -117,7 +123,7 @@ const Product = ({ product, setProducts = null }) => {
     <div
       className="product"
       onClick={() => {
-        navigate(link, { replace: true });
+        navigate(link, { replace: false });
         window.location.reload();
       }}
     >

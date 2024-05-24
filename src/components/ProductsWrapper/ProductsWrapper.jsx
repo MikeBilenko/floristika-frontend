@@ -1,159 +1,218 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import axios from "axios";
 import Title from "../../ui/Title/Title";
-import "./ProductsWrapper.scss";
 import SortHeader from "../SortHeader/SortHeader";
 import ProductList from "../ProductList/ProductList";
 import Filter from "../Filter/Filter";
-import axios from "axios";
-import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectToken } from "../../redux/slices/authSlice";
 import Pagination from "../Pagination/Pagination";
 import FilterMobile from "../Filter/FilterMobile";
-import { useTranslation } from "react-i18next";
+import { selectToken } from "../../redux/slices/authSlice";
+import "./ProductsWrapper.scss";
 
-const ProductsWrapper = ({ category, type }) => {
+const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
   const { t, i18n } = useTranslation();
   const token = useSelector(selectToken);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
   const [hasNext, setHasNext] = useState(false);
   const [hasPrevious, setHasPrevious] = useState(false);
   const [products, setProducts] = useState([]);
-  const [sale, setSale] = useState(false);
-  const [newIn, setNewIn] = useState(false);
-  const [bestSeller, setBestSeller] = useState(false);
-  const [filterOpened, setOpenedFilter] = useState(false);
-  const [filterMobileOpened, setOpenedFilterMobile] = useState(false);
-  const [selectedColors, setSelectedColors] = useState(
-    new URLSearchParams(location.search).get("colors")
-      ? new URLSearchParams(location.search).get("colors").split(",")
-      : []
-  );
-  const [selectedSizes, setSelectedSizes] = useState(
-    new URLSearchParams(location.search).get("sizes")
-      ? new URLSearchParams(location.search).get("sizes").split(",")
-      : []
-  );
+  const [selectedColors, setSelectedColors] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState([]);
   const [count, setCount] = useState(0);
   const [sort, setSort] = useState("recently_added");
   const [limitedRange, setLimitedRange] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState({});
-  useEffect(() => {
-    let isSale = new URLSearchParams(location.search).get("sale") === "true";
+  const [filterOpened, setOpenedFilter] = useState(false);
+  const [filterMobileOpened, setOpenedFilterMobile] = useState(false);
+  const [sale, setSale] = useState(false);
+  const [bestSeller, setBestSeller] = useState(false);
+  const [newIn, setNewIn] = useState(false);
+  const [isInitialRender, setIsInitialRender] = useState(true);
 
-    let isBestSeller =
-      new URLSearchParams(location.search).get("best-sellers") === "true";
-    let isNewin = new URLSearchParams(location.search).get("new-in") === "true";
-    setSale(isSale);
-    setBestSeller(isBestSeller);
-    setNewIn(isNewin);
-  }, [location.search, location]);
   useEffect(() => {
-    setPage(1);
-  }, [selectedColors, selectedSizes, selectedPriceRange, sort]);
+    const handlePopstate = () => {
+      const state = window.history.state;
+      if (state) {
+        const {
+          selectedColors,
+          selectedSizes,
+          selectedPriceRange,
+          sort,
+          page,
+          sale,
+          bestSeller,
+          newIn,
+        } = state;
+
+        setSelectedColors(selectedColors || []);
+        setSelectedSizes(selectedSizes || []);
+        setSelectedPriceRange(selectedPriceRange || []);
+        setSort(sort || "recently_added");
+        setPage(page || 1);
+        setSale(sale || false);
+        setBestSeller(bestSeller || false);
+        setNewIn(newIn || false);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopstate);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+    };
+  }, []);
+
   useEffect(() => {
-    setPage(1);
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/categories/`)
-      .then((response) => {
-        setSelectedCategory(
-          response.data.find((item) => item.slug === category) || {}
-        );
-      });
-  }, [category]);
+    const state = {
+      selectedColors,
+      selectedSizes,
+      selectedPriceRange,
+      sort,
+      page,
+      sale,
+      bestSeller,
+      newIn,
+    };
+    window.history.replaceState(state, "");
+  }, [
+    selectedColors,
+    selectedSizes,
+    selectedPriceRange,
+    sort,
+    page,
+    sale,
+    bestSeller,
+    newIn,
+  ]);
+
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    setSelectedColors(
+      params.get("color") ? params.get("color").split(",") : []
+    );
+    setSelectedSizes(params.get("sizes") ? params.get("sizes").split(",") : []);
+    setPage(Number(params.get("page")) || 1);
+    setSort(params.get("sort") || "recently_added");
+    setSale(params.get("sale") === "true");
+    setBestSeller(params.get("best-sellers") === "true");
+    setNewIn(params.get("new-in") === "true");
+
+    // Set default values if price_from and price_to are not provided
+    const priceFrom = parseFloat(params.get("price_from"));
+    const priceTo = parseFloat(params.get("price_to"));
+    setSelectedPriceRange([
+      !isNaN(priceFrom) ? priceFrom : undefined,
+      !isNaN(priceTo) ? priceTo : undefined,
+    ]);
+    const _page = Number(params.get("page"));
+    setPage(_page);
+    setIsInitialRender(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (propsCategory) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/categories/${propsCategory}`)
+        .then((response) => {
+          setSelectedCategory(response.data || {});
+        });
+    }
+
     axios
       .get(`${process.env.REACT_APP_API_URL}/filters/price-range/`)
       .then((response) => {
         setLimitedRange([response.data.min_price, response.data.max_price]);
       });
-  }, []);
+  }, [propsCategory]);
 
   useEffect(() => {
-    let otherParams = [
-      category ? `category=${category}` : "",
-      type ? `type=${type}` : "",
-      sort && sort !== "recently_added" ? `sort=${sort}` : "",
-      selectedColors.length > 0 ? `color=${selectedColors.join(",")}` : "",
-      selectedSizes.length > 0 ? `size=${selectedSizes.join(",")}` : "",
-      sale ? `sale=${sale}` : "",
-      limitedRange.length > 0 &&
-      selectedPriceRange.length > 0 &&
-      selectedPriceRange[0] !== limitedRange[0]
-        ? `price-from=${selectedPriceRange[0]}`
-        : "",
-      limitedRange.length > 0 &&
-      selectedPriceRange.length > 0 &&
-      selectedPriceRange[1] !== limitedRange[1]
-        ? `price-to=${selectedPriceRange[1]}`
-        : "",
-      token &&
-      (selectedPriceRange[1] !== limitedRange[1] ||
-        selectedPriceRange[0] !== limitedRange[0])
-        ? `auth=true`
-        : "",
-      page > 1 ? `page=${page}` : "",
-    ];
-    axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/products/?${otherParams
-          .filter((param) => param !== "")
-          .join("&")}`
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          setHasPrevious(response.data.previous !== null);
-          setHasNext(response.data.next !== null);
-          setCount(response.data.count);
-          if (response.data.results.length === 0) {
-            setProducts([]);
+    if (!isInitialRender) {
+      // Only navigate if it's not the initial render
+      const params = {
+        sort: sort !== "recently_added" ? sort : undefined,
+        color: selectedColors.length > 0 ? selectedColors.join(",") : undefined,
+        size: selectedSizes.length > 0 ? selectedSizes.join(",") : undefined,
+        sale: sale ? sale : undefined,
+        price_from:
+          selectedPriceRange[0] !== limitedRange[0]
+            ? selectedPriceRange[0]
+            : undefined,
+        price_to:
+          selectedPriceRange[1] !== limitedRange[1]
+            ? selectedPriceRange[1]
+            : undefined,
+        auth:
+          token &&
+          (selectedPriceRange[1] !== limitedRange[1] ||
+            selectedPriceRange[0] !== limitedRange[0])
+            ? true
+            : undefined,
+        page: page > 1 ? page : undefined,
+      };
+
+      const queryString = Object.keys(params)
+        .filter((key) => params[key] !== undefined)
+        .map((key) => `${key}=${params[key]}`)
+        .join("&");
+
+      navigate(`?${queryString}`);
+
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/products/?category=${propsCategory}&type=${propsType}&${queryString}`
+        )
+        .then((response) => {
+          if (response.status === 200) {
+            setHasPrevious(response.data.previous !== null);
+            setHasNext(response.data.next !== null);
+            setCount(response.data.count);
+            setProducts(response.data.results);
+          } else if (response.status === 401 && page !== 1) {
+            setPage(1);
           } else {
-            setProducts((prevProducts) => {
-              return [...response.data.results];
-            });
+            setProducts([]);
+            setCount(0);
+            setHasPrevious(false);
+            setHasNext(false);
           }
-        } else if (response.status === 401 && page !== 1) {
+        })
+        .catch((error) => {
           setPage(1);
-        } else {
           setProducts([]);
-          setCount(0);
-          setHasPrevious(false);
-          setHasNext(false);
-        }
-      })
-      .catch((error) => {
-        setPage(1);
-        setProducts([]);
-      });
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    location,
+    propsCategory,
+    propsType,
     sort,
-    category,
-    type,
     sale,
     selectedColors,
     selectedSizes,
     selectedPriceRange,
     limitedRange,
-    newIn,
-    bestSeller,
     page,
     token,
+    isInitialRender,
   ]);
-  useEffect(() => {}, []);
 
   return (
     <>
       <Title>
         {newIn && <>{`${t("categories.new_in")} `}</>}
-        {category && (
+        {selectedCategory && selectedCategory[0]?.category?.name && (
           <>
-            {i18n.language === "en" && selectedCategory.name}
-            {i18n.language === "lv" && selectedCategory.name_lv}
-            {i18n.language === "ru" && selectedCategory.name_ru}
+            {i18n.language === "en" && selectedCategory[0]?.category?.name}
+            {i18n.language === "lv" && selectedCategory[0]?.category?.name_lv}
+            {i18n.language === "ru" && selectedCategory[0]?.category?.name_ru}
           </>
         )}
         {sale && <>{` ${t("categories.sale")}`}</>}

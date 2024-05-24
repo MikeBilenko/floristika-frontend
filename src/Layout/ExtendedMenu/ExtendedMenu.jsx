@@ -85,7 +85,11 @@ const ExtendedMenu = ({
                       to={`/products/${selectedItem}/${type.slug}/`}
                       onClick={(e) => {
                         e.preventDefault();
-
+                        window.history.replaceState(
+                          {},
+                          "",
+                          window.location.href
+                        );
                         navigate(`/products/${selectedItem}/${type.slug}/`);
                         setIsVisible();
                         setSelectedItem("");
@@ -106,6 +110,7 @@ const ExtendedMenu = ({
                 onClick={() => {
                   setIsVisible();
                   setSelectedItem("");
+                  window.history.replaceState({}, "", window.location.href);
                   window.location.reload();
                 }}
                 to={`/products/${selectedItem}/`}
@@ -119,6 +124,7 @@ const ExtendedMenu = ({
                 onClick={() => {
                   setIsVisible();
                   setSelectedItem("");
+                  window.history.replaceState({}, "", window.location.href);
                   window.location.reload();
                 }}
                 to={`/products/${selectedItem}/?best-sellers=true`}
@@ -134,6 +140,7 @@ const ExtendedMenu = ({
                 onClick={() => {
                   setIsVisible();
                   setSelectedItem("");
+                  window.history.replaceState({}, "", window.location.href);
                   window.location.reload();
                 }}
                 to={`/products/${selectedItem}/?new-in=true`}
@@ -148,6 +155,7 @@ const ExtendedMenu = ({
                 onClick={() => {
                   setIsVisible();
                   setSelectedItem("");
+                  window.history.replaceState({}, "", window.location.href);
                   window.location.reload();
                 }}
               >
