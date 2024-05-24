@@ -100,8 +100,8 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                 onClick={() => {
                   setSelectedItem("");
                   onMenu(false);
-                  window.history.replaceState({}, "", window.location.href);
                   navigate(link.href);
+                  window.history.replaceState({}, "", window.location.href);
                   window.location.reload();
                 }}
                 key={link.text}
@@ -124,8 +124,8 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     setSelectedItem("");
                     onMenu(false);
                     window.history.replaceState({}, "", window.location.href);
-                    navigate(`/products/${selectedItem.slug}/`);
                     window.location.reload();
+                    navigate(`/products/${selectedItem.slug}/`);
                   }}
                   to={`/products/${selectedItem.slug}/`}
                 >
@@ -136,10 +136,10 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     e.preventDefault();
                     setSelectedItem("");
                     onMenu(false);
-                    window.history.replaceState({}, "", window.location.href);
                     navigate(
                       `/products/${selectedItem.slug}/?best-sellers=true`
                     );
+                    window.history.replaceState({}, "", window.location.href);
                     window.location.reload();
                   }}
                   to={`/products/${selectedItem.slug}/?best-sellers=true`}
@@ -151,9 +151,8 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     e.preventDefault();
                     setSelectedItem("");
                     onMenu(false);
-                    window.history.replaceState({}, "", window.location.href);
                     navigate(`/products/${selectedItem.slug}/?new-in=true`);
-
+                    window.history.replaceState({}, "", window.location.href);
                     window.location.reload();
                   }}
                   to={`/products/${selectedItem.slug}/?new-in=true`}
@@ -164,10 +163,10 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                   to={`/products/${selectedItem.slug}/?sale=true`}
                   onClick={(e) => {
                     e.preventDefault();
-                    window.history.replaceState({}, "", window.location.href);
-                    navigate(`/products/${selectedItem.slug}/?sale=true`);
                     setSelectedItem("");
                     onMenu(false);
+                    navigate(`/products/${selectedItem.slug}/?sale=true`);
+                    window.history.replaceState({}, "", window.location.href);
                     window.location.reload();
                   }}
                 >
@@ -185,13 +184,13 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                   to={`/products/${selectedItem.slug}/${type.slug}/`}
                   onClick={(e) => {
                     e.preventDefault();
+                    onMenu(false);
+                    setSelectedItem("");
                     window.history.replaceState({}, "", window.location.href);
                     window.location.reload();
                     navigate(`/products/${selectedItem.slug}/${type.slug}/`, {
                       replace: false,
                     });
-                    onMenu(false);
-                    setSelectedItem("");
                   }}
                 >
                   {i18n.language === "en" && type.name}
