@@ -101,7 +101,7 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                   setSelectedItem("");
                   onMenu(false);
                   navigate(link.href);
-                  window.history.replaceState({}, "", window.location.href);
+                  window.history.replaceState({}, "", link.href);
                   window.location.reload();
                 }}
                 key={link.text}
@@ -123,7 +123,11 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     e.preventDefault();
                     setSelectedItem("");
                     onMenu(false);
-                    window.history.replaceState({}, "", window.location.href);
+                    window.history.replaceState(
+                      {},
+                      "",
+                      `/products/${selectedItem.slug}/`
+                    );
                     window.location.reload();
                     navigate(`/products/${selectedItem.slug}/`);
                   }}
@@ -139,7 +143,11 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     navigate(
                       `/products/${selectedItem.slug}/?best-sellers=true`
                     );
-                    window.history.replaceState({}, "", window.location.href);
+                    window.history.replaceState(
+                      {},
+                      "",
+                      `/products/${selectedItem.slug}/?best-sellers=true`
+                    );
                     window.location.reload();
                   }}
                   to={`/products/${selectedItem.slug}/?best-sellers=true`}
@@ -152,7 +160,11 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     setSelectedItem("");
                     onMenu(false);
                     navigate(`/products/${selectedItem.slug}/?new-in=true`);
-                    window.history.replaceState({}, "", window.location.href);
+                    window.history.replaceState(
+                      {},
+                      "",
+                      `/products/${selectedItem.slug}/?new-in=true`
+                    );
                     window.location.reload();
                   }}
                   to={`/products/${selectedItem.slug}/?new-in=true`}
@@ -166,7 +178,11 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     setSelectedItem("");
                     onMenu(false);
                     navigate(`/products/${selectedItem.slug}/?sale=true`);
-                    window.history.replaceState({}, "", window.location.href);
+                    window.history.replaceState(
+                      {},
+                      "",
+                      `/products/${selectedItem.slug}/?sale=true`
+                    );
                     window.location.reload();
                   }}
                 >
@@ -186,11 +202,15 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                     e.preventDefault();
                     onMenu(false);
                     setSelectedItem("");
-                    window.history.replaceState({}, "", window.location.href);
-                    window.location.reload();
                     navigate(`/products/${selectedItem.slug}/${type.slug}/`, {
                       replace: false,
                     });
+                    window.history.replaceState(
+                      {},
+                      "",
+                      `/products/${selectedItem.slug}/${type.slug}/`
+                    );
+                    window.location.reload();
                   }}
                 >
                   {i18n.language === "en" && type.name}
