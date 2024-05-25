@@ -2,11 +2,12 @@
 @import "../../../styles/mixins.scss";
 .product-gallery {
   display: flex;
+  justify-content: center;
   gap: 24px;
 
   @include tablet {
     margin: 0 auto;
-    width: 60%;
+    width: 100%;
   }
 
   @include mobile {
@@ -27,12 +28,13 @@
       overflow: hidden;
       padding: 4px;
       cursor: pointer;
+      padding-bottom: 0;
       &.active {
         border: 1px solid $primary-green;
 
         box-sizing: border-box;
       }
-      & > img {
+      & > div > img {
         border-radius: 8px;
         width: 85px;
         height: 78px;
@@ -62,8 +64,15 @@
   width: 100%;
   height: 677px;
   border-radius: 24px;
+  @include laptop {
+    height: 477px;
+    max-width: 500px;
+    width: 100%;
+    min-width: 400px;
+  }
 
   &-img {
+    display: block;
     width: 100%;
     max-width: 704px;
     min-width: 700px;
@@ -76,11 +85,17 @@
 
     @include laptop {
       height: 477px;
+      max-width: 500px;
+      width: 100%;
+      min-width: 400px;
     }
 
     @include tablet {
+      width: 100%;
       height: 350px;
       border-radius: 0;
+      max-width: unset;
+      min-width: unset;
     }
 
     @include mobile {

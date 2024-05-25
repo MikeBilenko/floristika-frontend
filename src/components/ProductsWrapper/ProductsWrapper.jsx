@@ -135,7 +135,6 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
 
   useEffect(() => {
     if (!isInitialRender) {
-      // Only navigate if it's not the initial render
       const params = {
         sort: sort !== "recently_added" ? sort : undefined,
         color: selectedColors.length > 0 ? selectedColors.join(",") : undefined,
@@ -179,6 +178,16 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
             setHasNext(response.data.next !== null);
             setCount(response.data.count);
             setProducts(response.data.results);
+
+            setTimeout(() => {
+              const scrollPosition = localStorage.getItem(
+                "productCardScrollPosition"
+              );
+              if (scrollPosition) {
+                window.scrollTo(0, parseInt(scrollPosition));
+                localStorage.removeItem("productCardScrollPosition");
+              }
+            }, 400);
           } else if (response.status === 401 && page !== 1) {
             setPage(1);
           } else {

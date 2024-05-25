@@ -18,6 +18,11 @@ const Pagination = ({ next, previous, setPage, page }) => {
           } else {
             setPage(1);
           }
+          window.scrollTo({
+            behavior: "smooth",
+            top: 0,
+            left: 0,
+          });
         }}
       >
         {"< "}
@@ -30,6 +35,11 @@ const Pagination = ({ next, previous, setPage, page }) => {
         onClick={(e) => {
           e.preventDefault();
           setPage(page + 1);
+          window.scrollTo({
+            behavior: "smooth",
+            top: 0,
+            left: 0,
+          });
         }}
       >
         {t("pagination.next")} {" >"}

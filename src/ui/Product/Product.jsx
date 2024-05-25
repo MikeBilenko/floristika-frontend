@@ -11,6 +11,7 @@ import { addToCart, removeFromCart } from "../../redux/slices/cartSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import LazyLoad from "react-lazyload";
 
 const Product = ({ product, setProducts = null }) => {
   const [inCart, setInCart] = useState(false);
@@ -123,12 +124,15 @@ const Product = ({ product, setProducts = null }) => {
     <div
       className="product"
       onClick={() => {
+        localStorage.setItem("productCardScrollPosition", window.scrollY);
         navigate(link, { replace: false });
         window.location.reload();
       }}
     >
       <div className="product-top-section">
-        <img src={product.images[0].image} alt={product.images[0].alt} />
+        <LazyLoad height={380} once>
+          <img src={product.images[0].image} alt={product.images[0].alt} />
+        </LazyLoad>
         {product.sale && (
           <div className="product-sale">
             {t("save")} {product.sale}%

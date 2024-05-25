@@ -115,6 +115,10 @@
     height: 24px;
     cursor: pointer;
   }
+
+  @include laptop {
+    font-size: 14px;
+  }
 }
 
 .product-info-qty {
@@ -176,7 +180,7 @@
   margin: 49px 0;
 
   & > button {
-    max-width: 300px;
+    max-width: 285px;
     width: 100% !important;
   }
 

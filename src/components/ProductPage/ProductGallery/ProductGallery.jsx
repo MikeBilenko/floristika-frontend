@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./ProductGallery.scss";
 import ProductGalleryCarousel from "./ProductGalleryCarousel";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import LazyLoad from "react-lazyload";
 
 const ProductGallery = ({ images }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -16,7 +17,9 @@ const ProductGallery = ({ images }) => {
                 className={index === currentSlide && "active"}
                 onClick={() => setCurrentSlide(index)}
               >
-                <img src={image.image} alt={image.alt} />
+                <LazyLoad once>
+                  <img src={image.image} alt={image.alt} />
+                </LazyLoad>
               </div>
             ))}
           </div>
@@ -25,12 +28,14 @@ const ProductGallery = ({ images }) => {
           {images && (
             <ProductGalleryCarousel currentSlide={currentSlide}>
               {images.map((image) => (
-                <img
-                  key={image.image}
-                  src={image.image}
-                  className="product-gallery-main-img"
-                  alt={image.alt}
-                />
+                <LazyLoad once>
+                  <img
+                    key={image.image}
+                    src={image.image}
+                    className="product-gallery-main-img"
+                    alt={image.alt}
+                  />
+                </LazyLoad>
               ))}
             </ProductGalleryCarousel>
           )}
