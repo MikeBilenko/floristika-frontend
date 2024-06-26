@@ -8,6 +8,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import Button from "ui/Button/Button";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import FilterTypes from "./FilterTypes";
 
 const FilterMobile = ({
   active,
@@ -18,12 +19,16 @@ const FilterMobile = ({
   selectSizes,
   selectColors,
   selectedColors,
+  category,
+  selectType,
+  selectedType,
 }) => {
   const { t } = useTranslation();
   const [selectedFilter, setSelectedFilter] = useState("");
   const [loading, setLoading] = useState(true);
   const [colors, setColors] = useState([]);
   const [size, setSize] = useState([]);
+  const [types, setTypes] = useState([]);
 
   const [min, setMin] = useState([]);
   const [max, setMax] = useState([]);
@@ -56,7 +61,17 @@ const FilterMobile = ({
         setMax(response.data.max_price);
         setLoading(false);
       });
-  }, [selectPriceRange]);
+
+    if (category) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/categories/${category}/`)
+        .then((response) => {
+          if (response.status === 200) {
+            setTypes(response.data);
+          }
+        });
+    }
+  }, [selectPriceRange, category]);
 
   return (
     !loading && (
@@ -87,6 +102,17 @@ const FilterMobile = ({
               selectedFilter={selectedFilter}
             />
           </div>
+
+          <div className="header-mobile-content-extended-top-section">
+            {t("filters.types")}{" "}
+          </div>
+          <FilterTypes
+            types={types}
+            show={true}
+            selectedType={selectedType}
+            selectType={selectType}
+          />
+
           <div className="header-mobile-content-extended-top-section">
             {t("filters.colors")}{" "}
           </div>

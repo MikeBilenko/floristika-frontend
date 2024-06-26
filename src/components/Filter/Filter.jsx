@@ -6,6 +6,7 @@ import FilterPriceSection from "./FilterPriceSection";
 import FilterSizeSection from "./FilterSizeSection";
 import FilterColorSection from "./FilterColorSection";
 import { useTranslation } from "react-i18next";
+import FilterTypes from "./FilterTypes";
 
 const Filter = ({
   active,
@@ -15,12 +16,17 @@ const Filter = ({
   selectSizes,
   selectColors,
   selectedColors,
+  category,
+  selectType,
+  selectedType,
 }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [priceActive, setPriceActive] = useState(true);
   const [colorActive, setColorActive] = useState(true);
   const [sizeActive, setSizeActive] = useState(true);
+  const [typeActive, setTypeActive] = useState(true);
+  const [types, setTypes] = useState([]);
   const [colors, setColors] = useState([]);
   const [size, setSize] = useState([]);
 
@@ -47,7 +53,17 @@ const Filter = ({
         setMax(response.data.max_price);
         setLoading(false);
       });
-  }, [selectPriceRange]);
+
+    if (category) {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/categories/${category}/`)
+        .then((response) => {
+          if (response.status === 200) {
+            setTypes(response.data);
+          }
+        });
+    }
+  }, [selectPriceRange, category]);
 
   return (
     !loading && (
@@ -71,6 +87,24 @@ const Filter = ({
               selectPriceRange={selectPriceRange}
             />
           )}
+        </div>
+
+        <div className="filter-expanded-item">
+          <div
+            className="filter-expanded-item-header"
+            onClick={() => setTypeActive(!typeActive)}
+          >
+            {t("filters.types")}{" "}
+            <div className={[typeActive ? "active" : ""].join(" ")}>
+              <FaChevronDown />
+            </div>
+          </div>
+          <FilterTypes
+            types={types}
+            show={typeActive}
+            selectedType={selectedType}
+            selectType={selectType}
+          />
         </div>
 
         <div className="filter-expanded-item">

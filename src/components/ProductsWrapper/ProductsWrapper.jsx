@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
@@ -12,11 +12,12 @@ import FilterMobile from "../Filter/FilterMobile";
 import { selectToken } from "../../redux/slices/authSlice";
 import "./ProductsWrapper.scss";
 
-const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
+const ProductsWrapper = ({ type: propsType }) => {
   const { t, i18n } = useTranslation();
   const token = useSelector(selectToken);
   const location = useLocation();
   const navigate = useNavigate();
+  const { category } = useParams();
 
   const [page, setPage] = useState(1);
   const [hasNext, setHasNext] = useState(false);
@@ -26,6 +27,7 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState([]);
   const [count, setCount] = useState(0);
+  const [type, setType] = useState("");
   const [sort, setSort] = useState("recently_added");
   const [limitedRange, setLimitedRange] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState({});
@@ -36,32 +38,33 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
   const [newIn, setNewIn] = useState(false);
   const [isInitialRender, setIsInitialRender] = useState(true);
 
+  // Function to handle popstate event
+  const handlePopstate = () => {
+    const state = window.history.state;
+    if (state) {
+      const {
+        selectedColors,
+        selectedSizes,
+        selectedPriceRange,
+        sort,
+        page,
+        sale,
+        bestSeller,
+        newIn,
+      } = state;
+
+      setSelectedColors(selectedColors || []);
+      setSelectedSizes(selectedSizes || []);
+      setSelectedPriceRange(selectedPriceRange || []);
+      setSort(sort || "recently_added");
+      setPage(page || 1);
+      setSale(sale || false);
+      setBestSeller(bestSeller || false);
+      setNewIn(newIn || false);
+    }
+  };
+
   useEffect(() => {
-    const handlePopstate = () => {
-      const state = window.history.state;
-      if (state) {
-        const {
-          selectedColors,
-          selectedSizes,
-          selectedPriceRange,
-          sort,
-          page,
-          sale,
-          bestSeller,
-          newIn,
-        } = state;
-
-        setSelectedColors(selectedColors || []);
-        setSelectedSizes(selectedSizes || []);
-        setSelectedPriceRange(selectedPriceRange || []);
-        setSort(sort || "recently_added");
-        setPage(page || 1);
-        setSale(sale || false);
-        setBestSeller(bestSeller || false);
-        setNewIn(newIn || false);
-      }
-    };
-
     window.addEventListener("popstate", handlePopstate);
 
     return () => {
@@ -70,6 +73,7 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
   }, []);
 
   useEffect(() => {
+    // Save current state to history state
     const state = {
       selectedColors,
       selectedSizes,
@@ -111,16 +115,13 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
       !isNaN(priceFrom) ? priceFrom : undefined,
       !isNaN(priceTo) ? priceTo : undefined,
     ]);
-    const _page = Number(params.get("page"));
-    setPage(_page);
     setIsInitialRender(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location.search]);
 
   useEffect(() => {
-    if (propsCategory) {
+    if (category) {
       axios
-        .get(`${process.env.REACT_APP_API_URL}/categories/${propsCategory}`)
+        .get(`${process.env.REACT_APP_API_URL}/categories/${category}`)
         .then((response) => {
           setSelectedCategory(response.data || {});
         });
@@ -131,11 +132,12 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
       .then((response) => {
         setLimitedRange([response.data.min_price, response.data.max_price]);
       });
-  }, [propsCategory]);
+  }, [category]);
 
   useEffect(() => {
     if (!isInitialRender) {
       const params = {
+        type: type ? type : "",
         sort: sort !== "recently_added" ? sort : undefined,
         color: selectedColors.length > 0 ? selectedColors.join(",") : undefined,
         size: selectedSizes.length > 0 ? selectedSizes.join(",") : undefined,
@@ -154,7 +156,7 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
             selectedPriceRange[0] !== limitedRange[0])
             ? true
             : undefined,
-        page: page > 1 ? page : undefined,
+        page: page > 1 ? page : 1,
       };
 
       const queryString = Object.keys(params)
@@ -162,15 +164,21 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
         .map((key) => `${key}=${params[key]}`)
         .join("&");
 
-      const categoryQueryString = `${
-        propsCategory ? `category=${propsCategory}&` : ""
-      }${propsType ? `type=${propsType}&` : ""}`;
+      const categoryQueryString = `${category ? `category=${category}&` : ""}`;
 
-      navigate(`?${queryString}`);
+      const currentParams = new URLSearchParams(location.search);
+      const newParams = new URLSearchParams(queryString);
+      newParams.forEach((value, key) => {
+        currentParams.set(key, value);
+      });
+
+      navigate(`?${currentParams.toString()}`);
 
       axios
         .get(
-          `${process.env.REACT_APP_API_URL}/products/?${categoryQueryString}${queryString}`
+          `${
+            process.env.REACT_APP_API_URL
+          }/products/?${categoryQueryString}${currentParams.toString()}`
         )
         .then((response) => {
           if (response.status === 200) {
@@ -202,9 +210,9 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
           setProducts([]);
         });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    propsCategory,
+    type,
+    category,
     propsType,
     sort,
     sale,
@@ -215,6 +223,7 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
     page,
     token,
     isInitialRender,
+    location.search,
   ]);
 
   return (
@@ -254,6 +263,9 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
           selectSizes={setSelectedSizes}
           selectColors={setSelectedColors}
           selectedColors={selectedColors}
+          category={category}
+          selectType={setType}
+          selectedType={type}
         />
         <FilterMobile
           active={filterMobileOpened}
@@ -264,6 +276,9 @@ const ProductsWrapper = ({ category: propsCategory, type: propsType }) => {
           selectSizes={setSelectedSizes}
           selectColors={setSelectedColors}
           selectedColors={selectedColors}
+          category={category}
+          selectType={setType}
+          selectedType={type}
         />
         <div>
           <ProductList products={products} />

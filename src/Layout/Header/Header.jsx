@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import Button from "../../ui/Button/Button";
 import axios from "axios";
-import ExtendedMenu from "../ExtendedMenu/ExtendedMenu";
+// import ExtendedMenu from "../ExtendedMenu/ExtendedMenu";
 import { selectUser } from "../../redux/slices/authSlice";
 import { toggleCart } from "../../redux/slices/cartSlice";
 import { FiMenu } from "react-icons/fi";
@@ -22,7 +22,7 @@ import { IoCloseSharp } from "react-icons/io5";
 
 const Header = () => {
   const [megaMenu, setMegaMenu] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("");
+  // const [selectedItem, setSelectedItem] = useState("");
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [activeLang, setActiveLang] = useState(false);
@@ -59,9 +59,9 @@ const Header = () => {
     }
   };
 
-  const toggleMegaMenu = () => {
-    setMegaMenu(!megaMenu);
-  };
+  // const toggleMegaMenu = () => {
+  //   setMegaMenu(!megaMenu);
+  // };
 
   useEffect(() => {
     if (megaMenu) {
@@ -290,17 +290,21 @@ const Header = () => {
               categories.map((category) => (
                 <span
                   onClick={(e) => {
+                    navigate(`/products/${category.slug}/`);
+                    window.location.reload();
                     e.stopPropagation();
-                    setSelectedItem(category.slug);
-                    setMegaMenu(true);
                   }}
                   key={category.slug}
-                  className={selectedItem === category.slug ? "active" : ""}
+                  className={
+                    window.location.pathname.includes(category.slug)
+                      ? "active"
+                      : ""
+                  }
                 >
                   {i18n.language === "en" && category.name}
                   {i18n.language === "ru" && category.name_ru}
                   {i18n.language === "lv" && category.name_lv}
-                  <FaChevronDown />
+                  {/* <FaChevronDown /> */}
                 </span>
               ))}
             {links.map((link) => (
@@ -309,7 +313,7 @@ const Header = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   setMegaMenu(false);
-                  setSelectedItem("");
+                  // setSelectedItem("");
                   navigate(link.href);
                   window.location.reload();
                 }}
@@ -322,12 +326,12 @@ const Header = () => {
           </div>
         </Container>
       </div>
-      <ExtendedMenu
+      {/* <ExtendedMenu
         selectedItem={selectedItem}
         isVisible={megaMenu}
         setIsVisible={toggleMegaMenu}
         setSelectedItem={setSelectedItem}
-      />
+      /> */}
       <HeaderMobile isOpen={mobileMenu} onMenu={setMobileMenu} />
       <div
         className={`user-side-menu ${activeMenu ? "active" : ""}`}

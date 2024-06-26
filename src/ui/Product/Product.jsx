@@ -190,28 +190,32 @@ const Product = ({ product, setProducts = null }) => {
             )}
           </h3>
         )}
-        <h3
-          className={`product-price-for-customers ${
-            user ? "product-price" : ""
-          }`}
-        >
-          <FiUser className="user-icon-helper" />
-          {user && (
-            <div className="small-helper">{t("product.for_registered")}</div>
-          )}
-          <span className={`${product.sale ? "sale" : ""}`}>€{auth_price}</span>
-          {product.sale && (
-            <span className="sale-price">
-              €{(auth_price - auth_price_discount).toFixed(2)}
+        {user && (
+          <h3
+            className={`product-price-for-customers ${
+              user ? "product-price" : ""
+            }`}
+          >
+            <FiUser className="user-icon-helper" />
+            {user && (
+              <div className="small-helper">{t("product.for_registered")}</div>
+            )}
+            <span className={`${product.sale ? "sale" : ""}`}>
+              €{auth_price}
             </span>
-          )}
-          {!user && (
-            <div className="info-message">
-              <IoInformationCircle className="info" />
-              <div className="helper-message">{t("product.lower_price")}</div>
-            </div>
-          )}
-        </h3>
+            {product.sale && (
+              <span className="sale-price">
+                €{(auth_price - auth_price_discount).toFixed(2)}
+              </span>
+            )}
+            {!user && (
+              <div className="info-message">
+                <IoInformationCircle className="info" />
+                <div className="helper-message">{t("product.lower_price")}</div>
+              </div>
+            )}
+          </h3>
+        )}
       </div>
     </div>
   );

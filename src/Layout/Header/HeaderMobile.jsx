@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./Header.scss";
 import { IoCloseSharp } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// Link,
 import axios from "axios";
-import { FaAngleRight, FaArrowLeftLong } from "react-icons/fa6";
+// import { FaAngleRight, FaArrowLeftLong } from "react-icons/fa6";
 
 const HeaderMobile = ({ isOpen, onMenu }) => {
-  const [selectedItem, setSelectedItem] = useState({});
+  // const [selectedItem, setSelectedItem] = useState({});
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
-  const [types, setTypes] = useState([]);
+  // const [types, setTypes] = useState([]);
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
@@ -21,19 +22,19 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
       });
   }, []);
 
-  useEffect(() => {
-    if (selectedItem.slug) {
-      axios
-        .get(
-          `${process.env.REACT_APP_API_URL}/categories/${selectedItem.slug}/`
-        )
-        .then((response) => {
-          if (response.status === 200) {
-            setTypes(response.data);
-          }
-        });
-    }
-  }, [selectedItem]);
+  // useEffect(() => {
+  //   if (selectedItem.slug) {
+  //     axios
+  //       .get(
+  //         `${process.env.REACT_APP_API_URL}/categories/${selectedItem.slug}/`
+  //       )
+  //       .then((response) => {
+  //         if (response.status === 200) {
+  //           setTypes(response.data);
+  //         }
+  //       });
+  //   }
+  // }, [selectedItem]);
 
   const links = [
     {
@@ -68,15 +69,16 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="header-mobile-content-header">
-          {!selectedItem.slug && <img src="/logo.svg" alt="" />}
-          {selectedItem.slug && (
+          <img src="/logo.svg" alt="" />
+          {/* {!selectedItem.slug && <img src="/logo.svg" alt="" />} */}
+          {/* {selectedItem.slug && (
             <>
               <FaArrowLeftLong onClick={() => setSelectedItem({})} />
               {i18n.language === "en" && selectedItem.name}
               {i18n.language === "lv" && selectedItem.name_lv}
               {i18n.language === "ru" && selectedItem.name_ru}
             </>
-          )}
+          )} */}
         </div>
         <div className="header-mobile-content-sections">
           <div className="header-mobile-content-links">
@@ -84,21 +86,28 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
               categories.map((category) => (
                 <span
                   onClick={() => {
-                    setSelectedItem(category);
+                    // setSelectedItem("");
+                    onMenu(false);
+                    navigate(`/products/${category.slug}/`);
+                    window.history.replaceState(
+                      {},
+                      "",
+                      `/products/${category.slug}/`
+                    );
+                    window.location.reload();
                   }}
                   key={category.slug}
-                  className={selectedItem === category.slug ? "active" : ""}
+                  // className={selectedItem === category.slug ? "active" : ""}
                 >
                   {i18n.language === "en" && category.name}
                   {i18n.language === "ru" && category.name_ru}
                   {i18n.language === "lv" && category.name_lv}
-                  <FaAngleRight />
                 </span>
               ))}
             {links.map((link) => (
               <span
                 onClick={() => {
-                  setSelectedItem("");
+                  // setSelectedItem("");
                   onMenu(false);
                   navigate(link.href);
                   window.history.replaceState({}, "", link.href);
@@ -107,11 +116,12 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                 key={link.text}
                 className={link.className}
               >
-                {link.text} {link.icon}
+                {link.text}
+                {/* {link.icon} */}
               </span>
             ))}
           </div>
-          <div
+          {/* <div
             className={`header-mobile-content-extended ${
               selectedItem.slug ? "active" : ""
             }`}
@@ -218,7 +228,7 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                   {i18n.language === "ru" && type.name_ru}
                 </Link>
               ))}
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="header-mobile-close">

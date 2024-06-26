@@ -50,10 +50,13 @@
   }
 
   &-content {
+    display: flex;
+    flex-direction: column;
     display: none;
+    margin-bottom: 10px;
 
     &.active {
-      display: block;
+      display: flex;
     }
 
     & > .checkbox {

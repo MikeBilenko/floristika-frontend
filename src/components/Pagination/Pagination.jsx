@@ -13,10 +13,14 @@ const Pagination = ({ next, previous, setPage, page }) => {
         disabled={previous ? false : true}
         onClick={(e) => {
           e.preventDefault();
+          console.log(page);
+          console.log(previous);
           if (previous && page > 1) {
             setPage(page - 1);
+            console.log("back - 1");
           } else {
             setPage(1);
+            console.log("back 1");
           }
           window.scrollTo({
             behavior: "smooth",
@@ -33,6 +37,7 @@ const Pagination = ({ next, previous, setPage, page }) => {
         type="button"
         disabled={next ? false : true}
         onClick={(e) => {
+          console.log(page);
           e.preventDefault();
           setPage(page + 1);
           window.scrollTo({
