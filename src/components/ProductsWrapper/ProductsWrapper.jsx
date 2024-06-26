@@ -224,6 +224,7 @@ const ProductsWrapper = ({ type: propsType }) => {
     token,
     isInitialRender,
     location.search,
+    navigate,
   ]);
 
   return (
