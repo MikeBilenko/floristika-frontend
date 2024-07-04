@@ -133,17 +133,11 @@ const CartItem = ({ cartItem }) => {
       </div>
       <div className="cart-products-list-item-price">
         <div>
-          €
-          {!token
-            ? cartItem.sale
-              ? ((cartItem.price * (100 - cartItem.sale)) / 100).toFixed(2)
-              : cartItem.price.toFixed(2)
-            : cartItem.sale
-            ? (
-                (cartItem.price_for_authenticated * (100 - cartItem.sale)) /
-                100
-              ).toFixed(2)
-            : cartItem.price_for_authenticated.toFixed(2)}
+          {console.log(cartItem)}
+          {console.log(cartItem.sale, cartItem.price, cartItem.sale)}€
+          {cartItem.sale
+            ? ((cartItem.price * (100 - cartItem.sale)) / 100).toFixed(2)
+            : cartItem.price}
         </div>
         {cartItem.sale && <div>-{cartItem.sale}%</div>}
       </div>
@@ -181,20 +175,12 @@ const CartItem = ({ cartItem }) => {
       </div>
       <div className="cart-products-list-item-total">
         €
-        {!token
-          ? cartItem.sale
-            ? (
-                ((cartItem.price * (100 - cartItem.sale)) / 100) *
-                cartItem.quantity
-              ).toFixed(2)
-            : (cartItem.price * cartItem.quantity).toFixed(2)
-          : cartItem.sale
+        {cartItem.sale
           ? (
-              ((cartItem.price_for_authenticated * (100 - cartItem.sale)) /
-                100) *
+              ((cartItem.price * (100 - cartItem.sale)) / 100) *
               cartItem.quantity
             ).toFixed(2)
-          : (cartItem.price_for_authenticated * cartItem.quantity).toFixed(2)}
+          : (cartItem.price * cartItem.quantity).toFixed(2)}
         <IoTrashOutline
           onClick={() => {
             dispatch(

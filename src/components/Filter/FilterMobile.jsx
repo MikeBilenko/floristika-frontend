@@ -8,7 +8,9 @@ import { IoCloseSharp } from "react-icons/io5";
 import Button from "ui/Button/Button";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import FilterTypes from "./FilterTypes";
+// import FilterTypes from "./FilterTypes";
+// import Categories from "./Categories";
+import CategoryItem from "./CategoryItem";
 
 const FilterMobile = ({
   active,
@@ -19,7 +21,6 @@ const FilterMobile = ({
   selectSizes,
   selectColors,
   selectedColors,
-  category,
   selectType,
   selectedType,
 }) => {
@@ -28,7 +29,8 @@ const FilterMobile = ({
   const [loading, setLoading] = useState(true);
   const [colors, setColors] = useState([]);
   const [size, setSize] = useState([]);
-  const [types, setTypes] = useState([]);
+  // const [types, setTypes] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const [min, setMin] = useState([]);
   const [max, setMax] = useState([]);
@@ -59,19 +61,40 @@ const FilterMobile = ({
         selectPriceRange([response.data.min_price, response.data.max_price]);
         setMin(response.data.min_price);
         setMax(response.data.max_price);
-        setLoading(false);
       });
 
-    if (category) {
-      axios
-        .get(`${process.env.REACT_APP_API_URL}/categories/${category}/`)
-        .then((response) => {
-          if (response.status === 200) {
-            setTypes(response.data);
-          }
-        });
-    }
-  }, [selectPriceRange, category]);
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/categories/`)
+      .then(async (response) => {
+        let categories = response.data;
+        let finalCategories = await Promise.all(
+          categories.map(async (category) => {
+            let _inCategory = { ...category };
+            try {
+              const subcategoryResponse = await axios.get(
+                `${process.env.REACT_APP_API_URL}/categories/${category.slug}/`
+              );
+              if (subcategoryResponse.status === 200) {
+                _inCategory["subcategories"] = subcategoryResponse.data;
+              }
+            } catch (error) {
+              console.error(
+                `Error fetching subcategories for ${category.slug}:`,
+                error
+              );
+            }
+            return _inCategory;
+          })
+        );
+
+        setCategories(finalCategories);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+        setLoading(false);
+      });
+  }, [selectPriceRange]);
 
   return (
     !loading && (
@@ -88,6 +111,19 @@ const FilterMobile = ({
           </div>
 
           <div className="header-mobile-content-extended-top-section">
+            {t("categories.categories")}{" "}
+          </div>
+          {categories.map((item) => (
+            <CategoryItem
+              key={item.slug}
+              category={item}
+              selectedType={selectedType}
+              selectType={selectType}
+              setActive={setActive}
+            />
+          ))}
+
+          <div className="header-mobile-content-extended-top-section">
             {t("filters.price")}{" "}
           </div>
 
@@ -102,16 +138,6 @@ const FilterMobile = ({
               selectedFilter={selectedFilter}
             />
           </div>
-
-          <div className="header-mobile-content-extended-top-section">
-            {t("filters.types")}{" "}
-          </div>
-          <FilterTypes
-            types={types}
-            show={true}
-            selectedType={selectedType}
-            selectType={selectType}
-          />
 
           <div className="header-mobile-content-extended-top-section">
             {t("filters.colors")}{" "}

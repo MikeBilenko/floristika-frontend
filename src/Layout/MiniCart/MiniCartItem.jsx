@@ -30,10 +30,7 @@ const MiniCartItem = ({ cartItem }) => {
             </div>
           </div>
           <div className={`price ${!token ? "declined" : ""}`}>
-            <div>
-              €{token ? cartItem.price_for_authenticated : cartItem.price}
-            </div>
-            {!token && <div>€{cartItem.price_for_authenticated}</div>}
+            <div>€{cartItem.price}</div>
           </div>
         </div>
         <div className="minicart-product-actions">

@@ -80,6 +80,9 @@
     "stock_level": "Krājuma līmenis"
   },
   "product": {
+    "contact": "Sazināties ar Atbalstu",
+    "contact_more": "Sazinieties ar atbalsta dienestu, lai iegūtu vairāk informācijas",
+    "number": "Numurs",
     "empty": "Nav atrasts neviens produkts.",
     "quantity": "Daudzums",
     "new_here_1": "JAUNS ŠEIT?",
@@ -92,6 +95,7 @@
     "delivery_and_return": "Piegāde un atgriešana",
     "care_instruction": "Aprūpes instrukcija",
     "might_like": "Jums varētu arī patikt",
+    "qty": "Nav noliktavā",
     "delivery": {
       "latvian": "latviešu",
       "standart": "Standarta piegāde (2-4 darba dienas)",
@@ -140,6 +144,7 @@
     "empty": "Jūsu vēlmju saraksts ir tukšs."
   },
   "cart": {
+    "preorder": "Daži sarakstā esošie vienumi var nebūt pieejami noliktavā. Pēc pasūtījuma veikšanas mūsu vadītājs sazināsies ar jums, lai apspriestu visus trūkstošos vienumus.",
     "cart": "Ratiņi",
     "add_to_cart": "PIEVIENOT GROZAM",
     "remove_from_cart": "IZŅEMT NO GROZA",
@@ -172,6 +177,7 @@
     "completed": "pabeigts"
   },
   "checkout": {
+    "manager": "Mūsu vadītājs sazināsies ar jums nākamo divu darba dienu laikā.",
     "thanks": "PALDIES PAR JŪSU PASŪTĪJUMU",
     "detail": "Pasūtījuma informācija",
     "subtitle": "Jūs saņemsit pasūtījuma apstiprinājumu savā e-pastā",
@@ -207,6 +213,8 @@
     "store": "Veikals"
   },
   "categories": {
+    "categories": "Kategorijas",
+    "list": "Produkti",
     "best_sellers": "Pārdotākie",
     "new_in": "Jaunums",
     "sale": "Izpārdošana",

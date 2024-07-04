@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./Header.scss";
 import { IoCloseSharp } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 // Link,
-import axios from "axios";
+// import axios from "axios";
 // import { FaAngleRight, FaArrowLeftLong } from "react-icons/fa6";
 
 const HeaderMobile = ({ isOpen, onMenu }) => {
   // const [selectedItem, setSelectedItem] = useState({});
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   // const [types, setTypes] = useState([]);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/categories/`)
-      .then((response) => {
-        setCategories(response.data);
-      });
+    // axios
+    //   .get(`${process.env.REACT_APP_API_URL}/categories/`)
+    //   .then((response) => {
+    //     setCategories(response.data);
+    //   });
   }, []);
 
   // useEffect(() => {
@@ -37,6 +37,13 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
   // }, [selectedItem]);
 
   const links = [
+    {
+      href: "/products/",
+      className: "",
+      text: t("categories.list"),
+      icon: "",
+      straight: true,
+    },
     {
       href: "/products/?best-sellers=true",
       className: "",
@@ -82,7 +89,7 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
         </div>
         <div className="header-mobile-content-sections">
           <div className="header-mobile-content-links">
-            {categories.length > 0 &&
+            {/* {categories.length > 0 &&
               categories.map((category) => (
                 <span
                   onClick={() => {
@@ -103,7 +110,7 @@ const HeaderMobile = ({ isOpen, onMenu }) => {
                   {i18n.language === "ru" && category.name_ru}
                   {i18n.language === "lv" && category.name_lv}
                 </span>
-              ))}
+              ))} */}
             {links.map((link) => (
               <span
                 onClick={() => {

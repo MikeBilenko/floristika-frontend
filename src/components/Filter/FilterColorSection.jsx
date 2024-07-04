@@ -14,12 +14,12 @@ const FilterColorSection = ({ colors, show, selectedColors, selectColors }) => {
         colors.map((color) => (
           <div
             className={`checkbox ${
-              selectedColors.find((item) => item === color.slug)
+              selectedColors?.find((item) => item === color.slug)
                 ? "checked"
                 : ""
             }`}
             onClick={() => {
-              if (!selectedColors.find((item) => item === color.slug)) {
+              if (!selectedColors?.find((item) => item === color.slug)) {
                 selectColors((prevState) => {
                   return [...prevState, color.slug];
                 });

@@ -3,8 +3,8 @@ import "./Product.scss";
 import Button from "../Button/Button";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
-import { FiUser } from "react-icons/fi";
-import { IoInformationCircle } from "react-icons/io5";
+// import { FiUser } from "react-icons/fi";
+// import { IoInformationCircle } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser, selectToken } from "../../redux/slices/authSlice";
 import { addToCart, removeFromCart } from "../../redux/slices/cartSlice";
@@ -19,8 +19,8 @@ const Product = ({ product, setProducts = null }) => {
   const navigate = useNavigate();
   const link = `/products/${product.category.slug}/${product.subcategory.slug}/${product.slug}/`;
   const product_discount = product.price - (product.price * product.sale) / 100;
-  const auth_price = product.price_for_authenticated;
-  const auth_price_discount = (auth_price * product.sale) / 100;
+  // const auth_price = product.price_for_authenticated;
+  // const auth_price_discount = (auth_price * product.sale) / 100;
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
@@ -133,6 +133,9 @@ const Product = ({ product, setProducts = null }) => {
         <LazyLoad height={380} once>
           <img src={product.images[0].image} alt={product.images[0].alt} />
         </LazyLoad>
+        {product.qty <= 0 && (
+          <div className="product-contact-support">{t("product.contact")}</div>
+        )}
         {product.sale && (
           <div className="product-sale">
             {t("save")} {product.sale}%
@@ -180,17 +183,15 @@ const Product = ({ product, setProducts = null }) => {
           {i18n.language === "lv" && product.name_lv}
           {i18n.language === "ru" && product.name_ru}
         </h4>
-        {!user && (
-          <h3 className="product-price">
-            <span className={`first-price ${product.sale ? "sale" : ""}`}>
-              €{product.price}
-            </span>
-            {product.sale && (
-              <span className="sale-price">€{product_discount.toFixed(2)}</span>
-            )}
-          </h3>
-        )}
-        {user && (
+        <h3 className="product-price">
+          <span className={`first-price ${product.sale ? "sale" : ""}`}>
+            €{product.price}
+          </span>
+          {product.sale && (
+            <span className="sale-price">€{product_discount.toFixed(2)}</span>
+          )}
+        </h3>
+        {/* {user && (
           <h3
             className={`product-price-for-customers ${
               user ? "product-price" : ""
@@ -215,7 +216,7 @@ const Product = ({ product, setProducts = null }) => {
               </div>
             )}
           </h3>
-        )}
+        )} */}
       </div>
     </div>
   );

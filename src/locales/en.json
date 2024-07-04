@@ -81,6 +81,9 @@
     "stock_level": "Stock level"
   },
   "product": {
+    "contact": "Contact Support",
+    "contact_more": "Contact Support for more details",
+    "number": "Number",
     "empty": "No products found.",
     "quantity": "Quantity",
     "new_here_1": "NEW HERE?",
@@ -93,6 +96,7 @@
     "delivery_and_return": "Delivery & Return",
     "care_instruction": "Care Instruction",
     "might_like": "You might also like",
+    "qty": "Out of stock",
     "delivery": {
       "latvian": "Latvian",
       "standart": "Standard Delivery (2-4 working days)",
@@ -142,6 +146,7 @@
     "empty": "Your wishlist is empty."
   },
   "cart": {
+    "preorder": "Some items in the list might be out of stock. After you place an order, our manager will contact you to discuss any items that might be missing.",
     "cart": "Cart",
     "add_to_cart": "ADD TO CART",
     "remove_from_cart": "REMOVE FROM CART",
@@ -174,6 +179,7 @@
     "completed": "Completed"
   },
   "checkout": {
+    "manager": "Our manager will contact you within the next two working days.",
     "thanks": "THANKS FOR YOUR ORDER",
     "detail": "Order detail",
     "subtitle": "You’ll receive your order confirmation in your email",
@@ -209,6 +215,8 @@
     "store": "Store"
   },
   "categories": {
+    "categories": "Categories",
+    "list": "Products",
     "best_sellers": "Best sellers",
     "new_in": "New in",
     "sale": "Sale",

@@ -9,7 +9,7 @@ const ProductGallery = ({ images }) => {
   return (
     images && (
       <div className="product-gallery">
-        {images.length > 1 && (
+        {images.length > 0 && (
           <div className="product-gallery-select">
             {images.map((image, index) => (
               <div

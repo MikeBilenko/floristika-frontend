@@ -137,10 +137,7 @@ const OrderDetails = () => {
                 <div className="total">
                   {t("order.total_cost")}:{" "}
                   <span>
-                    €
-                    {(order.total - companyDiscount - discount + 3.0).toFixed(
-                      2
-                    )}
+                    €{(order.total - companyDiscount - discount).toFixed(2)}
                   </span>
                 </div>
               </div>

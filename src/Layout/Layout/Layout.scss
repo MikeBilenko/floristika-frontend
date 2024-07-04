@@ -1,8 +1,27 @@
 @import "../../styles/mixins.scss";
+@import "../../styles/variables.scss";
+
 .page-gaps {
   margin-top: 24px;
   margin-bottom: 112px;
   @include tablet {
     min-height: 300px;
+  }
+}
+
+.telegram {
+  position: fixed;
+  bottom: 56px;
+  right: 56px;
+  z-index: 5;
+  cursor: pointer;
+  border-radius: 50%;
+  @include mobile {
+    bottom: 16px;
+    right: 16px;
+  }
+  transition: all 0.1s linear;
+  &:hover {
+    box-shadow: 0 2px 50px 12px rgba(0, 0, 0, 0.1);
   }
 }

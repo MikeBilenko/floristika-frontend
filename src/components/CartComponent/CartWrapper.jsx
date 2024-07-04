@@ -12,9 +12,10 @@ import SubTitle from "../../ui/SubTitle/SubTitle";
 const CartWrapper = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { items, totalAmount, totalAuthenticatedAmount, productsNumber } =
-    useSelector((state) => state.cart);
-  const token = useSelector((state) => state.auth.token);
+  const { items, totalAmount, productsNumber } = useSelector(
+    (state) => state.cart
+  );
+  // const token = useSelector((state) => state.auth.token);
 
   return (
     <>
@@ -42,14 +43,10 @@ const CartWrapper = () => {
           <div className="cart-total">
             <div className="cart-total-total">
               <div>{t("cart.sub_total")}</div>
-              <span>
-                €
-                {token
-                  ? totalAuthenticatedAmount.toFixed(2)
-                  : totalAmount.toFixed(2)}
-              </span>
+              <span>€{totalAmount.toFixed(2)}</span>
             </div>
             <div className="cart-total-info">{t("cart.tax_calc")}</div>
+            <div className="cart-total-info">{t("cart.preorder")}</div>
             <Button
               fullWidth
               onClick={(e) => {

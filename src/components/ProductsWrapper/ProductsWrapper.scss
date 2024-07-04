@@ -17,50 +17,85 @@
   @include mobile {
     justify-content: center;
   }
-
-  & > div:last-child {
-    width: 100%;
-    margin: 0 auto;
-    & > h1 {
-      margin-top: 70px;
+  & > div {
+    & > .product-list {
+      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 
-  &.active {
-    & > div:last-child {
-      width: calc(100% - 410px);
-    }
+  @include laptop {
     & > div {
       & > .product-list {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
         & > .product {
-          width: 302px;
+          width: 100%;
         }
       }
     }
   }
+
   @include tablet {
-    & > div:last-child {
-      width: 100%;
-    }
     & > div {
       & > .product-list {
+        grid-template-columns: 1fr;
         & > .product {
-        }
-      }
-    }
-    &.active {
-      & > div:last-child {
-        width: 100%;
-      }
-      & > div {
-        & > .product-list {
-          grid-template-columns: 1fr 1fr;
-          & > .product {
-            width: 100%;
-          }
+          width: 100%;
         }
       }
     }
   }
+
+  // & > div:last-child {
+  //   width: 100%;
+  //   margin: 0 auto;
+  //   & > h1 {
+  //     margin-top: 70px;
+  //   }
+  // }
+
+  // &.active {
+  //   & > div:last-child {
+  //     width: calc(100% - 410px);
+  //   }
+  //   & > div {
+  //     & > .product-list {
+  //       grid-template-columns: 1fr 1fr 1fr;
+  //       & > .product {
+  //         width: 302px;
+  //       }
+  //     }
+  //   }
+  // }
+  // @include laptop {
+  //   &.active {
+  //     & > div:last-child {
+  //       width: 100%;
+  //     }
+  //   }
+  // }
+  // @include tablet {
+  //   & > div:last-child {
+  //     width: 100%;
+  //   }
+  //   & > div {
+  //     & > .product-list {
+  //       grid-template-columns: 1fr 1fr;
+  //       & > .product {
+  //       }
+  //     }
+  //   }
+  //   &.active {
+  //     & > div:last-child {
+  //       width: 100%;
+  //     }
+  //     & > div {
+  //       & > .product-list {
+  //         grid-template-columns: 1fr;
+  //         & > .product {
+  //           width: 100%;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }

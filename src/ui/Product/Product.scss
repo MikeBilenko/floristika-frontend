@@ -101,6 +101,29 @@
   transition: all 0.2s ease;
 }
 
+.product-contact-support {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 32px;
+  margin: 17px;
+  background-color: rgba($red, 0.5);
+  border-radius: 4px;
+  color: $white;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.1px;
+
+  transition: all 0.2s ease;
+}
+
 .product-add-wishlist {
   display: flex;
   width: 32px;

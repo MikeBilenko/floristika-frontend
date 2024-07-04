@@ -29,8 +29,9 @@ const CheckoutWrapperConfirm = () => {
   const options = useMemo(() => countryList().getData(), []);
   const token = useSelector(selectToken);
   const [user, setUser] = useState({});
-  const { items, productsNumber, totalAmount, totalAuthenticatedAmount } =
-    useSelector((state) => state.cart);
+  const { items, productsNumber, totalAmount } = useSelector(
+    (state) => state.cart
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [selectedDelivery, setSelectedDelivery] = useState("default");
@@ -222,6 +223,7 @@ const CheckoutWrapperConfirm = () => {
         )
         .then((response) => {
           if (response.status === 200) {
+            console.log(response.data);
             navigate(`/cart/checkout/confirm/success/${response.data.number}/`);
             dispatch(clearCart());
           }
@@ -520,16 +522,12 @@ const CheckoutWrapperConfirm = () => {
                     {i18n.language === "en" && item.name}
                     {i18n.language === "lv" && item.name_lv}
                     {i18n.language === "ru" && item.name_ru}
+                    <span>({item.quantity})</span>
                   </span>
-                  <span>{item.quantity}</span>
+
                   <span>
                     €
-                    {token && item.price_for_authenticated
-                      ? item.sale
-                        ? item.price_for_authenticated -
-                          (item.price_for_authenticated * item.sale) / 100
-                        : item.price_for_authenticated
-                      : item.sale
+                    {item.sale
                       ? item.price - (item.price * item.sale) / 100
                       : item.price}
                   </span>
@@ -546,22 +544,22 @@ const CheckoutWrapperConfirm = () => {
           </div>
           <div className="checkout-total">
             <span>{t("cart.total").toUpperCase()}</span>
-            {!token && (
-              <span className="price">
-                {discountPercent === 0 && `€${totalAmount}`}
-                {discountPercent > 0 && (
-                  <>
-                    <span style={{ textDecoration: "line-through" }}>
-                      €{totalAmount}
-                    </span>
-                    <span>
-                      €{totalAmount - totalAmount * (discountPercent / 100)}
-                    </span>
-                  </>
-                )}
-              </span>
-            )}
-            {token && (
+            {/* {!token && ( */}
+            <span className="price">
+              {discountPercent === 0 && `€${totalAmount}`}
+              {discountPercent > 0 && (
+                <>
+                  <span style={{ textDecoration: "line-through" }}>
+                    €{totalAmount}
+                  </span>
+                  <span>
+                    €{totalAmount - totalAmount * (discountPercent / 100)}
+                  </span>
+                </>
+              )}
+            </span>
+            {/* )} */}
+            {/* {token && (
               <span className="price">
                 {discountPercent === 0 && `€${totalAuthenticatedAmount}`}
                 {discountPercent > 0 && (
@@ -577,7 +575,7 @@ const CheckoutWrapperConfirm = () => {
                   </>
                 )}
               </span>
-            )}
+            )} */}
           </div>
           {companyDiscount > 0 && (
             <span className="checkout-total">

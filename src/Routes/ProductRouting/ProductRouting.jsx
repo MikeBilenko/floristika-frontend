@@ -10,8 +10,8 @@ const ProductRouting = () => {
       <Routes>
         <Route path="/*" element={<Products />} />
         <Route path="/:category/*" element={<Products />} />
-        <Route path="/:category/:type/*" element={<Products />} />
-        <Route path=":category/:type/:slug/" element={<Product />} />
+        <Route path="/:category/:subcategory/*" element={<Products />} />
+        <Route path=":category/:subcategory/:slug/" element={<Product />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Outlet />

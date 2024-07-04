@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import "./SortHeader.scss";
 import Select from "../../ui/Select/Select";
-import Sort from "./control.svg";
 import { useTranslation } from "react-i18next";
 
 const SortHeader = ({
   products,
-  setOpenedFilter,
-  filterOpened,
   count,
   sort,
   onChange,
@@ -47,7 +44,7 @@ const SortHeader = ({
           {count === 1 ? t("filters.item") : t("filters.items")}
         </div>
       )}
-      {products && (
+      {/* {products && (
         <div
           className="sort-header-filter"
           onClick={() => setOpenedFilter(!filterOpened)}
@@ -56,7 +53,7 @@ const SortHeader = ({
           {!filterOpened && t("filters.show")}
           {filterOpened && t("filters.hide")}
         </div>
-      )}
+      )} */}
       {products && (
         <>
           <div className="sort-header-mobile">

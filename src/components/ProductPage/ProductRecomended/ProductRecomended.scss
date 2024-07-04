@@ -27,7 +27,7 @@
 
 .product-recomended-content {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 
   @include laptop {
     gap: 24px;

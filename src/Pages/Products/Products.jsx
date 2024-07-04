@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import Loader from "../../Layout/Loader/Loader";
 
 const Products = () => {
-  const { category, type } = useParams();
+  const { category, subcategory } = useParams();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Products = () => {
       <Loader loading={loading} />
       <>
         <BreadCrumbs />
-        <ProductsWrapper category={category} type={type} />
+        <ProductsWrapper category={category} type={subcategory} />
       </>
     </>
   );

@@ -4,7 +4,7 @@ import ProductGallery from "../ProductGallery/ProductGallery";
 import { PiShareFatLight } from "react-icons/pi";
 import { GoHeartFill, GoHeart } from "react-icons/go";
 import { TbTruckDelivery, TbFileDescription } from "react-icons/tb";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Rating from "../../../ui/Rating/Rating";
 import Button from "../../../ui/Button/Button";
 import { useSelector, useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ const ProductIntro = ({
   reviews,
 }) => {
   const [productDiscount, setProductDiscount] = useState(0);
-  const [authPrice, setAuthPrice] = useState(0);
+  // const [authPrice, setAuthPrice] = useState(0);
   const [authPriceDiscount, setAuthPriceDiscount] = useState(0);
   const [inCart, setInCart] = useState(false);
   const cart = useSelector((state) => state.cart.items);
@@ -36,7 +36,6 @@ const ProductIntro = ({
   const [wishlist, setWishlist] = useState(false);
   const user = useSelector(selectUser);
   const [selectedQty, setSelectedQTY] = useState(1);
-  const navigate = useNavigate();
   const token = useSelector(selectToken);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -62,7 +61,7 @@ const ProductIntro = ({
         setAuthPriceDiscount(auth_price_discount);
       }
 
-      setAuthPrice(auth_price);
+      // setAuthPrice(auth_price);
     }
   }, [product, price]);
 
@@ -144,10 +143,10 @@ const ProductIntro = ({
         </div>
         <div className="product-info-price">
           <div className="price">
-            {!user && <div>€{price}</div>}
-            <div>
+            <div>€{price}</div>
+            {/* <div>
               <FiUser />€{authPrice}
-            </div>
+            </div> */}
           </div>
 
           {product.sale && (
@@ -162,6 +161,9 @@ const ProductIntro = ({
             </div>
           )}
         </div>
+        <div className="vendor_code">
+          {t("product.number")}: {product.vendor_code_public}
+        </div>
 
         {/* rating */}
         <div className="product-info-rating">
@@ -171,12 +173,12 @@ const ProductIntro = ({
           </span>
         </div>
         {/* new here */}
-        {!user && (
+        {/* {!user && (
           <div className="product-info-rating sale">
             {t("product.lower_price")}
           </div>
-        )}
-        {!user && (
+        )} */}
+        {/* {!user && (
           <div className="product-info-new-here">
             <div>
               <span>{t("product.new_here_1")}</span>
@@ -190,7 +192,7 @@ const ProductIntro = ({
               {t("auth.register")}
             </Button>
           </div>
-        )}
+        )} */}
         {/* qty */}
         {!inCart && (
           <div className="product-info-qty">
@@ -260,6 +262,9 @@ const ProductIntro = ({
               {t("product.return")}
             </Link>
           </div>
+          {product.qty <= 0 && (
+            <div className="support">{t("product.contact_more")}</div>
+          )}
         </div>
       </div>
     </div>

@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Footer.scss";
 import { BiCopyright } from "react-icons/bi";
 import Container from "../../components/Container/Container";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
 
 const Footer = () => {
-  const { t, i18n } = useTranslation();
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/categories/`)
-      .then((response) => {
-        if (response.status === 200) {
-          setCategories(response.data);
-        }
-      });
-  }, []);
+  const { t } = useTranslation();
 
   return (
     <footer className="footer">
@@ -46,16 +35,7 @@ const Footer = () => {
           <div className="footer-container">
             <h3 className="footer-container-title">{t("footer.shop")}</h3>
             <div className="footer-container-links">
-              {categories.map((category) => (
-                <Link
-                  to={`/products/${category.slug}/`}
-                  key={`footer_${category.slug}`}
-                >
-                  {i18n.language === "en" && category.name}
-                  {i18n.language === "ru" && category.name_ru}
-                  {i18n.language === "lv" && category.name_lv}
-                </Link>
-              ))}
+              <Link to={`/products/`}>{t("categories.list")}</Link>
               <Link to={`/products/?best-sellers=true`}>
                 {t("categories.best_sellers")}
               </Link>

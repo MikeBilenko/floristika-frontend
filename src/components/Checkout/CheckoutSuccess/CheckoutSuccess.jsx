@@ -46,15 +46,14 @@ const CheckoutSuccess = () => {
           <div className="checkout-success-data">
             <div>
               <div>{t("checkout.ordernumber")}</div>
-              <div>{t("checkout.total_cost")}</div>
-              <div>{t("checkout.items")}</div>
+              {/* <div>{t("checkout.total_cost")}</div>
+              <div>{t("checkout.items")}</div> */}
             </div>
             <div>
               <div>{order.number}</div>
-              <div>€{order.total}</div>
-              <div>{order.items}</div>
             </div>
           </div>
+          <div>{t("checkout.manager")}</div>
           <Button
             fullWidth
             onClick={() => {

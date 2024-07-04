@@ -10,7 +10,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import Button from "../../ui/Button/Button";
-import axios from "axios";
 // import ExtendedMenu from "../ExtendedMenu/ExtendedMenu";
 import { selectUser } from "../../redux/slices/authSlice";
 import { toggleCart } from "../../redux/slices/cartSlice";
@@ -24,7 +23,7 @@ const Header = () => {
   const [megaMenu, setMegaMenu] = useState(false);
   // const [selectedItem, setSelectedItem] = useState("");
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const [activeLang, setActiveLang] = useState(false);
   const [activeMenu, setActiveMenu] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -36,14 +35,6 @@ const Header = () => {
   };
 
   const [mobileMenu, setMobileMenu] = useState(false);
-
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/categories/`)
-      .then((response) => {
-        setCategories(response.data);
-      });
-  }, []);
 
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
@@ -72,6 +63,13 @@ const Header = () => {
   }, [megaMenu]);
 
   const links = [
+    {
+      href: "/products/",
+      className: "",
+      text: t("categories.list"),
+      icon: "",
+      straight: true,
+    },
     {
       href: "/products/?best-sellers=true",
       className: "",
@@ -286,7 +284,7 @@ const Header = () => {
           <div className="divider" />
 
           <div className="header-links" onClick={(e) => e.stopPropagation()}>
-            {categories.length > 0 &&
+            {/* {categories.length > 0 &&
               categories.map((category) => (
                 <span
                   onClick={(e) => {
@@ -305,8 +303,8 @@ const Header = () => {
                   {i18n.language === "ru" && category.name_ru}
                   {i18n.language === "lv" && category.name_lv}
                   {/* <FaChevronDown /> */}
-                </span>
-              ))}
+            {/* </span> */}
+            {/* ))} */}
             {links.map((link) => (
               <span
                 href={link.href}

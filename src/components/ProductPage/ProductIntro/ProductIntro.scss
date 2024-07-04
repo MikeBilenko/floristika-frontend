@@ -226,6 +226,10 @@
     font-weight: 400;
     line-height: normal;
 
+    &.support {
+      color: $red;
+    }
+
     & > a {
       color: $text-300;
       &:hover {
@@ -238,4 +242,10 @@
       height: 24px;
     }
   }
+}
+
+.vendor_code {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: $rating-text;
 }

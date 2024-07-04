@@ -6,7 +6,6 @@ import FilterPriceSection from "./FilterPriceSection";
 import FilterSizeSection from "./FilterSizeSection";
 import FilterColorSection from "./FilterColorSection";
 import { useTranslation } from "react-i18next";
-import FilterTypes from "./FilterTypes";
 
 const Filter = ({
   active,
@@ -16,17 +15,12 @@ const Filter = ({
   selectSizes,
   selectColors,
   selectedColors,
-  category,
-  selectType,
-  selectedType,
 }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
-  const [priceActive, setPriceActive] = useState(true);
-  const [colorActive, setColorActive] = useState(true);
-  const [sizeActive, setSizeActive] = useState(true);
-  const [typeActive, setTypeActive] = useState(true);
-  const [types, setTypes] = useState([]);
+  const [priceActive, setPriceActive] = useState(false);
+  const [colorActive, setColorActive] = useState(false);
+  const [sizeActive, setSizeActive] = useState(false);
   const [colors, setColors] = useState([]);
   const [size, setSize] = useState([]);
 
@@ -45,29 +39,23 @@ const Filter = ({
       .then((response) => {
         setSize(response.data);
       });
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/filters/price-range/`)
-      .then((response) => {
-        selectPriceRange([response.data.min_price, response.data.max_price]);
-        setMin(response.data.min_price);
-        setMax(response.data.max_price);
-        setLoading(false);
-      });
-
-    if (category) {
+    if (!min?.length && !max?.length) {
       axios
-        .get(`${process.env.REACT_APP_API_URL}/categories/${category}/`)
+        .get(`${process.env.REACT_APP_API_URL}/filters/price-range/`)
         .then((response) => {
-          if (response.status === 200) {
-            setTypes(response.data);
-          }
+          selectPriceRange([response.data.min_price, response.data.max_price]);
+          setMin(response.data.min_price);
+          setMax(response.data.max_price);
+          setLoading(false);
         });
+    } else {
+      setLoading(false);
     }
-  }, [selectPriceRange, category]);
+  }, [min, max, selectPriceRange]);
 
   return (
-    !loading && (
-      <div className={["filter-expanded", active ? "active" : ""].join(" ")}>
+    <div className={["filter-expanded", active ? "active" : ""].join(" ")}>
+      {!loading && (
         <div className="filter-expanded-item ">
           <div
             className="filter-expanded-item-header first"
@@ -88,62 +76,44 @@ const Filter = ({
             />
           )}
         </div>
+      )}
 
-        <div className="filter-expanded-item">
-          <div
-            className="filter-expanded-item-header"
-            onClick={() => setTypeActive(!typeActive)}
-          >
-            {t("filters.types")}{" "}
-            <div className={[typeActive ? "active" : ""].join(" ")}>
-              <FaChevronDown />
-            </div>
+      <div className="filter-expanded-item">
+        <div
+          className="filter-expanded-item-header"
+          onClick={() => setColorActive(!colorActive)}
+        >
+          {t("filters.colors")}{" "}
+          <div className={[colorActive ? "active" : ""].join(" ")}>
+            <FaChevronDown />
           </div>
-          <FilterTypes
-            types={types}
-            show={typeActive}
-            selectedType={selectedType}
-            selectType={selectType}
-          />
         </div>
-
-        <div className="filter-expanded-item">
-          <div
-            className="filter-expanded-item-header"
-            onClick={() => setColorActive(!colorActive)}
-          >
-            {t("filters.colors")}{" "}
-            <div className={[colorActive ? "active" : ""].join(" ")}>
-              <FaChevronDown />
-            </div>
-          </div>
-          <FilterColorSection
-            colors={colors}
-            show={colorActive}
-            selectedColors={selectedColors}
-            selectColors={selectColors}
-          />
-        </div>
-
-        <div className="filter-expanded-item">
-          <div
-            className="filter-expanded-item-header"
-            onClick={() => setSizeActive(!sizeActive)}
-          >
-            {t("filters.sizes")}{" "}
-            <div className={[sizeActive ? "active" : ""].join(" ")}>
-              <FaChevronDown />
-            </div>
-          </div>
-          <FilterSizeSection
-            sizes={size}
-            show={sizeActive}
-            selectedSizes={selectedSizes}
-            selectSizes={selectSizes}
-          />
-        </div>
+        <FilterColorSection
+          colors={colors}
+          show={colorActive}
+          selectedColors={selectedColors}
+          selectColors={selectColors}
+        />
       </div>
-    )
+
+      <div className="filter-expanded-item">
+        <div
+          className="filter-expanded-item-header"
+          onClick={() => setSizeActive(!sizeActive)}
+        >
+          {t("filters.sizes")}{" "}
+          <div className={[sizeActive ? "active" : ""].join(" ")}>
+            <FaChevronDown />
+          </div>
+        </div>
+        <FilterSizeSection
+          sizes={size}
+          show={sizeActive}
+          selectedSizes={selectedSizes}
+          selectSizes={selectSizes}
+        />
+      </div>
+    </div>
   );
 };
 
